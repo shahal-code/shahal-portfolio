@@ -103,11 +103,10 @@ const Header = ({ onOpenContact }: HeaderProps) => {
         className={`
           mx-auto transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]
           ${isScrolled
-            ? "max-w-4xl bg-white/[0.02] backdrop-blur-3xl shadow-2xl border border-white/10 py-2.5 rounded-2xl px-6"
+            ? "max-w-[88%] sm:max-w-4xl bg-white/[0.02] backdrop-blur-3xl shadow-2xl border border-white/10 py-2 rounded-2xl px-6"
             : "max-w-7xl bg-transparent py-4 px-4"
           }
           ${isMobileMenuOpen ? "rounded-3xl bg-background/40 backdrop-blur-3xl border border-white/10 shadow-2xl" : ""}
-
         `}
       >
         <div className="flex items-center justify-between h-14">

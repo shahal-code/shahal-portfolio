@@ -254,12 +254,10 @@ All colors MUST be HSL.
     0%,
     100% {
       color: hsl(var(--foreground));
-      transform: translate3d(0, 0, 0);
     }
 
     50% {
       color: hsl(var(--primary));
-      transform: translate3d(0, 0, 0);
     }
   }
 
@@ -268,23 +266,19 @@ All colors MUST be HSL.
     0%,
     100% {
       color: hsl(var(--primary));
-      transform: translate3d(0, 0, 0);
     }
 
     50% {
       color: hsl(var(--foreground));
-      transform: translate3d(0, 0, 0);
     }
   }
 
   .animate-color-cycle {
     animation: text-color-cycle 4s ease-in-out infinite;
-    will-change: color, transform;
   }
 
   .animate-color-cycle-reverse {
     animation: text-color-cycle-reverse 4s ease-in-out infinite;
-    will-change: color, transform;
   }
 }
 
@@ -422,8 +416,27 @@ All colors MUST be HSL.
     transition-delay: 0.4s;
   }
 
-  .reveal-delay-5 {
-    transition-delay: 0.5s;
+  /* Subtle mobile reveals */
+  @media (max-width: 768px) {
+    .reveal-up {
+      transform: translateY(12px);
+    }
+
+    .reveal-down {
+      transform: translateY(-12px);
+    }
+
+    .reveal-left {
+      transform: translateX(-12px);
+    }
+
+    .reveal-right {
+      transform: translateX(12px);
+    }
+
+    .reveal-base {
+      transition-duration: 0.4s;
+    }
   }
 }
 
