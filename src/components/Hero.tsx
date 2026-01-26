@@ -6,6 +6,7 @@ import Magnetic from "@/components/Magnetic";
 import RippleButton from "@/components/ui/RippleButton";
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface HeroProps {
   onOpenContact?: () => void;
@@ -16,11 +17,14 @@ const Hero = ({ onOpenContact }: HeroProps) => {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const isMobile = useIsMobile();
+
   // Scroll Parallax settings (Lens Focus)
   const { scrollY } = useScroll();
   const scale = useTransform(scrollY, [0, 300], [1, 1.2]);
   const blurValue = useTransform(scrollY, [0, 300], [0, 10]);
-  const filter = useTransform(blurValue, (v) => `blur(${v}px)`);
+  // Completely disable filter (blur) on mobile to save performance
+  const filter = useTransform(blurValue, (v) => isMobile ? "none" : `blur(${v}px)`);
   const opacity = useTransform(scrollY, [0, 300], [1, 0.5]);
 
   // 3D Tilt settings
@@ -91,14 +95,14 @@ const Hero = ({ onOpenContact }: HeroProps) => {
       {/* Premium Divider - Visible on all devices */}
       <div className="premium-divider bottom-0" />
 
-      {/* Floating decorative elements */}
+      {/* Floating decorative elements - Scaled down for mobile */}
       <motion.div
         style={{ y: useTransform(scrollY, [0, 500], [0, -100]) }}
-        className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-float"
+        className="absolute top-1/4 right-1/4 w-48 h-48 md:w-64 md:h-64 bg-primary/5 rounded-full blur-[60px] md:blur-3xl animate-float will-change-transform"
       />
       <motion.div
         style={{ y: useTransform(scrollY, [0, 500], [0, -150]) }}
-        className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-float-delayed"
+        className="absolute bottom-1/4 left-1/4 w-60 h-60 md:w-80 md:h-80 bg-accent/20 rounded-full blur-[80px] md:blur-3xl animate-float-delayed will-change-transform"
       />
 
       <div ref={sectionRef} className="container mx-auto px-4 sm:px-6 relative z-10">
@@ -198,9 +202,9 @@ const Hero = ({ onOpenContact }: HeroProps) => {
               {/* Image container with Pure Water Effect */}
               <div
                 className="relative w-full h-full rounded-full overflow-hidden transition-all duration-500 group-hover:scale-[1.02]
-                  bg-blue-400/5 backdrop-blur-[2px] border border-white/30 p-2
-                  shadow-[inset_0_0_20px_rgba(255,255,255,0.6),inset_10px_10px_40px_rgba(255,255,255,0.5),0_25px_60px_rgba(0,0,0,0.2)]
-                  group-hover:shadow-[inset_0_0_30px_rgba(255,255,255,0.8),inset_20px_20px_60px_rgba(255,255,255,0.6),0_35px_80px_rgba(0,0,0,0.3)]
+                  bg-blue-400/5 md:backdrop-blur-[2px] border border-white/30 p-2
+                  shadow-[0_10px_30px_rgba(0,0,0,0.1)] md:shadow-[inset_0_0_20px_rgba(255,255,255,0.6),inset_10px_10px_40px_rgba(255,255,255,0.5),0_25px_60px_rgba(0,0,0,0.2)]
+                  group-hover:shadow-[0_15px_40px_rgba(0,0,0,0.2)] md:group-hover:shadow-[inset_0_0_30px_rgba(255,255,255,0.8),inset_20px_20px_60px_rgba(255,255,255,0.6),0_35px_80px_rgba(0,0,0,0.3)]
                 "
                 style={{ transform: "translateZ(20px)" }} // Pop forward
               >

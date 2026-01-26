@@ -3,7 +3,14 @@ import Lenis from "lenis";
 
 const SmoothScroll = () => {
     useEffect(() => {
-        // Initialize Lenis for buttery smooth scrolling
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const isMobile = window.innerWidth < 768;
+
+        if (isTouchDevice || isMobile) {
+            return;
+        }
+
+        // Initialize Lenis for buttery smooth scrolling only on desktop
         const lenis = new Lenis({
             duration: 1.5, // Heavier, "luxury" feel
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing

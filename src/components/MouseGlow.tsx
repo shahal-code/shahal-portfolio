@@ -2,15 +2,29 @@ import { useEffect, useState } from "react";
 
 const MouseGlow = () => {
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+    const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
+        // Only enable on non-touch devices with sufficient width
+        const checkMobile = () => {
+            setIsVisible(window.innerWidth >= 1024 && !('ontouchstart' in window));
+        };
+
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+
         const handleMouseMove = (e: MouseEvent) => {
-            setMousePos({ x: e.clientX, y: e.clientY });
+            if (isVisible) setMousePos({ x: e.clientX, y: e.clientY });
         };
 
         window.addEventListener("mousemove", handleMouseMove);
-        return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, []);
+        return () => {
+            window.removeEventListener("mousemove", handleMouseMove);
+            window.removeEventListener("resize", checkMobile);
+        };
+    }, [isVisible]);
+
+    if (!isVisible) return null;
 
     return (
         <div
