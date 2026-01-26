@@ -417,25 +417,27 @@ All colors MUST be HSL.
   }
 
   /* Subtle mobile reveals */
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
+    .reveal-base {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
     .reveal-up {
-      transform: translateY(12px);
+      transform: none !important;
     }
 
     .reveal-down {
-      transform: translateY(-12px);
+      transform: none !important;
     }
 
     .reveal-left {
-      transform: translateX(-12px);
+      transform: none !important;
     }
 
     .reveal-right {
-      transform: translateX(12px);
-    }
-
-    .reveal-base {
-      transition-duration: 0.4s;
+      transform: none !important;
     }
   }
 }

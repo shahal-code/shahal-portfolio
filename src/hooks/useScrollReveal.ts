@@ -12,9 +12,14 @@ export const useScrollReveal = ({
   triggerOnce = false,
 }: UseScrollRevealOptions = {}) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+
+  // Detect mobile/small screen to bypass reveal delays
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+  const [isVisible, setIsVisible] = useState(isMobile);
 
   useEffect(() => {
+    if (isMobile) return; // Skip observer on mobile
+
     const element = ref.current;
     if (!element) return;
 
