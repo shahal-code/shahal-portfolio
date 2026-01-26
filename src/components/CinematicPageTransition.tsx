@@ -17,9 +17,9 @@ const CinematicPageTransition: React.FC<CinematicPageTransitionProps> = ({ child
                 key={location.pathname}
                 initial={{
                     opacity: 0,
-                    scale: isMobile ? 1 : 1.15,
+                    scale: isMobile ? 1.02 : 1.15,
                     y: isMobile ? 10 : 20,
-                    filter: isMobile ? "none" : "blur(30px) brightness(1.5) saturate(1.8)"
+                    filter: isMobile ? "blur(8px)" : "blur(30px) brightness(1.5) saturate(1.8)"
                 }}
                 animate={{
                     opacity: 1,
@@ -29,9 +29,9 @@ const CinematicPageTransition: React.FC<CinematicPageTransitionProps> = ({ child
                 }}
                 exit={{
                     opacity: 0,
-                    scale: isMobile ? 1 : 0.85,
+                    scale: isMobile ? 0.98 : 0.85,
                     y: isMobile ? -10 : -20,
-                    filter: isMobile ? "none" : "blur(30px) brightness(1.5) saturate(1.8)"
+                    filter: isMobile ? "blur(8px)" : "blur(30px) brightness(1.5) saturate(1.8)"
                 }}
                 transition={{
                     duration: isMobile ? 0.4 : 1.2,

@@ -254,10 +254,12 @@ All colors MUST be HSL.
     0%,
     100% {
       color: hsl(var(--foreground));
+      transform: translate3d(0, 0, 0);
     }
 
     50% {
       color: hsl(var(--primary));
+      transform: translate3d(0, 0, 0);
     }
   }
 
@@ -266,19 +268,23 @@ All colors MUST be HSL.
     0%,
     100% {
       color: hsl(var(--primary));
+      transform: translate3d(0, 0, 0);
     }
 
     50% {
       color: hsl(var(--foreground));
+      transform: translate3d(0, 0, 0);
     }
   }
 
   .animate-color-cycle {
     animation: text-color-cycle 4s ease-in-out infinite;
+    will-change: color, transform;
   }
 
   .animate-color-cycle-reverse {
     animation: text-color-cycle-reverse 4s ease-in-out infinite;
+    will-change: color, transform;
   }
 }
 

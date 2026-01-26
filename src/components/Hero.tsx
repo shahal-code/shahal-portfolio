@@ -15,17 +15,15 @@ interface HeroProps {
 const Hero = ({ onOpenContact }: HeroProps) => {
   const navigate = useNavigate();
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
-  const containerRef = useRef<HTMLDivElement>(null);
-
   const isMobile = useIsMobile();
 
   // Scroll Parallax settings (Lens Focus)
   const { scrollY } = useScroll();
-  const scale = useTransform(scrollY, [0, 300], [1, 1.2]);
-  const blurValue = useTransform(scrollY, [0, 300], [0, 10]);
-  // Completely disable filter (blur) on mobile to save performance
-  const filter = useTransform(blurValue, (v) => isMobile ? "none" : `blur(${v}px)`);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0.5]);
+  const scale = useTransform(scrollY, [0, 300], [1, isMobile ? 1.05 : 1.2]);
+  const blurValue = useTransform(scrollY, [0, 300], [0, isMobile ? 4 : 10]);
+  // Use a lighter blur for mobile to save GPU memory
+  const filter = useTransform(blurValue, (v) => `blur(${v}px)`);
+  const opacity = useTransform(scrollY, [0, 300], [1, isMobile ? 0.8 : 0.5]);
 
   // 3D Tilt settings
   const x = useMotionValue(0);
@@ -215,7 +213,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                   src="/Me-color.jpg"
                   alt={PERSONAL_DETAILS.name}
                   loading="lazy"
-                  className="w-full h-full rounded-full object-cover shadow-inner grayscale group-hover:grayscale-0 transition-all duration-1000 ease-in-out select-none"
+                  className="w-full h-full rounded-full object-cover shadow-inner grayscale group-hover:grayscale-0 transition-all duration-1000 ease-in-out select-none will-change-transform"
                   onContextMenu={(e) => e.preventDefault()}
                   draggable="false"
                 />
