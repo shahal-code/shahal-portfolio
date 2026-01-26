@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import React from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface CinematicPageTransitionProps {
     children: React.ReactNode;
@@ -8,6 +9,7 @@ interface CinematicPageTransitionProps {
 
 const CinematicPageTransition: React.FC<CinematicPageTransitionProps> = ({ children }) => {
     const location = useLocation();
+    const isMobile = useIsMobile();
 
     return (
         <AnimatePresence mode="wait">
@@ -15,9 +17,9 @@ const CinematicPageTransition: React.FC<CinematicPageTransitionProps> = ({ child
                 key={location.pathname}
                 initial={{
                     opacity: 0,
-                    scale: 1.15,
-                    y: 20,
-                    filter: "blur(30px) brightness(1.5) saturate(1.8)"
+                    scale: isMobile ? 1 : 1.15,
+                    y: isMobile ? 10 : 20,
+                    filter: isMobile ? "none" : "blur(30px) brightness(1.5) saturate(1.8)"
                 }}
                 animate={{
                     opacity: 1,
@@ -27,20 +29,20 @@ const CinematicPageTransition: React.FC<CinematicPageTransitionProps> = ({ child
                 }}
                 exit={{
                     opacity: 0,
-                    scale: 0.85,
-                    y: -20,
-                    filter: "blur(30px) brightness(1.5) saturate(1.8)"
+                    scale: isMobile ? 1 : 0.85,
+                    y: isMobile ? -10 : -20,
+                    filter: isMobile ? "none" : "blur(30px) brightness(1.5) saturate(1.8)"
                 }}
                 transition={{
-                    duration: 1.2,
-                    ease: [0.22, 1, 0.36, 1],
+                    duration: isMobile ? 0.4 : 1.2,
+                    ease: isMobile ? "easeOut" : [0.22, 1, 0.36, 1],
                     // Spring for scale and movement to feel physical
-                    scale: { type: "spring", stiffness: 60, damping: 15 },
-                    y: { type: "spring", stiffness: 60, damping: 15 },
+                    scale: isMobile ? { duration: 0.4 } : { type: "spring", stiffness: 60, damping: 15 },
+                    y: isMobile ? { duration: 0.4 } : { type: "spring", stiffness: 60, damping: 15 },
                     // Lighting filters use the base duration
-                    filter: { duration: 0.8 }
+                    filter: { duration: isMobile ? 0.1 : 0.8 }
                 }}
-                className="w-full relative origin-center"
+                className="w-full relative origin-center lens-focus"
             >
                 {children}
             </motion.div>

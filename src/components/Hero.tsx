@@ -190,8 +190,9 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                 rotateX,
                 rotateY,
                 transformStyle: "preserve-3d",
+                touchAction: "pan-y",
               }}
-              className="relative w-52 h-52 min-[390px]:w-64 min-[390px]:h-64 sm:w-80 sm:h-80 md:w-[30rem] md:h-[30rem] mx-auto group cursor-pointer touch-none"
+              className="relative w-52 h-52 min-[390px]:w-64 min-[390px]:h-64 sm:w-80 sm:h-80 md:w-[30rem] md:h-[30rem] mx-auto group cursor-pointer"
             >
               {/* Decorative background blob */}
               <div
