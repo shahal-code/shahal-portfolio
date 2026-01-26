@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import Magnetic from "@/components/Magnetic";
 import RippleButton from "@/components/ui/RippleButton";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 interface HeaderProps {
   onOpenContact?: () => void;
@@ -112,13 +112,17 @@ const Header = ({ onOpenContact }: HeaderProps) => {
       >
         <div className="flex items-center justify-between h-14">
           <Magnetic strength={0.4}>
-            <RippleButton
-              onClick={() => navigate("/home")}
-              className="text-3xl font-black tracking-tighter text-foreground group transition-all duration-500 bg-transparent hover:bg-transparent shadow-none border-none p-0 h-auto"
+            <Link
+              to="/home"
+              className="flex items-center gap-1.5 transition-all duration-300"
             >
-              <span className="text-foreground transition-colors duration-500 group-hover:text-primary">MS</span>
-              <span className="text-primary transition-colors duration-500 group-hover:text-foreground">.</span>
-            </RippleButton>
+              <span className="text-2xl font-bold tracking-tighter animate-color-cycle">
+                MS
+              </span>
+              <span className="text-2xl font-black animate-color-cycle-reverse">
+                .
+              </span>
+            </Link>
           </Magnetic>
 
           {/* Desktop Navigation */}

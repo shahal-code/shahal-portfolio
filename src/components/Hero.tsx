@@ -109,8 +109,8 @@ const Hero = ({ onOpenContact }: HeroProps) => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-12">
           <div className={`flex-1 text-center lg:text-left reveal-base reveal-up ${isVisible ? 'revealed' : ''}`}>
             {/* Main heading with gradient */}
-            <h1 className="group w-fit mx-auto lg:mx-0 cursor-pointer text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 leading-tight tracking-tight shrink-0 transition-all">
-              <span className="text-foreground transition-colors duration-500 group-hover:text-primary">Muhammed</span> <span className="text-primary transition-colors duration-500 group-hover:text-foreground">Shahal.</span>
+            <h1 className="w-fit mx-auto lg:mx-0 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 leading-tight tracking-tight shrink-0 transition-all">
+              <span className="animate-color-cycle">Muhammed</span> <span className="animate-color-cycle-reverse">Shahal.</span>
             </h1>
 
             {/* Decorative Gradient Line */}

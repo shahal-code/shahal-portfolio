@@ -9,9 +9,9 @@ const Connect = () => {
         <section className="py-16 relative overflow-hidden bg-background">
             <div className="container mx-auto px-4 relative z-10">
                 <div className="max-w-4xl mx-auto text-center space-y-6">
-                    <h2 className="group text-3xl md:text-5xl font-black tracking-tighter mb-2 cursor-pointer transition-all">
-                        <span className="text-foreground transition-colors duration-500 group-hover:text-primary">Connect</span>
-                        <span className="text-primary transition-colors duration-500 group-hover:text-foreground">.</span>
+                    <h2 className="text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-[0.9] tracking-tighter">
+                        <span className="animate-color-cycle">Connect</span>
+                        <span className="animate-color-cycle-reverse">.</span>
                     </h2>
 
                     <p className="text-xl md:text-2xl text-primary font-bold leading-tight max-w-2xl mx-auto">

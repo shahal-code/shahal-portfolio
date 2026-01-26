@@ -20,8 +20,8 @@ const Skills = () => {
             <span className="inline-block text-sm font-semibold text-primary tracking-widest uppercase mb-4 px-4 py-1.5 bg-primary/10 rounded-full">
               Expertise
             </span>
-            <h2 className="group text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight cursor-pointer transition-all">
-              <span className="text-foreground transition-colors duration-500 group-hover:text-primary">Technical</span> <span className="text-primary transition-colors duration-500 group-hover:text-foreground transition-all">Skills</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight transition-all">
+              <span className="animate-color-cycle">Technical</span> <span className="animate-color-cycle-reverse">Skills</span>
             </h2>
             <p className="text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               A curated list of technologies I use to bring ideas to life.

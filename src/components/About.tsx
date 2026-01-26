@@ -18,9 +18,9 @@ const About = () => {
             <span className="inline-block text-sm font-semibold text-primary tracking-widest uppercase mb-4 px-4 py-1.5 bg-primary/10 rounded-full">
               About Me
             </span>
-            <h2 className="group text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight cursor-pointer transition-all">
-              <span className="text-foreground transition-colors duration-500 group-hover:text-primary">{PERSONAL_DETAILS.about.heading}</span><br />
-              <span className="text-primary transition-colors duration-500 group-hover:text-foreground">{PERSONAL_DETAILS.about.headingAccent}</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight transition-all">
+              <span className="animate-color-cycle">{PERSONAL_DETAILS.about.heading}</span><br />
+              <span className="animate-color-cycle-reverse">{PERSONAL_DETAILS.about.headingAccent}</span>
             </h2>
           </div>
 

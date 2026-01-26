@@ -248,6 +248,38 @@ All colors MUST be HSL.
         hsl(var(--primary) / 0.4),
         hsl(var(--primary) / 0));
   }
+
+  @keyframes text-color-cycle {
+
+    0%,
+    100% {
+      color: hsl(var(--foreground));
+    }
+
+    50% {
+      color: hsl(var(--primary));
+    }
+  }
+
+  @keyframes text-color-cycle-reverse {
+
+    0%,
+    100% {
+      color: hsl(var(--primary));
+    }
+
+    50% {
+      color: hsl(var(--foreground));
+    }
+  }
+
+  .animate-color-cycle {
+    animation: text-color-cycle 4s ease-in-out infinite;
+  }
+
+  .animate-color-cycle-reverse {
+    animation: text-color-cycle-reverse 4s ease-in-out infinite;
+  }
 }
 
 @layer base {
