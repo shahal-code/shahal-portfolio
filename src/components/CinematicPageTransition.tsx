@@ -16,31 +16,17 @@ const CinematicPageTransition: React.FC<CinematicPageTransitionProps> = ({ child
             <motion.div
                 key={location.pathname}
                 initial={{
-                    opacity: 0,
-                    scale: isMobile ? 1 : 1.15,
-                    y: isMobile ? 10 : 20,
-                    filter: isMobile ? "none" : "blur(30px) brightness(1.5) saturate(1.8)"
+                    clipPath: "inset(0 0 0 100%)",
                 }}
                 animate={{
-                    opacity: 1,
-                    scale: 1,
-                    y: 0,
-                    filter: "blur(0px) brightness(1) saturate(1)"
+                    clipPath: "inset(0 0 0 0)",
                 }}
                 exit={{
-                    opacity: 0,
-                    scale: isMobile ? 1 : 0.85,
-                    y: isMobile ? -10 : -20,
-                    filter: isMobile ? "none" : "blur(30px) brightness(1.5) saturate(1.8)"
+                    clipPath: "inset(0 100% 0 0)",
                 }}
                 transition={{
-                    duration: isMobile ? 0.4 : 1.2,
-                    ease: isMobile ? "easeOut" : [0.22, 1, 0.36, 1],
-                    // Spring for scale and movement to feel physical
-                    scale: isMobile ? { duration: 0.4 } : { type: "spring", stiffness: 60, damping: 15 },
-                    y: isMobile ? { duration: 0.4 } : { type: "spring", stiffness: 60, damping: 15 },
-                    // Lighting filters use the base duration
-                    filter: { duration: isMobile ? 0.1 : 0.8 }
+                    duration: 1.0,
+                    ease: [0.7, 0, 0.3, 1],
                 }}
                 className="w-full relative origin-center lens-focus"
             >
