@@ -138,7 +138,7 @@ export const EXPERIENCE_LIST = [
   {
     title: "Tech Enthusiast",
     company: "Freelance / Projects",
-    period: "2024 - 2025",
+    period: "Present",
     description: "I specialize in crafting engaging and professional visuals with smooth transitions, clean cuts, effects, and sound design. Over time, I’ve worked on projects ranging from social media content to brand videos, gaining the skills to balance creativity with technical precision."
   }
 ];
