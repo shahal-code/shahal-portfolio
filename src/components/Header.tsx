@@ -69,6 +69,7 @@ const Header = ({ onOpenContact }: HeaderProps) => {
   const navLinks = [
     { label: "Home", sectionId: "hero" },
     { label: "About", sectionId: "about" },
+    { label: "Services", sectionId: "services" },
     { label: "Skills", sectionId: "skills" },
     { label: "Mini Projects", sectionId: "projects" }
   ];
@@ -102,9 +103,9 @@ const Header = ({ onOpenContact }: HeaderProps) => {
       <div
         className={`
           mx-auto transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]
-          ${isScrolled
+          ${isScrolled || isMobileMenuOpen
             ? "max-w-[88%] sm:max-w-4xl bg-white/[0.02] backdrop-blur-3xl shadow-2xl border border-white/10 py-2 rounded-2xl px-6"
-            : "max-w-7xl bg-transparent py-4 px-4"
+            : "max-w-[88%] md:max-w-7xl bg-white/[0.02] md:bg-transparent backdrop-blur-3xl md:backdrop-blur-none shadow-2xl md:shadow-none border border-white/10 md:border-none py-2 md:py-4 rounded-2xl md:rounded-none px-6 md:px-4"
           }
           ${isMobileMenuOpen ? "rounded-3xl bg-background/40 backdrop-blur-3xl border border-white/10 shadow-2xl" : ""}
         `}

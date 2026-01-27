@@ -19,12 +19,13 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
   const isMobile = useIsMobile();
 
-  // Scroll Parallax settings (Lens Focus) - Bypassed for mobile
+  // Scroll Parallax settings (Lens Focus)
   const { scrollY } = useScroll();
-  const scale = useTransform(scrollY, [0, 300], [1, isMobile ? 1 : 1.2]);
-  const blurValue = useTransform(scrollY, [0, 300], [0, isMobile ? 0 : 10]);
+  const scale = useTransform(scrollY, [0, 300], [1, 1.2]);
+  const blurValue = useTransform(scrollY, [0, 300], [0, 10]);
+  // Completely disable filter (blur) on mobile to save performance
   const filter = useTransform(blurValue, (v) => isMobile ? "none" : `blur(${v}px)`);
-  const opacity = useTransform(scrollY, [0, 300], [1, isMobile ? 1 : 0.5]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0.5]);
 
   // 3D Tilt settings
   const x = useMotionValue(0);
@@ -73,7 +74,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
     <section id="hero" className="min-h-screen flex items-start pt-24 pb-20 md:items-center md:pt-0 md:pb-0 justify-center relative overflow-hidden">
       {/* Background layers */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <motion.div style={{ y: useTransform(scrollY, [0, 500], [0, isMobile ? 0 : 100]) }} className="w-full h-full">
+        <motion.div style={{ y: useTransform(scrollY, [0, 500], [0, 100]) }} className="w-full h-full">
           <img
             src="/hero-bg.png"
             alt=""
@@ -94,13 +95,13 @@ const Hero = ({ onOpenContact }: HeroProps) => {
       {/* Premium Divider - Visible on all devices */}
       <div className="premium-divider bottom-0" />
 
-      {/* Floating decorative elements - Bypassed for mobile parallax */}
+      {/* Floating decorative elements - Scaled down for mobile */}
       <motion.div
-        style={{ y: useTransform(scrollY, [0, 500], [0, isMobile ? 0 : -100]) }}
+        style={{ y: useTransform(scrollY, [0, 500], [0, -100]) }}
         className="absolute top-1/4 right-1/4 w-48 h-48 md:w-64 md:h-64 bg-primary/5 rounded-full blur-[60px] md:blur-3xl animate-float will-change-transform"
       />
       <motion.div
-        style={{ y: useTransform(scrollY, [0, 500], [0, isMobile ? 0 : -150]) }}
+        style={{ y: useTransform(scrollY, [0, 500], [0, -150]) }}
         className="absolute bottom-1/4 left-1/4 w-60 h-60 md:w-80 md:h-80 bg-accent/20 rounded-full blur-[80px] md:blur-3xl animate-float-delayed will-change-transform"
       />
 
@@ -130,7 +131,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
               <Magnetic strength={0.4}>
                 <RippleButton
                   className="relative text-base px-8 h-12 rounded-full overflow-hidden group text-primary-foreground bg-primary/20 backdrop-blur-3xl border border-primary/30 shadow-[inset_2px_2px_4px_rgba(255,255,255,0.3),inset_-2px_-4px_8px_rgba(0,0,0,0.3),0_10px_30px_hsl(var(--primary)/0.2)] hover:scale-105 active:scale-95 transition-all duration-300"
-                  onClick={() => navigate("/contact")}
+                  onClick={() => window.open(CONTACT_INFO.social.find(s => s.name === "LinkedIn")?.url, "_blank", "noopener,noreferrer")}
                 >
                   Let's Connect
                 </RippleButton>
@@ -230,7 +231,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
             <Magnetic strength={0.4}>
               <RippleButton
                 className="relative text-base px-8 h-12 rounded-full overflow-hidden group text-primary-foreground bg-primary/20 backdrop-blur-3xl border border-primary/30 shadow-[inset_2px_2px_4px_rgba(255,255,255,0.3),inset_-2px_-4px_8px_rgba(0,0,0,0.3),0_10px_30px_hsl(var(--primary)/0.2)] hover:scale-105 active:scale-95 transition-all duration-300"
-                onClick={() => navigate("/contact")}
+                onClick={() => window.open(CONTACT_INFO.social.find(s => s.name === "LinkedIn")?.url, "_blank", "noopener,noreferrer")}
               >
                 Let's Connect
               </RippleButton>

@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
+import Services from "@/components/Services";
 import Connect from "@/components/Connect";
 
 const Index = () => {
@@ -36,6 +37,7 @@ const Index = () => {
     <div className="w-full">
       <Hero />
       <About />
+      <Services />
       <Skills />
       <Projects />
       <Connect />

@@ -19,11 +19,17 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!divRef.current) return;
-
         const div = divRef.current;
         const rect = div.getBoundingClientRect();
-
         setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    };
+
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+        if (!divRef.current) return;
+        const touch = e.touches[0];
+        const div = divRef.current;
+        const rect = div.getBoundingClientRect();
+        setPosition({ x: touch.clientX - rect.left, y: touch.clientY - rect.top });
     };
 
     const handleMouseEnter = () => {
@@ -34,12 +40,24 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
         setOpacity(0);
     };
 
+    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+        setOpacity(1);
+        handleTouchMove(e);
+    };
+
+    const handleTouchEnd = () => {
+        setOpacity(0);
+    };
+
     return (
         <div
             ref={divRef}
             onMouseMove={handleMouseMove}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onTouchMove={handleTouchMove}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
             className={cn(
                 "relative overflow-hidden",
                 className

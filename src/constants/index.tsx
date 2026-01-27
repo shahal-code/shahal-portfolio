@@ -18,7 +18,9 @@ import {
   Monitor,
   Globe,
   Lock,
-  Repeat
+  Repeat,
+  Video,
+  Terminal,
 } from "lucide-react";
 
 export const PERSONAL_DETAILS = {
@@ -139,6 +141,33 @@ export const EXPERIENCE_LIST = [
     period: "2024 - 2025",
     description: "I specialize in crafting engaging and professional visuals with smooth transitions, clean cuts, effects, and sound design. Over time, I’ve worked on projects ranging from social media content to brand videos, gaining the skills to balance creativity with technical precision."
   }
+];
+
+export const SERVICES = [
+  {
+    title: "Frontend Development",
+    description: "Crafting beautiful and responsive user interfaces using HTML, CSS, Bootstrap, and React focusing on modern web standards.",
+    icon: Layout,
+    color: "hsl(var(--primary))",
+  },
+  {
+    title: "Backend Development",
+    description: "Building server-side logic and managing databases with Node.js, Express, and MongoDB to create functional applications.",
+    icon: Server,
+    color: "#10b981", // Emerald
+  },
+  {
+    title: "Video Editing",
+    description: "Creating engaging visual content with smooth transitions and clean cuts for social media and personal branding.",
+    icon: Video,
+    color: "#f59e0b", // Amber
+  },
+  {
+    title: "MERN Stack Learning",
+    description: "Successfully building full-stack applications as part of an intensive training program, mastering end-to-end development.",
+    icon: Code,
+    color: "#3b82f6", // Blue
+  },
 ];
 
 export const PROJECTS = [

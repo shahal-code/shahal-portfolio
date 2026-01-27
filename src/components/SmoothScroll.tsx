@@ -4,7 +4,7 @@ import Lenis from "lenis";
 const SmoothScroll = () => {
     useEffect(() => {
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        const isMobile = window.innerWidth < 1024; // Upgraded threshold to cover tablets as well
+        const isMobile = window.innerWidth < 768;
 
         if (isTouchDevice || isMobile) {
             return;
