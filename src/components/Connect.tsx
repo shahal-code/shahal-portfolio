@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import RippleButton from "@/components/ui/RippleButton";
 import Magnetic from "@/components/Magnetic";
-import { CONTACT_INFO } from "@/constants";
 
 const Connect = () => {
     const navigate = useNavigate();
@@ -25,7 +24,7 @@ const Connect = () => {
                     <div className="pt-4">
                         <Magnetic strength={0.4}>
                             <RippleButton
-                                onClick={() => window.open(CONTACT_INFO.social.find(s => s.name === "LinkedIn")?.url, "_blank", "noopener,noreferrer")}
+                                onClick={() => navigate("/contact")}
                                 className="rounded-full px-8 py-3 h-14 text-xl font-bold text-primary-foreground bg-primary/20 backdrop-blur-3xl border border-primary/30 shadow-[inset_2px_2px_4px_rgba(255,255,255,0.3),inset_-2px_-4px_8px_rgba(0,0,0,0.3),0_10px_30px_hsl(var(--primary)/0.2)] active:scale-95 transition-all"
                             >
                                 Let's Talk
