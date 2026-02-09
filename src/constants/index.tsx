@@ -176,39 +176,39 @@ export const PROJECTS = [
     description: "A real-time weather application that delivers precise atmospheric data and forecasts with a focus on ease of use and visual clarity.",
     tags: ["JavaScript", "API Integration", "HTML", "CSS"],
     image: "https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&auto=format&fit=crop&q=60",
-    github: "https://github.com/shahal-gitei/wetherChecker",
-    demo: "https://shahal-gitei.github.io/wetherChecker/"
+    github: "https://github.com/shahal-code/wetherChecker",
+    demo: "https://shahal-code.github.io/wetherChecker/"
   },
   {
     title: "Simple Calculator",
     description: "A sleek and responsive calculator application with a focus on smooth interactions and clean mathematical logic.",
     tags: ["JavaScript", "HTML", "CSS", "UI/UX"],
     image: "https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=800&auto=format&fit=crop&q=60",
-    github: "https://github.com/shahal-gitei/Simple-Calculator",
-    demo: "https://shahal-gitei.github.io/Calculator-App/"
+    github: "https://github.com/shahal-code/Calculator-App",
+    demo: "https://shahal-code.github.io/Calculator-App/"
   },
   {
     title: "Minimalist Todo App",
     description: "A clean and intuitive task management application designed for productivity with a streamlined user interface and local storage persistence.",
     tags: ["JavaScript", "HTML", "CSS", "Responsive"],
     image: "https://images.unsplash.com/photo-1540350394557-8d14678e7f91?w=800&auto=format&fit=crop&q=60",
-    github: "https://github.com/shahal-gitei/Todo-App",
-    demo: "https://shahal-gitei.github.io/Todo-App/"
+    github: "https://github.com/shahal-code/Todo-App",
+    demo: "https://shahal-code.github.io/Todo-App/"
   },
   {
     title: "Premium Cars Showcase",
     description: "A high-end automotive showcase website featuring a selection of luxury vehicles with a clean, modern aesthetic.",
     tags: ["HTML", "CSS", "UI/UX", "Responsible Design"],
     image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&auto=format&fit=crop&q=60",
-    github: "https://github.com/shahal-gitei/premium-cars",
-    demo: "https://shahal-gitei.github.io/premium-cars/"
+    github: "https://github.com/shahal-code/premium-cars",
+    demo: "https://shahal-code.github.io/premium-cars/"
   },
   {
     title: "Login Session Management",
     description: "A secure login system featuring robust session management, developed to explore Node.js backend architecture and user authentication flows.",
     tags: ["Node.js", "Express", "EJS", "Authentication"],
     image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&auto=format&fit=crop&q=60",
-    github: "https://github.com/shahal-gitei/login-session",
+    github: "https://github.com/shahal-code/login-session",
     demo: "#"
   },
   {
@@ -216,7 +216,7 @@ export const PROJECTS = [
     description: "A robust administrative dashboard for managing user records, featuring secure data handling and an intuitive management interface.",
     tags: ["Node.js", "Express", "MongoDB", "Admin Panel"],
     image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&auto=format&fit=crop&q=60",
-    github: "https://github.com/shahal-gitei/UserManagment-Project",
+    github: "https://github.com/shahal-code/UserManagment-Project",
     demo: "#"
   }
 ];
