@@ -81,16 +81,16 @@ const Hero = ({ onOpenContact }: HeroProps) => {
             className="w-full h-full object-cover opacity-[0.07] dark:opacity-[0.15] scale-110 animate-pulse-slow pointer-events-none"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-transparent" />
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
+      <div className="absolute inset-0 bg-transparent" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/8 via-primary/0 to-primary/0" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/30 via-accent/0 to-accent/0" />
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-violet-500/10 to-violet-500/0 blur-2xl md:block hidden" />
 
       {/* Seamless transition mask */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-background/0" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-transparent" />
 
       {/* Premium Divider - Visible on all devices */}
       <div className="premium-divider bottom-0" />

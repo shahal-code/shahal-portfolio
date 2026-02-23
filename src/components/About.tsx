@@ -10,7 +10,7 @@ const About = () => {
   const [expandedExp, setExpandedExp] = useState<number | null>(null);
 
   return (
-    <section id="about" className="py-28 bg-card relative overflow-hidden scroll-mt-32">
+    <section id="about" className="py-28 relative overflow-hidden scroll-mt-32">
       <div className="container mx-auto px-4 sm:px-6">
         <div ref={sectionRef} className="max-w-6xl mx-auto">
           {/* Section header */}

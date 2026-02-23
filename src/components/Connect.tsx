@@ -6,7 +6,7 @@ const Connect = () => {
     const navigate = useNavigate();
 
     return (
-        <section className="py-16 relative overflow-hidden bg-background">
+        <section className="py-16 relative overflow-hidden">
             <div className="container mx-auto px-4 relative z-10">
                 <div className="max-w-4xl mx-auto text-center space-y-6">
                     <h2 className="text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-[0.9] tracking-tighter">

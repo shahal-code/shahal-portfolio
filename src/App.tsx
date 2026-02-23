@@ -13,6 +13,7 @@ import Index from "./pages/Index";
 import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
 import CinematicPageTransition from "@/components/CinematicPageTransition";
+import SpaceBackground from "@/components/SpaceBackground";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme">
+        <SpaceBackground />
         <SmoothScroll />
         <MouseGlow />
         <TooltipProvider>

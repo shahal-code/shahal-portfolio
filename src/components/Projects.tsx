@@ -10,7 +10,7 @@ const Projects = () => {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
 
   return (
-    <section id="projects" className="py-28 bg-card relative scroll-mt-32">
+    <section id="projects" className="py-28 relative scroll-mt-32">
       {/* Section divider */}
       <div className="premium-divider top-0" />
 

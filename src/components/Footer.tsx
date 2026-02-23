@@ -2,7 +2,7 @@
 
 const Footer = () => {
   return (
-    <footer className="py-12 bg-card border-t border-border/50">
+    <footer className="py-12 border-t border-border/50 relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex flex-col items-center text-center gap-6">
           <div className="flex flex-col items-center gap-4">
