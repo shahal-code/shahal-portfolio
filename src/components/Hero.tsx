@@ -19,13 +19,18 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
   const isMobile = useIsMobile();
 
-  // Scroll Parallax settings (Lens Focus)
+  // Scroll Parallax settings (Lens Focus & Flying Past Effect)
   const { scrollY } = useScroll();
-  const scale = useTransform(scrollY, [0, 300], [1, 1.2]);
-  const blurValue = useTransform(scrollY, [0, 300], [0, 10]);
+  // Aggressively scale up to simulate flying toward the image
+  const scale = useTransform(scrollY, [0, 500], [1, 3.5]);
+  // Pull the image upward significantly as it scales
+  const yFly = useTransform(scrollY, [0, 500], [0, -300]);
+
+  const blurValue = useTransform(scrollY, [0, 500], [0, 15]);
   // Completely disable filter (blur) on mobile to save performance
   const filter = useTransform(blurValue, (v) => isMobile ? "none" : `blur(${v}px)`);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0.5]);
+  // Fade out smoothly over a longer scroll distance
+  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
 
   // 3D Tilt settings
   const x = useMotionValue(0);
@@ -78,16 +83,16 @@ const Hero = ({ onOpenContact }: HeroProps) => {
           <img
             src="/hero-bg.png"
             alt=""
-            className="w-full h-full object-cover opacity-[0.07] dark:opacity-[0.15] scale-110 animate-pulse-slow pointer-events-none"
+            className="w-full h-full object-cover opacity-[0.03] dark:opacity-[0.15] scale-110 animate-pulse-slow pointer-events-none"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/10 to-transparent" />
       </div>
 
       <div className="absolute inset-0 bg-transparent" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/8 via-primary/0 to-primary/0" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/30 via-accent/0 to-accent/0" />
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-violet-500/10 to-violet-500/0 blur-2xl md:block hidden" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-primary/0 to-primary/0 dark:from-primary/8" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/10 via-accent/0 to-accent/0 dark:from-accent/30" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-violet-500/5 to-violet-500/0 blur-2xl md:block hidden dark:from-violet-500/10" />
 
       {/* Seamless transition mask */}
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-transparent" />
@@ -178,7 +183,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
           {/* Right Image Column with 3D Tilt & Scroll Parallax */}
           <motion.div
-            style={{ scale, filter, opacity }}
+            style={{ scale, filter, opacity, y: yFly }}
             className={`flex-1 relative perspective-1000 lens-focus ${isVisible ? 'opacity-100' : 'opacity-0'}`} // Lens Focus effect
           >
             <motion.div
