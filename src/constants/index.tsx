@@ -39,7 +39,7 @@ export const PERSONAL_DETAILS = {
 };
 
 export const CONTACT_INFO = {
-  email: "gmrshahl@gmail.com",
+  email: "shahalwork14@gmail.com",
   phone: "+917510107241",
   location: "Kerala, India",
   social: [
