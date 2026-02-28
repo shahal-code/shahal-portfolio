@@ -19,19 +19,16 @@ const CinematicPageTransition: React.FC<CinematicPageTransitionProps> = ({ child
                     opacity: 0,
                     scale: isMobile ? 1 : 1.15,
                     y: isMobile ? 10 : 20,
-                    filter: isMobile ? "none" : "blur(30px) brightness(1.5) saturate(1.8)"
                 }}
                 animate={{
                     opacity: 1,
                     scale: 1,
                     y: 0,
-                    filter: "blur(0px) brightness(1) saturate(1)"
                 }}
                 exit={{
                     opacity: 0,
                     scale: isMobile ? 1 : 0.85,
                     y: isMobile ? -10 : -20,
-                    filter: isMobile ? "none" : "blur(30px) brightness(1.5) saturate(1.8)"
                 }}
                 transition={{
                     duration: isMobile ? 0.4 : 1.2,

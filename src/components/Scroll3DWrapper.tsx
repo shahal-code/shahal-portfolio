@@ -29,25 +29,18 @@ const Scroll3DWrapper = ({ children, className = "" }: Scroll3DWrapperProps) => 
     const scale = useTransform(
         scrollYProgress,
         [0, 0.2, 0.7, 1],
-        [0.95, 1, 1, isMobile ? 1.1 : 2.5]
+        [0.95, 1, 1, isMobile ? 1.02 : 1.05]
     );
 
     // Y Translation (Fly up)
     const y = useTransform(
         scrollYProgress,
         [0, 0.2, 0.7, 1],
-        [50, 0, 0, isMobile ? -50 : -250]
+        [50, 0, 0, isMobile ? -30 : -100]
     );
 
-    // Blur (Camera Lens Depth of Field)
-    const blurValue = useTransform(
-        scrollYProgress,
-        [0, 0.2, 0.7, 1],
-        [10, 0, 0, isMobile ? 5 : 25]
-    );
-
-    // Apply blur filter. Disable entirely on mobile if performance becomes an issue, but we'll try it first
-    const filter = useTransform(blurValue, (v) => isMobile ? 'none' : `blur(${v}px)`);
+    // Blur removed for performance - real-time filters during scroll block main thread
+    const filter = "none";
 
     // Opacity
     const opacity = useTransform(

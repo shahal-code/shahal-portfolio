@@ -12,9 +12,9 @@ const SmoothScroll = () => {
 
         // Initialize Lenis for buttery smooth scrolling only on desktop
         const lenis = new Lenis({
-            duration: 1.5, // Heavier, "luxury" feel
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing
-            lerp: 0.1,
+            duration: 1.0, // Snappier
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            lerp: 0.15, // Higher for more responsiveness
             smoothWheel: true
         });
 

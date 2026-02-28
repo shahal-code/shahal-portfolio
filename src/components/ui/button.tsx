@@ -30,7 +30,7 @@ const buttonVariants = cva(
   },
 );
 
-export interface ButtonProps
+interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
   VariantProps<typeof buttonVariants> {
   asChild?: boolean;
@@ -89,7 +89,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               // Better: use the 200% logic from RippleButton relative to state? 
               // Actually we can just style it here.
               height: "200%",
-              width: "200%",
               // Wait, previous logic used pixel width from props.style which is not reliable here.
               // Let's rely on simple large size or pass style style.
               // Re-using the exact logic from RippleButton might be safer if we can.
@@ -121,4 +120,4 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-export { Button, buttonVariants };
+export { Button };

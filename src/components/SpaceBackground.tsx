@@ -32,9 +32,8 @@ const SpaceBackground = () => {
         // --- PERFORMANCE OPTIMIZATION: Dimensions & DPR ---
         const width = window.innerWidth;
         const height = window.innerHeight;
-        // Cap DPR at 1.5. Screens higher than this (like Mac Retina at 2.0) waste immense GPU power
-        // for post-processing with zero visual benefit.
-        const dpr = Math.min(window.devicePixelRatio, 1.5);
+        // Cap DPR at 1.2 to save massive GPU power.
+        const dpr = Math.min(window.devicePixelRatio, 1.2);
 
         // --- 1. Basic Setup ---
         const scene = new THREE.Scene();
@@ -48,11 +47,12 @@ const SpaceBackground = () => {
 
         // --- PERFORMANCE OPTIMIZATION: Renderer Flags ---
         const renderer = new THREE.WebGLRenderer({
-            alpha: false, // Setting background explicitly in scene, no need for alpha
+            alpha: false,
             antialias: false,
             powerPreference: "high-performance",
             stencil: false,
-            depth: false
+            depth: true,
+            precision: "mediump"
         });
         renderer.setSize(width, height);
         renderer.setPixelRatio(dpr);
@@ -65,19 +65,17 @@ const SpaceBackground = () => {
         const renderScene = new RenderPass(scene, camera);
 
         // --- PERFORMANCE OPTIMIZATION: Bloom Resolution ---
-        // Render bloom at Half-Resolution. Bloom is inherently blurry, so scaling it up 
-        // later is virtually indistinguishable but saves 4x pixel processing.
-        const bloomResolution = new THREE.Vector2(width / 2, height / 2);
+        // Render bloom at Quarter-Resolution.
+        const bloomResolution = new THREE.Vector2(width / 4, height / 4);
 
         const bloomPass = new UnrealBloomPass(
             bloomResolution,
-            isDark ? 1.5 : 0.25, // Reduce bloom strength drastically in light mode
-            isDark ? 0.4 : 0.2, // Tighter radius in light mode
-            isDark ? 0.85 : 0.98 // Higher threshold in light mode to only bloom brightest spots
+            isDark ? 1.2 : 0.2,
+            isDark ? 0.4 : 0.2,
+            isDark ? 0.9 : 0.99
         );
 
         const composer = new EffectComposer(renderer);
-        // Force composer to render at screen size, but internal passes use lower res
         composer.setSize(width, height);
         composer.addPass(renderScene);
         composer.addPass(bloomPass);
@@ -91,32 +89,28 @@ const SpaceBackground = () => {
             new THREE.Vector3(-50, -50, -800),
             new THREE.Vector3(0, 0, -1100)
         ];
-        // Mirror path for light mode for slight variation, or keep same
         const curve = new THREE.CatmullRomCurve3(pathPoints);
 
         // --- 4. Starfield ---
         // --- PERFORMANCE OPTIMIZATION: Particle Counts ---
-        // Reduced from 8000/3000 to 5000/2000. Visual density is maintained by slightly larger sizes.
-        const particlesCount = isMobile ? 2000 : 5000;
+        const particlesCount = isMobile ? 1200 : 3000;
         const geometry = new THREE.BufferGeometry();
         const positions = new Float32Array(particlesCount * 3);
         const colors = new Float32Array(particlesCount * 3);
         const sizes = new Float32Array(particlesCount);
 
         const colorPalette = isDark
-            ? [new THREE.Color(0x8B5CF6), new THREE.Color(0x0ea5e9), new THREE.Color(0xffffff), new THREE.Color(0xec4899)] // Purple, Blue, White, Pink
-            : [new THREE.Color(0x8B5CF6), new THREE.Color(0x6366f1), new THREE.Color(0x4f46e5), new THREE.Color(0xec4899)]; // Deeper shades for light mode visibility
+            ? [new THREE.Color(0x8B5CF6), new THREE.Color(0x0ea5e9), new THREE.Color(0xffffff), new THREE.Color(0xec4899)]
+            : [new THREE.Color(0x8B5CF6), new THREE.Color(0x6366f1), new THREE.Color(0x4f46e5), new THREE.Color(0xec4899)];
 
         for (let i = 0; i < particlesCount * 3; i += 3) {
-            // Spread particles across the general path volume
             positions[i] = (Math.random() - 0.5) * 1500;
             positions[i + 1] = (Math.random() - 0.5) * 1500;
-            positions[i + 2] = 600 - Math.random() * 2500; // From +600 to -1900
+            positions[i + 2] = 600 - Math.random() * 2500;
 
             const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
 
             if (isDark) {
-                // Intensify colors slightly for bloom
                 colors[i] = color.r * 1.5;
                 colors[i + 1] = color.g * 1.5;
                 colors[i + 2] = color.b * 1.5;
@@ -126,7 +120,7 @@ const SpaceBackground = () => {
                 colors[i + 2] = color.b;
             }
 
-            sizes[i / 3] = isDark ? (Math.random() * 2.5 + 0.5) : (Math.random() * 3.0 + 1.0); // Slightly larger in light mode
+            sizes[i / 3] = isDark ? (Math.random() * 2.5 + 0.5) : (Math.random() * 3.0 + 1.0);
         }
 
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -163,18 +157,16 @@ const SpaceBackground = () => {
             `,
             transparent: true,
             blending: isDark ? THREE.AdditiveBlending : THREE.NormalBlending,
-            depthWrite: false, // critical for performance
+            depthWrite: false,
             vertexColors: true
         });
 
         const particles = new THREE.Points(geometry, material);
         scene.add(particles);
 
-        // --- 5. Floating Shards (Igloo.inc style tech/crystal objects) ---
+        // --- 5. Floating Shards ---
         const shards: THREE.Mesh[] = [];
-        // --- PERFORMANCE OPTIMIZATION: Shard Counts ---
-        // Reduced from 40/15 to 25/10.
-        const shardCount = isMobile ? 10 : 25;
+        const shardCount = isMobile ? 8 : 15;
 
         const shardGeometries = [
             new THREE.IcosahedronGeometry(1, 0),
@@ -183,26 +175,24 @@ const SpaceBackground = () => {
         ];
 
         const shardMaterial = new THREE.MeshStandardMaterial({
-            color: isDark ? 0x8B5CF6 : 0x7c3aed, // Violet
-            emissive: isDark ? 0x5b21b6 : 0x4f46e5, // Deeper violet emission
-            emissiveIntensity: isDark ? 0.6 : 0.2, // Lower intensity in light mode
+            color: isDark ? 0x8B5CF6 : 0x7c3aed,
+            emissive: isDark ? 0x5b21b6 : 0x4f46e5,
+            emissiveIntensity: isDark ? 0.6 : 0.2,
             wireframe: true,
             transparent: true,
-            opacity: isDark ? 0.6 : 0.4, // Less opaque in light mode
-            roughness: 0.2,
-            metalness: 0.8
+            opacity: isDark ? 0.6 : 0.4,
+            roughness: 0.5,
+            metalness: 0.5
         });
 
-        const solidShardMaterial = new THREE.MeshPhysicalMaterial({
-            color: isDark ? 0xa78bfa : 0x818cf8, // Lighter violet in dark, base violet in light
-            emissive: isDark ? 0x4c1d95 : 0x4338ca, // Deepest violet emission
+        const solidShardMaterial = new THREE.MeshStandardMaterial({
+            color: isDark ? 0xa78bfa : 0x818cf8,
+            emissive: isDark ? 0x4c1d95 : 0x4338ca,
             emissiveIntensity: isDark ? 0.3 : 0.15,
-            transmission: 0.95,
-            opacity: 1,
-            metalness: isDark ? 0.1 : 0.3,
-            roughness: 0.05,
-            ior: 1.5,
-            thickness: 5.0,
+            transparent: true,
+            opacity: 0.8,
+            metalness: 0.8,
+            roughness: 0.2,
         });
 
         for (let i = 0; i < shardCount; i++) {
@@ -212,11 +202,9 @@ const SpaceBackground = () => {
 
             const mesh = new THREE.Mesh(geo, mat);
 
-            // Distribute along the curve path
             const t = Math.random();
             const pointOnCurve = curve.getPointAt(t);
 
-            // Offset from the exact path so we don't crash into them
             const offsetDist = 30 + Math.random() * 80;
             const theta = Math.random() * Math.PI * 2;
 
@@ -235,7 +223,6 @@ const SpaceBackground = () => {
                 Math.random() * Math.PI
             );
 
-            // Store random rotation speed in userData
             mesh.userData = {
                 rotSpeedX: (Math.random() - 0.5) * 0.02,
                 rotSpeedY: (Math.random() - 0.5) * 0.02,
@@ -246,7 +233,6 @@ const SpaceBackground = () => {
             scene.add(mesh);
         }
 
-        // Add some lights for the solid materials
         const ambientLight = new THREE.AmbientLight(0xffffff, isDark ? 0.5 : 0.8);
         scene.add(ambientLight);
 
@@ -263,7 +249,6 @@ const SpaceBackground = () => {
         const windowHalfY = window.innerHeight / 2;
 
         const onDocumentMouseMove = (event: MouseEvent) => {
-            // Normalized from -1 to 1
             mouseX = (event.clientX - windowHalfX) / windowHalfX;
             mouseY = (event.clientY - windowHalfY) / windowHalfY;
         };
@@ -285,43 +270,29 @@ const SpaceBackground = () => {
             const elapsedTime = clock.getElapsedTime();
 
             material.uniforms.time.value = elapsedTime;
-
-            // Slowly rotate entire particle field for gentle ambient movement
             particles.rotation.y = elapsedTime * 0.02;
 
-            // Animate shards
             shards.forEach(shard => {
                 shard.rotation.x += shard.userData.rotSpeedX;
                 shard.rotation.y += shard.userData.rotSpeedY;
                 shard.rotation.z += shard.userData.rotSpeedZ;
-
-                // Float shards gently up and down
                 shard.position.y += Math.sin(elapsedTime * 2 + shard.position.x) * 0.05;
             });
 
-            // --- Scroll 3D Effects ---
             const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-            // Clamp scrollPercent between 0.01 and 0.99 to avoid exact curve boundaries
             const scrollPercent = Math.max(0.001, Math.min(0.999, scrollY / maxScroll));
 
-            // Move camera along curve
             const camPos = curve.getPointAt(scrollPercent);
-            camera.position.lerp(camPos, 0.1); // Smooth transition 
-
-            // Move light attached to camera
+            camera.position.lerp(camPos, 0.1);
             pointLight.position.copy(camera.position);
 
-            // Determine where the camera should look (tangent of the curve)
             const lookAtTarget = curve.getPointAt(Math.min(1.0, scrollPercent + 0.05));
 
-            // --- Parallax Mouse Look-At Offsets ---
             if (!isMobile) {
-                // target lookAt offsets based on mouse
                 const intensity = 80;
                 const targetOffsetX = mouseX * intensity;
                 const targetOffsetY = -mouseY * intensity;
 
-                // Lerp current look values to target for smooth mouse movement
                 currentLookAtXY.x += (targetOffsetX - currentLookAtXY.x) * 0.05;
                 currentLookAtXY.y += (targetOffsetY - currentLookAtXY.y) * 0.05;
 
@@ -330,8 +301,6 @@ const SpaceBackground = () => {
             }
 
             camera.lookAt(lookAtTarget);
-
-            // Use composer instead of renderer for Bloom post-processing
             composer.render();
         };
 
@@ -345,8 +314,7 @@ const SpaceBackground = () => {
             composer.setSize(width, height);
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
-            // Update bloom pass resolution if needed
-            bloomPass.resolution.set(width, height);
+            bloomPass.resolution.set(width / 4, height / 4);
         };
 
         window.addEventListener('resize', handleResize);
@@ -358,6 +326,7 @@ const SpaceBackground = () => {
                 document.removeEventListener('mousemove', onDocumentMouseMove);
             }
             cancelAnimationFrame(animationFrameId);
+
             mountRef.current?.removeChild(renderer.domElement);
 
             geometry.dispose();
@@ -372,9 +341,18 @@ const SpaceBackground = () => {
                 }
             });
 
+            // Dispose post-processing
+            composer.passes.forEach(pass => {
+                if (pass instanceof UnrealBloomPass) {
+                    pass.dispose();
+                }
+            });
+
             renderer.dispose();
+            renderer.forceContextLoss();
         };
     }, [isMobile, isDark]);
+
 
     return (
         <div
