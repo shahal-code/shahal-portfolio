@@ -44,28 +44,54 @@ const MainLayout = () => {
 };
 
 const AppContent = () => {
+  const hostname = window.location.hostname;
+  const isAdminSubdomain = hostname.startsWith('admin.') || hostname.includes('admin-');
+  const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
+
+  // If we are on the admin subdomain
+  if (isAdminSubdomain) {
+    return (
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route element={<ProtectedRoute />}>
+          <Route element={<AdminLayout />}>
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="profile" element={<EditProfile />} />
+            <Route path="projects" element={<EditProjects />} />
+            <Route path="skills" element={<EditSkills />} />
+            <Route path="services" element={<EditServices />} />
+            <Route path="contact" element={<EditContact />} />
+          </Route>
+        </Route>
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
+    );
+  }
+
+  // Main Site Routes (or local development with /admin fallback)
   return (
     <Routes>
-      {/* Admin Routes */}
-      <Route path="/admin" element={<ProtectedRoute />}>
-        <Route element={<AdminLayout />}>
-          <Route index element={<Navigate to="/admin/dashboard" replace />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="profile" element={<EditProfile />} />
-          <Route path="projects" element={<EditProjects />} />
-          <Route path="skills" element={<EditSkills />} />
-          <Route path="services" element={<EditServices />} />
-          <Route path="contact" element={<EditContact />} />
-        </Route>
-      </Route>
-      <Route path="/admin/login" element={<Login />} />
-      <Route path="/admin/*" element={<Navigate to="/admin/dashboard" replace />} />
-
-      {/* Main Site Routes */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<Index />} />
         <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="/contact" element={<ContactPage />} />
+        
+        {/* Only allow /admin on localhost for easy dev access */}
+        {isLocalhost && (
+          <Route path="/admin/*" element={
+            <div className="p-10 text-center">
+              <h1 className="text-2xl font-bold mb-4">Development Admin Access</h1>
+              <p className="mb-4">On production, use the admin subdomain.</p>
+              <Navigate to="/admin/login" replace />
+            </div>
+          } />
+        )}
+
+        {isLocalhost && (
+          <Route path="/admin/login" element={<Login />} />
+        )}
+
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
