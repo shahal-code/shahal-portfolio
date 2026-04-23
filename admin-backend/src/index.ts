@@ -32,16 +32,23 @@ app.use('/api/portfolio', portfolioRoutes);
 mongoose.connect(process.env.MONGODB_URI!)
   .then(async () => {
     console.log('Connected to MongoDB');
-    // Auto-seed admin user if not exists
+    // Auto-seed or Update admin user
     const adminEmail = process.env.ADMIN_EMAIL || 'admin@gmail.com';
-    const adminExists = await User.findOne({ email: adminEmail });
-    if (!adminExists) {
-      const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'admin', 10);
+    const adminPassword = process.env.ADMIN_PASSWORD || 'admin';
+    const hashedPassword = await bcrypt.hash(adminPassword, 10);
+    
+    const adminUser = await User.findOne({ email: adminEmail });
+    if (!adminUser) {
       await User.create({
         email: adminEmail,
         password: hashedPassword
       });
       console.log('Admin user created successfully');
+    } else {
+      // Always sync password with environment variable
+      adminUser.password = hashedPassword;
+      await adminUser.save();
+      console.log('Admin password synced with environment variables');
     }
   })
   .catch((err) => console.error('MongoDB connection error:', err));
