@@ -48,7 +48,7 @@ mongoose.connect(process.env.MONGODB_URI!)
       // Always sync password with environment variable
       adminUser.password = hashedPassword;
       await adminUser.save();
-      console.log('Admin password synced with environment variables');
+      console.log(`Admin system ready for: ${adminEmail}`);
     }
   })
   .catch((err) => console.error('MongoDB connection error:', err));
