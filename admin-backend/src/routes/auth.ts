@@ -8,19 +8,22 @@ const router = express.Router();
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(`Login attempt: email="${email}", password="${password}"`);
+    const cleanEmail = email.toLowerCase().trim();
+    console.log(`Login attempt for: ${cleanEmail}`);
     
-    const user = await User.findOne({ email: email.toLowerCase().trim() });
+    const user = await User.findOne({ email: cleanEmail });
     if (!user) {
-      console.log(`User not found for email: ${email}`);
-      return res.status(400).json({ message: 'User not found' });
+      console.log(`Login failed: User not found for email ${cleanEmail}`);
+      return res.status(400).json({ message: 'Invalid credentials' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log(`Password match result: ${isMatch}`);
-    
-    if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+    if (!isMatch) {
+      console.log(`Login failed: Password mismatch for ${cleanEmail}`);
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
 
+    console.log(`Login successful for: ${cleanEmail}`);
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, { expiresIn: '1d' });
     res.json({ token, user: { id: user._id, email: user.email } });
   } catch (err) {
