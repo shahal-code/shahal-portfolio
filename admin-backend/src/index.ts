@@ -17,6 +17,14 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.get('/', (req, res) => {
+  res.send('Portfolio Backend is Running 🚀');
+});
+
+app.get('/api', (req, res) => {
+  res.json({ status: 'API is Online', version: '1.0.0' });
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/portfolio', portfolioRoutes);
 
