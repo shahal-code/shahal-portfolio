@@ -35,20 +35,24 @@ mongoose.connect(process.env.MONGODB_URI!)
     // Auto-seed or Update admin user
     const adminEmail = process.env.ADMIN_EMAIL || 'admin@gmail.com';
     const adminPassword = process.env.ADMIN_PASSWORD || 'admin';
-    const hashedPassword = await bcrypt.hash(adminPassword, 10);
     
-    const adminUser = await User.findOne({ email: adminEmail });
+    const adminUser = await User.findOne({ email: adminEmail.toLowerCase() });
     if (!adminUser) {
       await User.create({
         email: adminEmail,
-        password: hashedPassword
+        password: adminPassword // Plain text: User model pre-save hook will hash this
       });
       console.log('Admin user created successfully');
     } else {
-      // Always sync password with environment variable
-      adminUser.password = hashedPassword;
-      await adminUser.save();
-      console.log(`Admin system ready for: ${adminEmail}`);
+      // Check if current password matches environment variable to avoid double hashing and unnecessary writes
+      const isMatch = await bcrypt.compare(adminPassword, adminUser.password);
+      if (!isMatch) {
+        adminUser.password = adminPassword; // Set plain text: User model pre-save hook will hash this
+        await adminUser.save();
+        console.log('Admin password updated to match environment variable');
+      } else {
+        console.log(`Admin system ready for: ${adminEmail}`);
+      }
     }
   })
   .catch((err) => console.error('MongoDB connection error:', err));

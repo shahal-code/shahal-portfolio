@@ -23,13 +23,16 @@ const AdminLayout = () => {
     navigate("/home");
   };
 
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const prefix = isLocalhost ? "/admin" : "";
+
   const navItems = [
-    { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
-    { name: "Hero & Profile", path: "/profile", icon: User },
-    { name: "Skills", path: "/skills", icon: Code },
-    { name: "Projects", path: "/projects", icon: Briefcase },
-    { name: "Services", path: "/services", icon: Sparkles },
-    { name: "Contact Info", path: "/contact", icon: MessageSquare },
+    { name: "Dashboard", path: `${prefix}/dashboard`, icon: LayoutDashboard },
+    { name: "Hero & Profile", path: `${prefix}/profile`, icon: User },
+    { name: "Skills", path: `${prefix}/skills`, icon: Code },
+    { name: "Projects", path: `${prefix}/projects`, icon: Briefcase },
+    { name: "Services", path: `${prefix}/services`, icon: Sparkles },
+    { name: "Contact Info", path: `${prefix}/contact`, icon: MessageSquare },
   ];
 
   return (

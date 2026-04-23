@@ -72,26 +72,29 @@ const AppContent = () => {
   // Main Site Routes (or local development with /admin fallback)
   return (
     <Routes>
+      {/* Admin routes on localhost - kept separate from MainLayout to avoid user-side background/header/footer */}
+      {isLocalhost && (
+        <Route path="/admin" element={<ProtectedRoute />}>
+          <Route element={<AdminLayout />}>
+            <Route index element={<Navigate to="dashboard" replace />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="profile" element={<EditProfile />} />
+            <Route path="projects" element={<EditProjects />} />
+            <Route path="skills" element={<EditSkills />} />
+            <Route path="services" element={<EditServices />} />
+            <Route path="contact" element={<EditContact />} />
+          </Route>
+        </Route>
+      )}
+
+      {isLocalhost && (
+        <Route path="/admin/login" element={<Login />} />
+      )}
+
       <Route element={<MainLayout />}>
         <Route path="/" element={<Index />} />
         <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="/contact" element={<ContactPage />} />
-        
-        {/* Only allow /admin on localhost for easy dev access */}
-        {isLocalhost && (
-          <Route path="/admin/*" element={
-            <div className="p-10 text-center">
-              <h1 className="text-2xl font-bold mb-4">Development Admin Access</h1>
-              <p className="mb-4">On production, use the admin subdomain.</p>
-              <Navigate to="/admin/login" replace />
-            </div>
-          } />
-        )}
-
-        {isLocalhost && (
-          <Route path="/admin/login" element={<Login />} />
-        )}
-
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

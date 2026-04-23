@@ -27,7 +27,9 @@ const Login = () => {
       if (response.ok) {
         localStorage.setItem("admin_token", data.token);
         toast.success("Welcome back, Admin!");
-        navigate("/dashboard");
+        
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        navigate(isLocalhost ? "/admin/dashboard" : "/dashboard");
       } else {
         toast.error(data.message || "Login failed");
       }
@@ -42,7 +44,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="w-full max-w-md p-8 rounded-[2.5rem] bg-card border border-border/50 backdrop-blur-3xl shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-accent" />
-        
+
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-primary/20">
             <Lock className="text-primary w-8 h-8" />
