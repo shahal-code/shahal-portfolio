@@ -24,12 +24,12 @@ const AdminLayout = () => {
   };
 
   const navItems = [
-    { name: "Dashboard", path: "/admin/dashboard", icon: LayoutDashboard },
-    { name: "Hero & Profile", path: "/admin/profile", icon: User },
-    { name: "Skills", path: "/admin/skills", icon: Code },
-    { name: "Projects", path: "/admin/projects", icon: Briefcase },
-    { name: "Services", path: "/admin/services", icon: Sparkles },
-    { name: "Contact Info", path: "/admin/contact", icon: MessageSquare },
+    { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+    { name: "Hero & Profile", path: "/profile", icon: User },
+    { name: "Skills", path: "/skills", icon: Code },
+    { name: "Projects", path: "/projects", icon: Briefcase },
+    { name: "Services", path: "/services", icon: Sparkles },
+    { name: "Contact Info", path: "/contact", icon: MessageSquare },
   ];
 
   return (

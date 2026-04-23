@@ -27,7 +27,7 @@ const Login = () => {
       if (response.ok) {
         localStorage.setItem("admin_token", data.token);
         toast.success("Welcome back, Admin!");
-        navigate("/admin/dashboard");
+        navigate("/dashboard");
       } else {
         toast.error(data.message || "Login failed");
       }
