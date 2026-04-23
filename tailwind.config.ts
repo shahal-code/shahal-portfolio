@@ -128,6 +128,10 @@ export default {
   				'Courier New',
   				'monospace'
   			]
+  		},
+  		transitionTimingFunction: {
+  			'soft-out': 'cubic-bezier(0.23, 1, 0.32, 1)',
+  			'bounce-low': 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
   		}
   	}
   },

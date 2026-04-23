@@ -2,6 +2,7 @@ import { Mail, ExternalLink, Copy, Check, Github, Linkedin, Instagram, Twitter }
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { CONTACT_INFO } from "@/constants";
 import Magnetic from "@/components/Magnetic";
 import SpotlightCard from "@/components/ui/SpotlightCard";
@@ -10,16 +11,19 @@ import Scroll3DWrapper from "@/components/Scroll3DWrapper";
 const Contact = () => {
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
+  const { data } = usePortfolioData();
+  const contact = data?.profile?.contact || CONTACT_INFO;
+  const socialLinks = contact.social || contact.socials || CONTACT_INFO.social;
 
   const copyEmail = () => {
-    navigator.clipboard.writeText(CONTACT_INFO.email);
+    navigator.clipboard.writeText(contact.email);
     setCopied(true);
     toast({ title: "Email copied!", description: "My address is now in your clipboard." });
     setTimeout(() => setCopied(false), 2000);
   };
 
   const contactLinks = [
-    { icon: Mail, label: "Email", value: CONTACT_INFO.email, action: copyEmail },
+    { icon: Mail, label: "Email", value: contact.email, action: copyEmail },
   ];
 
   const socialHub = [
@@ -27,7 +31,7 @@ const Contact = () => {
       name: "LinkedIn",
       label: "Network",
       icon: Linkedin,
-      url: CONTACT_INFO.social.find(s => s.name === "LinkedIn")?.url,
+      url: socialLinks.find((s: any) => s.name === "LinkedIn")?.url,
       color: "rgba(10, 102, 194, 0.2)",
       iconColor: "#0A66C2"
     },
@@ -35,7 +39,7 @@ const Contact = () => {
       name: "Gmail",
       label: "Direct Message",
       icon: Mail,
-      url: `https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT_INFO.email}`,
+      url: `https://mail.google.com/mail/?view=cm&fs=1&to=${contact.email}`,
       color: "rgba(234, 67, 53, 0.15)",
       iconColor: "#EA4335"
     },
@@ -43,7 +47,7 @@ const Contact = () => {
       name: "Instagram",
       label: "Follow Me",
       icon: Instagram,
-      url: CONTACT_INFO.social.find(s => s.name === "Instagram")?.url,
+      url: socialLinks.find((s: any) => s.name === "Instagram")?.url,
       color: "rgba(225, 48, 108, 0.2)",
       iconColor: "#E1306C"
     },
@@ -51,7 +55,7 @@ const Contact = () => {
       name: "Twitter / X",
       label: "Live Updates",
       icon: Twitter,
-      url: CONTACT_INFO.social.find(s => s.name === "Twitter")?.url,
+      url: socialLinks.find((s: any) => s.name === "Twitter")?.url,
       color: "rgba(29, 155, 240, 0.2)",
       iconColor: "#1D9BF0"
     }

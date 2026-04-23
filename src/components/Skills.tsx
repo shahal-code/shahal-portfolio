@@ -1,11 +1,16 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { SKILLS } from "@/constants";
 import Magnetic from "@/components/Magnetic";
 import Scroll3DWrapper from "@/components/Scroll3DWrapper";
+import IconRenderer from "@/components/IconRenderer";
 
 import RippleButton from "@/components/ui/RippleButton";
 
 const Skills = () => {
+  const { data } = usePortfolioData();
+  const skillsList = data?.skills?.length > 0 ? data.skills : SKILLS;
+
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
 
   return (
@@ -32,7 +37,7 @@ const Skills = () => {
 
             {/* Dynamic Balanced Layout */}
             <div className="flex flex-wrap justify-center gap-3 md:gap-4 lg:gap-5 max-w-5xl mx-auto">
-              {SKILLS.map((skill, index) => {
+              {skillsList.map((skill: any, index: number) => {
                 // Subtle staggered effect that feels "aligned correctly" but still premium
                 const offset = (index % 4) * 2;
 
@@ -56,7 +61,11 @@ const Skills = () => {
 
                       <div className="relative z-10 flex items-center gap-3">
                         <div className="w-5 h-5 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                          <skill.icon />
+                          {typeof skill.icon === 'string' ? (
+                            <IconRenderer name={skill.icon} className="w-full h-full" />
+                          ) : (
+                            <skill.icon />
+                          )}
                         </div>
                         <div className="flex flex-col items-start">
                           <h3 className="font-bold text-foreground text-[10px] md:text-xs leading-tight group-hover:text-primary transition-colors">

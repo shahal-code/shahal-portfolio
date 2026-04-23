@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { ArrowDown, Instagram, Github, Twitter } from "lucide-react";
 import { PERSONAL_DETAILS, CONTACT_INFO } from "@/constants";
+import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import Magnetic from "@/components/Magnetic";
 import RippleButton from "@/components/ui/RippleButton";
@@ -14,6 +15,15 @@ interface HeroProps {
 
 const Hero = ({ onOpenContact }: HeroProps) => {
   const navigate = useNavigate();
+  const { data } = usePortfolioData();
+  const profile = data?.profile || PERSONAL_DETAILS;
+  const contact = data?.profile?.contact || CONTACT_INFO;
+  
+  // Split name for animation
+  const nameParts = profile.name.split(" ");
+  const firstName = nameParts[0];
+  const lastName = nameParts.slice(1).join(" ");
+
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -114,7 +124,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
           <div className={`flex-1 text-center lg:text-left reveal-base reveal-up ${isVisible ? 'revealed' : ''}`}>
             {/* Main heading with gradient */}
             <h1 className="w-fit mx-auto lg:mx-0 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 leading-tight tracking-tight shrink-0 transition-all">
-              <span className="animate-color-cycle">Muhammed</span> <span className="animate-color-cycle-reverse">Shahal.</span>
+              <span className="animate-color-cycle">{firstName}</span> <span className="animate-color-cycle-reverse">{lastName}.</span>
             </h1>
 
             {/* Decorative Gradient Line */}
@@ -122,12 +132,12 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
             {/* Role/subtitle */}
             <p className="text-lg md:text-2xl font-medium text-primary mb-4 md:mb-6 tracking-wide">
-              {PERSONAL_DETAILS.role}
+              {profile.role}
             </p>
 
             {/* Description */}
             <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
-              {PERSONAL_DETAILS.bio}
+              {profile.bio}
             </p>
 
             {/* CTA buttons - Desktop only position */}
@@ -135,7 +145,11 @@ const Hero = ({ onOpenContact }: HeroProps) => {
               <Magnetic strength={0.4}>
                 <RippleButton
                   className="relative text-base px-8 h-12 rounded-full overflow-hidden group text-primary-foreground bg-primary/20 backdrop-blur-3xl border border-primary/30 shadow-[inset_2px_2px_4px_rgba(255,255,255,0.3),inset_-2px_-4px_8px_rgba(0,0,0,0.3),0_10px_30px_hsl(var(--primary)/0.2)] hover:scale-105 active:scale-95 transition-all duration-300"
-                  onClick={() => window.open(CONTACT_INFO.social.find(s => s.name === "LinkedIn")?.url, "_blank", "noopener,noreferrer")}
+                  onClick={() => {
+                    const linkedin = contact.social?.find((s: any) => s.name === "LinkedIn") || 
+                                   contact.socials?.find((s: any) => s.name === "LinkedIn");
+                    if (linkedin) window.open(linkedin.url, "_blank", "noopener,noreferrer");
+                  }}
                 >
                   Let's Connect
                 </RippleButton>
@@ -243,7 +257,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
             <Magnetic strength={0.6}>
               <a
-                href={CONTACT_INFO.social.find(s => s.name === "GitHub")?.url}
+                href={(contact.social?.find((s: any) => s.name === "GitHub") || contact.socials?.find((s: any) => s.name === "GitHub"))?.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/5 text-primary hover:text-primary hover:bg-primary/15 backdrop-blur-3xl transition-all duration-300 hover:scale-110 active:scale-95 border border-primary/20 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.2)]"
@@ -255,7 +269,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
             <Magnetic strength={0.6}>
               <a
-                href={CONTACT_INFO.social.find(s => s.name === "Twitter")?.url}
+                href={(contact.social?.find((s: any) => s.name === "Twitter") || contact.socials?.find((s: any) => s.name === "Twitter"))?.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/5 text-primary hover:text-primary hover:bg-primary/15 backdrop-blur-3xl transition-all duration-300 hover:scale-110 active:scale-95 border border-primary/20 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.2)]"
@@ -267,7 +281,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
             <Magnetic strength={0.6}>
               <a
-                href={CONTACT_INFO.social.find(s => s.name === "Instagram")?.url}
+                href={(contact.social?.find((s: any) => s.name === "Instagram") || contact.socials?.find((s: any) => s.name === "Instagram"))?.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/5 text-primary hover:text-primary hover:bg-primary/15 backdrop-blur-3xl transition-all duration-300 hover:scale-110 active:scale-95 border border-primary/20 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.2)]"
@@ -293,3 +307,4 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 };
 
 export default Hero;
+

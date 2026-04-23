@@ -1,10 +1,14 @@
 import { SERVICES } from "@/constants";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { usePortfolioData } from "@/hooks/usePortfolioData";
 import SpotlightCard from "./ui/SpotlightCard";
 import Magnetic from "./Magnetic";
 import Scroll3DWrapper from "./Scroll3DWrapper";
+import IconRenderer from "./IconRenderer";
 
 const Services = () => {
+    const { data } = usePortfolioData();
+    const servicesList = data?.services?.length > 0 ? data.services : SERVICES;
     const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
 
     return (
@@ -31,7 +35,7 @@ const Services = () => {
 
                         {/* Services grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {SERVICES.map((service, index) => (
+                            {servicesList.map((service: any, index: number) => (
                                 <Magnetic key={index} strength={0.1}>
                                     <SpotlightCard
                                         className={`
@@ -51,7 +55,11 @@ const Services = () => {
                                                     color: service.color
                                                 }}
                                             >
-                                                <service.icon size={28} />
+                                                {typeof service.icon === 'string' ? (
+                                                    <IconRenderer name={service.icon} size={28} />
+                                                ) : (
+                                                    <service.icon size={28} />
+                                                )}
                                             </div>
 
                                             <h3 className="text-xl font-bold mb-3 tracking-tight group-hover:text-primary transition-colors">

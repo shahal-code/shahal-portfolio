@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { HIGHLIGHTS, PERSONAL_DETAILS, EDUCATION, EXPERIENCE_LIST } from "@/constants";
 import Magnetic from "@/components/Magnetic";
 import Scroll3DWrapper from "@/components/Scroll3DWrapper";
 import { GraduationCap, Briefcase, MapPin, Globe, ChevronDown, ChevronUp } from "lucide-react";
 
 const About = () => {
+  const { data } = usePortfolioData();
+  const profile = data?.profile || PERSONAL_DETAILS;
+  const about = profile.about || PERSONAL_DETAILS.about;
+  const experienceCount = profile.experienceCount || PERSONAL_DETAILS.experience.miniProjects;
+
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
   const [expandedEdu, setExpandedEdu] = useState<number | null>(null);
   const [expandedExp, setExpandedExp] = useState<number | null>(null);
@@ -21,8 +27,8 @@ const About = () => {
                 About Me
               </span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight transition-all">
-                <span className="animate-color-cycle">{PERSONAL_DETAILS.about.heading}</span><br />
-                <span className="animate-color-cycle-reverse">{PERSONAL_DETAILS.about.headingAccent}</span>
+                <span className="animate-color-cycle">{about.heading}</span><br />
+                <span className="animate-color-cycle-reverse">{about.headingAccent}</span>
               </h2>
             </div>
 
@@ -42,7 +48,7 @@ const About = () => {
                           BROTOTYPE <span className="text-primary text-sm font-normal">| Intensive MERN Program</span>
                         </h3>
                         <p className="text-muted-foreground leading-relaxed text-lg mb-6">
-                          {PERSONAL_DETAILS.about.summary}
+                          {about.summary}
                         </p>
                         <div className="flex flex-wrap gap-4">
                           <div className="flex items-center gap-2 text-sm text-primary/80">
@@ -167,7 +173,7 @@ const About = () => {
                 <Magnetic strength={0.3} className="w-full h-full">
                   <div className="p-8 rounded-[2.5rem] bg-card border border-border/50 shadow-sm backdrop-blur-3xl flex items-center justify-center group overflow-hidden relative h-full cursor-pointer hover:border-primary/30 transition-all">
                     <div className="z-10 text-center">
-                      <span className="text-6xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{PERSONAL_DETAILS.experience.miniProjects}</span>
+                      <span className="text-6xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{experienceCount}</span>
                       <p className="text-xs uppercase tracking-widest font-bold text-muted-foreground mt-2">Projects Completed</p>
                     </div>
                     <div className="absolute inset-0 bg-primary/5 blur-3xl group-hover:bg-primary/10 transition-colors" />

@@ -2,12 +2,16 @@ import { ExternalLink, Github, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import RippleButton from "@/components/ui/RippleButton";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { PROJECTS } from "@/constants";
 import Magnetic from "@/components/Magnetic";
 import SpotlightCard from "@/components/ui/SpotlightCard"; // Imported SpotlightCard
 import Scroll3DWrapper from "@/components/Scroll3DWrapper";
 
 const Projects = () => {
+  const { data } = usePortfolioData();
+  const projectsList = data?.projects?.length > 0 ? data.projects : PROJECTS;
+
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
 
   return (
@@ -33,7 +37,7 @@ const Projects = () => {
 
             {/* Project cards */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-              {PROJECTS.map((project, index) => (
+              {projectsList.map((project: any, index: number) => (
                 <SpotlightCard
                   key={index}
                   className={`group bg-card border border-border/50 backdrop-blur-3xl rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_30px_60px_rgba(0,0,0,0.15)] reveal-base reveal-up ${isVisible ? 'revealed' : ''}`}
