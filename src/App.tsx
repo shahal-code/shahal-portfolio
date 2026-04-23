@@ -47,24 +47,24 @@ const AppContent = () => {
   return (
     <Routes>
       {/* Admin Routes */}
-      <Route path="/admin/login" element={<Login />} />
-      <Route element={<ProtectedRoute />}>
+      <Route path="/admin" element={<ProtectedRoute />}>
         <Route element={<AdminLayout />}>
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
-          <Route path="/admin/dashboard" element={<Dashboard />} />
-          <Route path="/admin/profile" element={<EditProfile />} />
-          <Route path="/admin/projects" element={<EditProjects />} />
-          <Route path="/admin/skills" element={<EditSkills />} />
-          <Route path="/admin/services" element={<EditServices />} />
-          <Route path="/admin/contact" element={<EditContact />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="profile" element={<EditProfile />} />
+          <Route path="projects" element={<EditProjects />} />
+          <Route path="skills" element={<EditSkills />} />
+          <Route path="services" element={<EditServices />} />
+          <Route path="contact" element={<EditContact />} />
         </Route>
       </Route>
+      <Route path="/admin/login" element={<Login />} />
       <Route path="/admin/*" element={<Navigate to="/admin/dashboard" replace />} />
 
       {/* Main Site Routes */}
       <Route element={<MainLayout />}>
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route path="/home" element={<Index />} />
+        <Route path="/" element={<Index />} />
+        <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>
