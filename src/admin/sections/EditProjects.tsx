@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { usePortfolioData } from "@/hooks/usePortfolioData";
+import { usePortfolioData, API_BASE_URL } from "@/hooks/usePortfolioData";
 import { toast } from "sonner";
 import { Plus, Trash2, Edit2, Save, X, Loader2, ExternalLink } from "lucide-react";
 import RippleButton from "@/components/ui/RippleButton";
@@ -27,8 +27,8 @@ const EditProjects = () => {
     e.preventDefault();
     setSaving(true);
     const url = addingNew 
-      ? "http://localhost:5000/api/portfolio/projects" 
-      : `http://localhost:5000/api/portfolio/projects/${editingId}`;
+      ? `${API_BASE_URL}/portfolio/projects` 
+      : `${API_BASE_URL}/portfolio/projects/${editingId}`;
     
     try {
       const response = await fetch(url, {
@@ -59,7 +59,7 @@ const EditProjects = () => {
     if (!window.confirm("Are you sure you want to delete this project?")) return;
     
     try {
-      const response = await fetch(`http://localhost:5000/api/portfolio/projects/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/portfolio/projects/${id}`, {
         method: "DELETE",
         headers: { 
           "Authorization": `Bearer ${localStorage.getItem("admin_token")}`

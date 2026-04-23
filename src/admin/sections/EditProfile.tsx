@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { usePortfolioData } from "@/hooks/usePortfolioData";
+import { usePortfolioData, API_BASE_URL } from "@/hooks/usePortfolioData";
 import { toast } from "sonner";
 import { Save, Loader2, Plus, Trash2 } from "lucide-react";
 import RippleButton from "@/components/ui/RippleButton";
@@ -19,7 +19,7 @@ const EditProfile = () => {
     e.preventDefault();
     setSaving(true);
     try {
-      const response = await fetch("http://localhost:5000/api/portfolio/profile", {
+      const response = await fetch(`${API_BASE_URL}/portfolio/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

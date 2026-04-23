@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { usePortfolioData } from "@/hooks/usePortfolioData";
+import { usePortfolioData, API_BASE_URL } from "@/hooks/usePortfolioData";
 import { toast } from "sonner";
 import { Plus, Trash2, Save, X, Loader2 } from "lucide-react";
 import RippleButton from "@/components/ui/RippleButton";
@@ -29,7 +29,7 @@ const EditSkills = () => {
     e.preventDefault();
     setSaving(true);
     try {
-      const response = await fetch("http://localhost:5000/api/portfolio/skills", {
+      const response = await fetch(`${API_BASE_URL}/portfolio/skills`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -56,7 +56,7 @@ const EditSkills = () => {
   const handleDelete = async (id: string) => {
     if (!window.confirm("Delete this skill?")) return;
     try {
-      const response = await fetch(`http://localhost:5000/api/portfolio/skills/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/portfolio/skills/${id}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${localStorage.getItem("admin_token")}` }
       });

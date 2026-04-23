@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { usePortfolioData } from "@/hooks/usePortfolioData";
+import { usePortfolioData, API_BASE_URL } from "@/hooks/usePortfolioData";
 import { toast } from "sonner";
 import { Plus, Trash2, Save, Edit2, X, Loader2 } from "lucide-react";
 import RippleButton from "@/components/ui/RippleButton";
@@ -32,8 +32,8 @@ const EditServices = () => {
     setSaving(true);
     const isNew = addingNew;
     const url = isNew
-      ? "http://localhost:5000/api/portfolio/services"
-      : `http://localhost:5000/api/portfolio/services/${editingId}`;
+      ? `${API_BASE_URL}/portfolio/services`
+      : `${API_BASE_URL}/portfolio/services/${editingId}`;
 
     try {
       const response = await fetch(url, {
@@ -63,7 +63,7 @@ const EditServices = () => {
   const handleDelete = async (id: string) => {
     if (!window.confirm("Delete this service?")) return;
     try {
-      await fetch(`http://localhost:5000/api/portfolio/services/${id}`, {
+      await fetch(`${API_BASE_URL}/portfolio/services/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${localStorage.getItem("admin_token")}` },
       });
