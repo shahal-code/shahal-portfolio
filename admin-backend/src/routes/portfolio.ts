@@ -1,9 +1,9 @@
 import express from 'express';
-import { authenticateToken } from '../middleware/auth';
-import Profile from '../models/Profile';
-import Project from '../models/Project';
-import Skill from '../models/Skill';
-import Service from '../models/Service';
+import { authenticateToken } from '../middleware/auth.js';
+import Profile from '../models/Profile.js';
+import Project from '../models/Project.js';
+import Skill from '../models/Skill.js';
+import Service from '../models/Service.js';
 
 const router = express.Router();
 

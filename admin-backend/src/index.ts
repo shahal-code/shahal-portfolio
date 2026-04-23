@@ -2,8 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import authRoutes from './routes/auth';
-import portfolioRoutes from './routes/portfolio';
+import authRoutes from './routes/auth.js';
+import portfolioRoutes from './routes/portfolio.js';
 
 dotenv.config();
 
