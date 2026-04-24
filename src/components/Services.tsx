@@ -21,7 +21,7 @@ const Services = () => {
                 <div className="container mx-auto px-4 sm:px-6 relative z-10">
                     <div ref={sectionRef} className="max-w-6xl mx-auto">
                         {/* Section header */}
-                        <div className={`text-center mb-16 reveal-base reveal-up ${isVisible ? 'revealed' : ''}`}>
+                        <div className={`text-center mb-16 reveal-base revealed`}>
                             <span className="inline-block text-sm font-semibold text-primary tracking-widest uppercase mb-4 px-4 py-1.5 bg-primary/10 rounded-full">
                                 What I Do
                             </span>
@@ -41,7 +41,7 @@ const Services = () => {
                                         className={`
 39:                     group h-full bg-card/40 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8
 40:                     transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl 
-41:                     reveal-base reveal-up ${isVisible ? 'revealed' : ''}
+41:                     reveal-base revealed
 42:                   `}
                                         style={{ transitionDelay: `${index * 0.1}s` }}
                                         spotlightColor={`${service.color}20` || "rgba(139, 92, 246, 0.2)"}
