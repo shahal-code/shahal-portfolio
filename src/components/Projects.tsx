@@ -23,7 +23,7 @@ const Projects = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div ref={sectionRef} className="max-w-6xl mx-auto">
             {/* Section header */}
-            <div className={`text-center mb-20 reveal-base revealed`}>
+            <div className={`text-center mb-20 reveal-base reveal-up ${isVisible ? 'revealed' : ''}`}>
               <span className="inline-block text-sm font-semibold text-primary tracking-widest uppercase mb-4 px-4 py-1.5 bg-primary/10 rounded-full">
                 Portfolio
               </span>
@@ -40,7 +40,7 @@ const Projects = () => {
               {projectsList.map((project: any, index: number) => (
                 <SpotlightCard
                   key={index}
-                  className={`group bg-card border border-border/50 backdrop-blur-3xl rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_30px_60px_rgba(0,0,0,0.15)] reveal-base revealed`}
+                  className={`group bg-card border border-border/50 backdrop-blur-3xl rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_30px_60px_rgba(0,0,0,0.15)] reveal-base reveal-up ${isVisible ? 'revealed' : ''}`}
                   style={{ transitionDelay: `${0.2 + index * 0.15}s` }}
                   spotlightColor="rgba(139, 92, 246, 0.2)"
                 >

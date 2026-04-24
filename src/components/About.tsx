@@ -22,7 +22,7 @@ const About = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div ref={sectionRef} className="max-w-6xl mx-auto">
             {/* Section header */}
-            <div className={`text-center mb-20 reveal-base revealed`}>
+            <div className={`text-center mb-20 reveal-base reveal-up ${isVisible ? 'revealed' : ''}`}>
               <span className="inline-block text-sm font-semibold text-primary tracking-widest uppercase mb-4 px-4 py-1.5 bg-primary/10 rounded-full">
                 About Me
               </span>
@@ -36,7 +36,7 @@ const About = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 auto-rows-min">
 
               {/* Summary Card - Highlight Brototype */}
-              <div className={`lg:col-span-8 reveal-base revealed`}>
+              <div className={`lg:col-span-8 reveal-base reveal-up ${isVisible ? 'revealed' : ''}`}>
                 <Magnetic strength={0.1} className="w-full h-full">
                   <div className="p-8 rounded-[2.5rem] bg-card border border-border/50 shadow-sm backdrop-blur-3xl h-full cursor-pointer hover:border-primary/30 transition-all duration-500">
                     <div className="flex flex-col md:flex-row gap-8 items-start">
@@ -65,7 +65,7 @@ const About = () => {
               </div>
 
               {/* Quick Stats/Highlights */}
-              <div className={`lg:col-span-4 grid grid-cols-2 gap-4 reveal-base revealed`} style={{ transitionDelay: '0.2s' }}>
+              <div className={`lg:col-span-4 grid grid-cols-2 gap-4 reveal-base reveal-up ${isVisible ? 'revealed' : ''}`} style={{ transitionDelay: '0.2s' }}>
                 {HIGHLIGHTS.map((item, idx) => (
                   <Magnetic key={idx} strength={0.2} className="w-full">
                     <div className="p-6 rounded-[2rem] bg-card border border-border/50 shadow-sm backdrop-blur-3xl hover:border-primary/30 transition-all duration-500 group h-full cursor-pointer">
@@ -78,7 +78,7 @@ const About = () => {
               </div>
 
               {/* Education & Experience Row */}
-              <div className={`lg:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6 reveal-base revealed`} style={{ transitionDelay: '0.3s' }}>
+              <div className={`lg:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6 reveal-base reveal-up ${isVisible ? 'revealed' : ''}`} style={{ transitionDelay: '0.3s' }}>
 
                 {/* Education Timeline */}
                 <div className="p-8 rounded-[2.5rem] bg-card border border-border/50 shadow-sm backdrop-blur-3xl flex flex-col h-full">
@@ -157,7 +157,7 @@ const About = () => {
               </div>
 
               {/* Video & Highlights Row */}
-              <div className={`lg:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6 reveal-base revealed`} style={{ transitionDelay: '0.4s' }}>
+              <div className={`lg:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6 reveal-base reveal-up ${isVisible ? 'revealed' : ''}`} style={{ transitionDelay: '0.4s' }}>
 
                 {/* Video Editing */}
                 <Magnetic strength={0.2} className="w-full h-full">

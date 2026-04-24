@@ -12,7 +12,35 @@ export const useScrollReveal = ({
   triggerOnce = false,
 }: UseScrollRevealOptions = {}) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(true); // Always true immediately
+  const [isVisible, setIsVisible] = useState(false);
 
-  return { ref, isVisible: true };
+  useEffect(() => {
+    // Immediate reveal on mobile for buttery smooth performance
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setIsVisible(true);
+      return;
+    }
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          if (triggerOnce) {
+            observer.unobserve(element);
+          }
+        } else if (!triggerOnce) {
+          setIsVisible(false);
+        }
+      },
+      { threshold, rootMargin }
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [threshold, rootMargin, triggerOnce]);
+
+  return { ref, isVisible };
 };

@@ -128,14 +128,14 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
       <div ref={sectionRef} className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-12">
-          <div className="flex-1 text-center lg:text-left reveal-base revealed">
+          <div className={`flex-1 text-center lg:text-left reveal-base reveal-up ${isVisible ? 'revealed' : ''}`}>
             {/* Main heading with gradient */}
             <h1 className="w-fit mx-auto lg:mx-0 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 leading-tight tracking-tight shrink-0 transition-all">
               <span className="animate-color-cycle">{firstName}</span> <span className="animate-color-cycle-reverse">{lastName}.</span>
             </h1>
 
             {/* Decorative Gradient Line */}
-            <div className="w-24 h-1.5 bg-gradient-to-r from-primary to-accent rounded-full mb-8 opacity-80 transition-all duration-1000 delay-300" />
+            <div className={`w-24 h-1.5 bg-gradient-to-r from-primary to-accent rounded-full mb-8 opacity-80 transition-all duration-1000 delay-300 ${isVisible ? 'w-24 opacity-80' : 'w-0 opacity-0'}`} />
 
             {/* Role/subtitle */}
             <p className="text-lg md:text-2xl font-medium text-primary mb-4 md:mb-6 tracking-wide">
@@ -204,7 +204,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
           {/* Right Image Column with 3D Tilt & Scroll Parallax */}
           <motion.div
             style={{ scale, filter, opacity, y: yFly }}
-            className="flex-1 relative perspective-1000 lens-focus opacity-100" // Lens Focus effect
+            className={`flex-1 relative perspective-1000 lens-focus ${isVisible ? 'opacity-100' : 'opacity-0'}`} // Lens Focus effect
           >
             <motion.div
               onMouseMove={handleMouseMove}
