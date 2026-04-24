@@ -637,3 +637,12 @@ All colors MUST be HSL.
     opacity: 1 !important;
   }
 }
+
+/* High-Performance Mobile Override: Remove all scroll reveal animations */
+@media (max-width: 767px) {
+  .reveal-base {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

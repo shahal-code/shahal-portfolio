@@ -93,7 +93,7 @@ const SpaceBackground = () => {
 
         // --- 4. Starfield ---
         // --- PERFORMANCE OPTIMIZATION: Particle Counts ---
-        const particlesCount = isMobile ? 1200 : 3000;
+        const particlesCount = isMobile ? 400 : 3000;
         const geometry = new THREE.BufferGeometry();
         const positions = new Float32Array(particlesCount * 3);
         const colors = new Float32Array(particlesCount * 3);
@@ -166,7 +166,7 @@ const SpaceBackground = () => {
 
         // --- 5. Floating Shards ---
         const shards: THREE.Mesh[] = [];
-        const shardCount = isMobile ? 8 : 15;
+        const shardCount = isMobile ? 0 : 15;
 
         const shardGeometries = [
             new THREE.IcosahedronGeometry(1, 0),
