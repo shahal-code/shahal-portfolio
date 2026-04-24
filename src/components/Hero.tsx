@@ -29,26 +29,28 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
   const isMobile = useIsMobile();
 
-  // Scroll Parallax settings (Lens Focus & Flying Past Effect)
+  // Scroll Parallax settings (Disabled on mobile for performance)
   const { scrollY } = useScroll();
-  // Aggressively scale up to simulate flying toward the image (Disabled on mobile for performance)
   const scale = useTransform(scrollY, [0, 500], isMobile ? [1, 1] : [1, 1.8]);
-  // Pull the image upward significantly as it scales (Disabled on mobile)
   const yFly = useTransform(scrollY, [0, 500], isMobile ? [0, 0] : [0, -150]);
+  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
+
+  // Background blob & image transformations (Must be top-level)
+  const blob1Y = useTransform(scrollY, [0, 500], isMobile ? [0, 0] : [0, -100]);
+  const blob2Y = useTransform(scrollY, [0, 500], isMobile ? [0, 0] : [0, -150]);
+  const bgImageY = useTransform(scrollY, [0, 500], isMobile ? [0, 0] : [0, 100]);
 
   // Filter (blur) removed for performance - real-time backdrop blur during scroll is heavy
   const filter = "none";
-  // Fade out smoothly over a longer scroll distance
-  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
 
-  // 3D Tilt settings
+  // 3D Tilt settings (Values reset on mobile)
   const x = useMotionValue(0);
   const yTilt = useMotionValue(0);
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(yTilt);
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
+  const mouseYSpring = useSpring(yTilt, { stiffness: 150, damping: 20 });
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7deg", "-7deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7deg", "7deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], isMobile ? ["0deg", "0deg"] : ["7deg", "-7deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], isMobile ? ["0deg", "0deg"] : ["-7deg", "7deg"]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -88,7 +90,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
     <section id="hero" className="min-h-screen flex items-start pt-24 pb-20 md:items-center md:pt-0 md:pb-0 justify-center relative overflow-hidden">
       {/* Background layers */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <motion.div style={{ y: useTransform(scrollY, [0, 500], [0, 100]) }} className="w-full h-full">
+        <motion.div style={{ y: bgImageY }} className="w-full h-full">
           <img
             src="/hero-bg.png"
             alt=""
@@ -109,15 +111,19 @@ const Hero = ({ onOpenContact }: HeroProps) => {
       {/* Premium Divider - Visible on all devices */}
       <div className="premium-divider bottom-0" />
 
-      {/* Floating decorative elements - Scaled down for mobile */}
-      <motion.div
-        style={{ y: useTransform(scrollY, [0, 500], [0, -100]) }}
-        className="absolute top-1/4 right-1/4 w-48 h-48 md:w-64 md:h-64 bg-primary/5 rounded-full blur-[60px] md:blur-3xl animate-float will-change-transform"
-      />
-      <motion.div
-        style={{ y: useTransform(scrollY, [0, 500], [0, -150]) }}
-        className="absolute bottom-1/4 left-1/4 w-60 h-60 md:w-80 md:h-80 bg-accent/20 rounded-full blur-[80px] md:blur-3xl animate-float-delayed will-change-transform"
-      />
+      {/* Floating decorative elements - Hidden on mobile for buttery smooth scrolling */}
+      {!isMobile && (
+        <>
+          <motion.div
+            style={{ y: blob1Y }}
+            className="absolute top-1/4 right-1/4 w-48 h-48 md:w-64 md:h-64 bg-primary/5 rounded-full blur-[60px] md:blur-3xl animate-float will-change-transform"
+          />
+          <motion.div
+            style={{ y: blob2Y }}
+            className="absolute bottom-1/4 left-1/4 w-60 h-60 md:w-80 md:h-80 bg-accent/20 rounded-full blur-[80px] md:blur-3xl animate-float-delayed will-change-transform"
+          />
+        </>
+      )}
 
       <div ref={sectionRef} className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-12">
