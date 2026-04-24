@@ -28,6 +28,7 @@ import EditContact from "./admin/sections/EditContact";
 const queryClient = new QueryClient();
 
 import MobileDock from "@/components/MobileDock";
+import Preloader from "@/components/Preloader";
 
 const MainLayout = () => {
   return (
@@ -115,6 +116,7 @@ const App = () => {
       <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme">
         <Toaster />
         <Sonner />
+        <Preloader />
         <BrowserRouter>
           <AppContent />
         </BrowserRouter>
