@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Home, User, Layers, Code, Briefcase } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Magnetic from "./Magnetic";
 import RippleButton from "./ui/RippleButton";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const MobileDock = () => {
     const [activeSection, setActiveSection] = useState("hero");
     const location = useLocation();
+    const navigate = useNavigate();
 
     const navLinks = [
         { id: "hero", icon: Home, label: "Home" },
@@ -45,6 +46,18 @@ const MobileDock = () => {
     }, [activeSection]);
 
     const scrollToSection = (sectionId: string) => {
+        if (location.pathname !== "/") {
+            navigate("/");
+            // Small delay to allow navigation to complete before scrolling
+            setTimeout(() => {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                }
+            }, 100);
+            return;
+        }
+
         const element = document.getElementById(sectionId);
         if (element) {
             element.scrollIntoView({ behavior: "smooth" });

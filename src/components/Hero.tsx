@@ -16,11 +16,12 @@ interface HeroProps {
 const Hero = ({ onOpenContact }: HeroProps) => {
   const navigate = useNavigate();
   const { data } = usePortfolioData();
-  const profile = data?.profile || PERSONAL_DETAILS;
-  const contact = data?.profile?.contact || CONTACT_INFO;
+  const profile = (data?.profile && Object.keys(data.profile).length > 0) ? data.profile : PERSONAL_DETAILS;
+  const contact = (data?.profile?.contact) ? data.profile.contact : CONTACT_INFO;
 
-  // Split name for animation
-  const nameParts = profile.name.split(" ");
+  // Split name for animation with safety check to prevent blank screen crash
+  const fullName = profile?.name || PERSONAL_DETAILS.name;
+  const nameParts = fullName.split(" ");
   const firstName = nameParts[0];
   const lastName = nameParts.slice(1).join(" ");
 
