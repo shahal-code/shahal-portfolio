@@ -20,7 +20,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
   const contact = (data?.profile?.contact) ? data.profile.contact : CONTACT_INFO;
 
   // Split name for animation with safety check to prevent blank screen crash
-  const fullName = profile?.name || PERSONAL_DETAILS.name;
+  const fullName = (profile && profile.name) ? profile.name : PERSONAL_DETAILS.name;
   const nameParts = fullName.split(" ");
   const firstName = nameParts[0];
   const lastName = nameParts.slice(1).join(" ");
