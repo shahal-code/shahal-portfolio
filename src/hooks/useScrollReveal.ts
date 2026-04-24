@@ -15,11 +15,6 @@ export const useScrollReveal = ({
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Immediate reveal on mobile for buttery smooth performance
-    if (typeof window !== "undefined" && window.innerWidth < 768) {
-      setIsVisible(true);
-      return;
-    }
     const element = ref.current;
     if (!element) return;
 
