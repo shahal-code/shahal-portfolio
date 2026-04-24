@@ -27,6 +27,8 @@ import EditContact from "./admin/sections/EditContact";
 
 const queryClient = new QueryClient();
 
+import MobileDock from "@/components/MobileDock";
+
 const MainLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
@@ -38,6 +40,7 @@ const MainLayout = () => {
           <Outlet />
         </CinematicPageTransition>
       </main>
+      <MobileDock />
       <Footer />
     </div>
   );

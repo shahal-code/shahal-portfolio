@@ -11,6 +11,7 @@ interface Ripple {
     x: number;
     y: number;
     id: number;
+    scale: number;
 }
 
 const RippleButton: React.FC<RippleButtonProps> = ({ children, className, onClick, ...props }) => {
@@ -20,8 +21,8 @@ const RippleButton: React.FC<RippleButtonProps> = ({ children, className, onClic
     useEffect(() => {
         if (ripples.length > 0) {
             const timer = setTimeout(() => {
-                setRipples((prevRipples) => prevRipples.slice(1));
-            }, 800); // Duration matches the liquid-splash animation time
+                setRipples((prevRipples) => prevRipples.filter(r => Date.now() - r.id < 800));
+            }, 800);
 
             return () => clearTimeout(timer);
         }
@@ -30,16 +31,22 @@ const RippleButton: React.FC<RippleButtonProps> = ({ children, className, onClic
     const createRipple = (event: React.MouseEvent<HTMLButtonElement>) => {
         const button = event.currentTarget;
         const rect = button.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-
+        
         // Create multiple splash droplets for a more "liquid" feel
-        const splashCount = 3;
+        const splashCount = 4;
         const newRipples = [];
 
         for (let i = 0; i < splashCount; i++) {
-            const x = event.clientX - rect.left - size / 2 + (Math.random() - 0.5) * 20;
-            const y = event.clientY - rect.top - size / 2 + (Math.random() - 0.5) * 20;
-            newRipples.push({ x, y, id: Date.now() + i });
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            newRipples.push({ 
+                x, 
+                y, 
+                id: Date.now() + i,
+                scale: 1 + Math.random() * 0.5,
+                xOffset: (Math.random() - 0.5) * 40,
+                yOffset: (Math.random() - 0.5) * 40
+            });
         }
 
         setRipples((prevRipples) => [...prevRipples, ...newRipples]);
@@ -64,23 +71,31 @@ const RippleButton: React.FC<RippleButtonProps> = ({ children, className, onClic
             {...props}
         >
             <span className="relative z-10">{children}</span>
-            {ripples.map((ripple) => (
-                <span
-                    key={ripple.id}
-                    className="absolute rounded-full bg-primary/40 animate-liquid-splash pointer-events-none"
-                    style={{
-                        left: ripple.x,
-                        top: ripple.y,
-                        width: '100px', // Fixed size, scale handles the growth
-                        height: '100px',
-                        marginLeft: '-50px',
-                        marginTop: '-50px',
-                        willChange: "transform, opacity",
-                        transform: "scale(0) translateZ(0)",
-                        backfaceVisibility: "hidden"
-                    }}
-                />
-            ))}
+            
+            {/* The Gooey Ripples Layer */}
+            <div 
+                className="absolute inset-0 pointer-events-none"
+                style={{ filter: "url(#goo)" }}
+            >
+                {ripples.map((ripple) => (
+                    <span
+                        key={ripple.id}
+                        className="absolute rounded-full bg-primary/60 animate-liquid-splash"
+                        style={{
+                            left: ripple.x,
+                            top: ripple.y,
+                            width: '40px',
+                            height: '40px',
+                            marginLeft: '-20px',
+                            marginTop: '-20px',
+                            willChange: "transform, opacity",
+                            "--x-offset": `${ripple.xOffset}px`,
+                            "--y-offset": `${ripple.yOffset}px`,
+                            transform: `scale(${ripple.scale}) translateZ(0)`,
+                        } as React.CSSProperties}
+                    />
+                ))}
+            </div>
         </button>
     );
 };

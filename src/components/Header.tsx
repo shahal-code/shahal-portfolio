@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import Magnetic from "@/components/Magnetic";
 import RippleButton from "@/components/ui/RippleButton";
@@ -11,7 +10,6 @@ interface HeaderProps {
 
 const Header = ({ onOpenContact }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const navigate = useNavigate();
   const location = useLocation();
@@ -71,14 +69,12 @@ const Header = ({ onOpenContact }: HeaderProps) => {
         isManualScroll.current = true;
         setActiveSection(sectionId);
         element.scrollIntoView({ behavior: "smooth" });
-        setIsMobileMenuOpen(false);
         setTimeout(() => {
           isManualScroll.current = false;
         }, 1000);
       }
     } else {
       navigate("/", { state: { scrollTo: sectionId } });
-      setIsMobileMenuOpen(false);
     }
   };
 
@@ -89,11 +85,11 @@ const Header = ({ onOpenContact }: HeaderProps) => {
       <div
         className={`
           mx-auto transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]
-          ${isScrolled || isMobileMenuOpen
+          ${isScrolled
             ? "max-w-[92%] sm:max-w-4xl bg-white/[0.05] dark:bg-black/20 backdrop-blur-2xl shadow-2xl border border-white/10 py-2 rounded-2xl px-6"
             : "max-w-full md:max-w-7xl bg-transparent py-4 px-4"
           }
-          ${isMobileMenuOpen ? "rounded-3xl bg-background/40 backdrop-blur-3xl border border-white/10 shadow-2xl" : ""}
+          md:block hidden
         `}
       >
         <div className="flex items-center justify-between h-14">
@@ -112,7 +108,7 @@ const Header = ({ onOpenContact }: HeaderProps) => {
           </Magnetic>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="flex items-center gap-6">
             <div className="flex items-center gap-1">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.sectionId;
@@ -141,48 +137,32 @@ const Header = ({ onOpenContact }: HeaderProps) => {
               </Magnetic>
             </div>
           </nav>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-4">
-            <Magnetic strength={0.3}>
-              <ThemeToggle />
-            </Magnetic>
-            <Magnetic strength={0.5}>
-              <button
-                className="text-foreground p-2 rounded-full hover:bg-primary/10 hover:backdrop-blur-3xl hover:border hover:border-primary/20 transition-all duration-500 active:scale-90"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </Magnetic>
-          </div>
         </div>
+      </div>
 
-        {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <nav className="md:hidden py-8 animate-fade-in px-4">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => {
-                const isActive = activeSection === link.sectionId;
-                return (
-                  <RippleButton
-                    key={link.label}
-                    onClick={() => scrollToSection(link.sectionId)}
-                    className={`
-                      w-full text-left text-xl py-4 px-8 rounded-2xl transition-all duration-150 font-bold
-                      ${isActive
-                        ? "text-primary bg-primary/15 backdrop-blur-[20px] shadow-[inset_2px_2px_4px_rgba(255,255,255,0.3),inset_-2px_-4px_8px_rgba(0,0,0,0.3),0_10px_30px_hsl(var(--primary)/0.2)] border border-primary/30"
-                        : "text-muted-foreground hover:text-primary hover:bg-primary/5 hover:backdrop-blur-[20px] hover:shadow-[inset_2px_2px_8px_rgba(255,255,255,0.2),inset_-2px_-2px_8px_rgba(0,0,0,0.2)] active:scale-[0.98]"
-                      }
-                    `}
-                  >
-                    {link.label}
-                  </RippleButton>
-                );
-              })}
-            </div>
-          </nav>
-        )}
+      {/* Dynamic Island Header for Mobile */}
+      <div className="md:hidden flex justify-center w-full">
+        <div className={`
+          flex items-center justify-between gap-8 px-8 py-3 rounded-full border border-white/10 transition-all duration-500
+          ${isScrolled 
+            ? "bg-background/60 backdrop-blur-2xl shadow-2xl w-[92%] border-white/20" 
+            : "bg-transparent w-full border-transparent"
+          }
+        `}>
+          <Magnetic strength={0.4}>
+            <Link
+              to="/"
+              className="flex items-center gap-1.5"
+            >
+              <span className="text-2xl font-bold tracking-tighter animate-color-cycle">MS</span>
+              <span className="text-2xl font-black animate-color-cycle-reverse">.</span>
+            </Link>
+          </Magnetic>
+
+          <Magnetic strength={0.3}>
+            <ThemeToggle />
+          </Magnetic>
+        </div>
       </div>
     </header>
   );
