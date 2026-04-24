@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
     console.log(`[DEBUG] Fetching portfolio: ${skills.length} skills, ${projects.length} projects`);
     
     res.json({
-      profile: profile || {},
+      profile: profile || null,
       projects,
       skills,
       services

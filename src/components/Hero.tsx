@@ -20,7 +20,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
   const contact = data?.profile?.contact || CONTACT_INFO;
   
   // Split name for animation
-  const nameParts = profile.name.split(" ");
+  const nameParts = (profile?.name || "").split(" ");
   const firstName = nameParts[0];
   const lastName = nameParts.slice(1).join(" ");
 
