@@ -12,26 +12,22 @@ const Index = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 1. If we have a scrollTo request, handle it
+    // If we came from another page (like Contact) with a scrollTo request
     if (location.state?.scrollTo) {
       const timer = setTimeout(() => {
         const element = document.getElementById(location.state.scrollTo);
         if (element) {
-          element.scrollIntoView({ behavior: "auto" });
-          // Clear state so it doesn't happen again on refresh, 
-          // but add a flag so we don't jump back to top immediately
-          navigate(location.pathname, { replace: true, state: { _scrolled: true } });
+          element.scrollIntoView({ behavior: "smooth" });
+          // Clear the state so it doesn't scroll again on refresh
+          navigate(location.pathname, { replace: true, state: {} });
         }
       }, 100);
       return () => clearTimeout(timer);
-    }
-
-    // 2. If we AREN'T currently in the middle of clearing a scroll, 
-    // and we DON'T have a scrollTo request, go to top.
-    if (!location.state?._scrolled) {
+    } else {
+      // Regular load - scroll to top
       window.scrollTo(0, 0);
     }
-  }, [location.state, navigate, location.pathname]);
+  }, [location.pathname]);
 
   return (
     <div className="w-full">

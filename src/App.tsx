@@ -93,7 +93,6 @@ const AppContent = () => {
 
       <Route element={<MainLayout />}>
         <Route path="/" element={<Index />} />
-        <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>

@@ -18,9 +18,9 @@ const Hero = ({ onOpenContact }: HeroProps) => {
   const { data } = usePortfolioData();
   const profile = data?.profile || PERSONAL_DETAILS;
   const contact = data?.profile?.contact || CONTACT_INFO;
-  
+
   // Split name for animation
-  const nameParts = (profile?.name || "").split(" ");
+  const nameParts = profile.name.split(" ");
   const firstName = nameParts[0];
   const lastName = nameParts.slice(1).join(" ");
 
@@ -146,8 +146,8 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                 <RippleButton
                   className="relative text-base px-8 h-12 rounded-full overflow-hidden group text-primary-foreground bg-primary/20 backdrop-blur-3xl border border-primary/30 shadow-[inset_2px_2px_4px_rgba(255,255,255,0.3),inset_-2px_-4px_8px_rgba(0,0,0,0.3),0_10px_30px_hsl(var(--primary)/0.2)] hover:scale-105 active:scale-95 transition-all duration-300"
                   onClick={() => {
-                    const linkedin = contact.social?.find((s: any) => s.name === "LinkedIn") || 
-                                   contact.socials?.find((s: any) => s.name === "LinkedIn");
+                    const linkedin = contact.social?.find((s: any) => s.name === "LinkedIn") ||
+                      contact.socials?.find((s: any) => s.name === "LinkedIn");
                     if (linkedin) window.open(linkedin.url, "_blank", "noopener,noreferrer");
                   }}
                 >

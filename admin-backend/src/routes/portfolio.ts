@@ -14,11 +14,11 @@ router.get('/', async (req, res) => {
     const projects = await Project.find().sort('order');
     const skills = await Skill.find().sort('order');
     const services = await Service.find().sort('order');
-    
+
     console.log(`[DEBUG] Fetching portfolio: ${skills.length} skills, ${projects.length} projects`);
-    
+
     res.json({
-      profile: profile || null,
+      profile: profile || {},
       projects,
       skills,
       services
@@ -48,7 +48,7 @@ router.post('/projects', authenticateToken, async (req, res) => {
     if (!title || !image) {
       return res.status(400).json({ message: 'Title and Image are required' });
     }
-    
+
     console.log('[DEBUG] Creating project:', title);
     const project = new Project(req.body);
     await project.save();
@@ -89,11 +89,11 @@ router.post('/skills', authenticateToken, async (req, res) => {
     console.log('[DEBUG] Adding skill:', name, 'to category:', category);
     const skill = new Skill(req.body);
     await skill.save();
-    
+
     // Verify count after save
     const count = await Skill.countDocuments();
     console.log(`[DEBUG] Skill saved. Total skills in DB: ${count}`);
-    
+
     res.status(201).json(skill);
   } catch (err) {
     console.error('[ERROR] Skill creation failed:', err);
@@ -125,7 +125,7 @@ router.post('/services', authenticateToken, async (req, res) => {
   try {
     const { title } = req.body;
     if (!title) return res.status(400).json({ message: 'Title is required' });
-    
+
     const service = new Service(req.body);
     await service.save();
     res.status(201).json(service);

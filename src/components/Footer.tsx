@@ -4,7 +4,7 @@ import { PERSONAL_DETAILS } from "@/constants";
 const Footer = () => {
   const { data } = usePortfolioData();
   const profile = data?.profile || PERSONAL_DETAILS;
-  const initials = (profile?.name || "").split(" ").map((n: string) => n[0]).join("");
+  const initials = profile.name.split(" ").map((n: string) => n[0]).join("");
   return (
     <footer className="py-12 border-t border-border/50 relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6">

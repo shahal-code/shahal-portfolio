@@ -44,7 +44,7 @@ const EditContact = () => {
   };
 
   const updateSocial = (index: number, field: string, value: string) => {
-    const updatedSocials = [...(formData?.socials || [])];
+    const updatedSocials = [...(formData.socials || [])];
     updatedSocials[index] = { ...updatedSocials[index], [field]: value };
     setFormData({ ...formData, socials: updatedSocials });
   };
@@ -57,7 +57,7 @@ const EditContact = () => {
   };
 
   const removeSocial = (index: number) => {
-    const updatedSocials = (formData?.socials || []).filter((_: any, i: number) => i !== index);
+    const updatedSocials = formData.socials.filter((_: any, i: number) => i !== index);
     setFormData({ ...formData, socials: updatedSocials });
   };
 
