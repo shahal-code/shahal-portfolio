@@ -1,5 +1,4 @@
-import { useRef, ReactNode } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { ReactNode } from "react";
 
 interface Scroll3DWrapperProps {
     children: ReactNode;
@@ -7,39 +6,14 @@ interface Scroll3DWrapperProps {
 }
 
 const Scroll3DWrapper = ({ children, className = "" }: Scroll3DWrapperProps) => {
-    const ref = useRef<HTMLDivElement>(null);
-
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"],
-    });
-
-    // Neutralize animations by returning constant values
-    const scale = useTransform(scrollYProgress, [0, 1], [1, 1]);
-    const y = useTransform(scrollYProgress, [0, 1], [0, 0]);
-    const filter = "none";
-    const opacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
-
-    const transform = useTransform(
-        [scale, y],
-        ([s, yVal]) => `translate3d(0, ${yVal}px, 0) scale(${s})`
-    );
-
+    // Completely simplified to avoid scroll calculations on low-end devices
+    // The individual elements can still have their own reveal animations
     return (
-        <motion.div
-            ref={ref}
-            style={{
-                opacity,
-                filter,
-                transform,
-                willChange: "transform, opacity, filter"
-            }}
-            className={`relative w-full z-10 flex flex-col items-center perspective-1000 ${className}`}
-        >
-            <div className="w-full h-full transform-gpu">
+        <div className={`relative w-full z-10 flex flex-col items-center ${className}`}>
+            <div className="w-full h-full">
                 {children}
             </div>
-        </motion.div>
+        </div>
     );
 };
 

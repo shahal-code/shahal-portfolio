@@ -14,40 +14,29 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
     ...props
 }) => {
     const divRef = useRef<HTMLDivElement>(null);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-    const [opacity, setOpacity] = useState(0);
+    const spotlightRef = useRef<HTMLDivElement>(null);
+
+    const updateSpotlight = (x: number, y: number, opacity: number) => {
+        if (!spotlightRef.current) return;
+        spotlightRef.current.style.opacity = opacity.toString();
+        spotlightRef.current.style.background = `radial-gradient(600px circle at ${x}px ${y}px, ${spotlightColor}, transparent 40%)`;
+    };
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!divRef.current) return;
-        const div = divRef.current;
-        const rect = div.getBoundingClientRect();
-        setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+        const rect = divRef.current.getBoundingClientRect();
+        updateSpotlight(e.clientX - rect.left, e.clientY - rect.top, 1);
     };
 
     const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
         if (!divRef.current) return;
         const touch = e.touches[0];
-        const div = divRef.current;
-        const rect = div.getBoundingClientRect();
-        setPosition({ x: touch.clientX - rect.left, y: touch.clientY - rect.top });
+        const rect = divRef.current.getBoundingClientRect();
+        updateSpotlight(touch.clientX - rect.left, touch.clientY - rect.top, 1);
     };
 
-    const handleMouseEnter = () => {
-        setOpacity(1);
-    };
-
-    const handleMouseLeave = () => {
-        setOpacity(0);
-    };
-
-    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-        setOpacity(1);
-        handleTouchMove(e);
-    };
-
-    const handleTouchEnd = () => {
-        setOpacity(0);
-    };
+    const handleMouseEnter = () => updateSpotlight(0, 0, 1);
+    const handleMouseLeave = () => updateSpotlight(0, 0, 0);
 
     return (
         <div
@@ -56,8 +45,10 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onTouchMove={handleTouchMove}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
+            onTouchStart={(e) => {
+                handleTouchMove(e);
+            }}
+            onTouchEnd={handleMouseLeave}
             className={cn(
                 "relative overflow-hidden",
                 className
@@ -66,10 +57,10 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
         >
             {/* Spotlight overlay */}
             <div
-                className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 z-10"
+                ref={spotlightRef}
+                className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 z-10 will-change-[background,opacity]"
                 style={{
-                    opacity,
-                    background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 40%)`,
+                    background: `radial-gradient(600px circle at 0px 0px, ${spotlightColor}, transparent 40%)`,
                 }}
             />
             {/* Content */}

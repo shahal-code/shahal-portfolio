@@ -8,23 +8,20 @@ interface MagneticProps {
 
 const Magnetic: React.FC<MagneticProps> = ({ children, strength = 0.3, className = "" }) => {
     const ref = useRef<HTMLDivElement>(null);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-
-    const handleMove = (clientX: number, clientY: number) => {
-        if (!ref.current) return;
-        const { left, top, width, height } = ref.current.getBoundingClientRect();
-        const x = (clientX - (left + width / 2)) * strength;
-        const y = (clientY - (top + height / 2)) * strength;
-        setPosition({ x, y });
-    };
-
-    const handleReset = () => {
-        setPosition({ x: 0, y: 0 });
-    };
-
     useEffect(() => {
         const node = ref.current;
         if (!node) return;
+
+        const handleMove = (clientX: number, clientY: number) => {
+            const { left, top, width, height } = node.getBoundingClientRect();
+            const x = (clientX - (left + width / 2)) * strength;
+            const y = (clientY - (top + height / 2)) * strength;
+            node.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        };
+
+        const handleReset = () => {
+            node.style.transform = `translate3d(0, 0, 0)`;
+        };
 
         const onMouseMove = (e: MouseEvent) => handleMove(e.clientX, e.clientY);
         const onTouchMove = (e: TouchEvent) => {
@@ -34,10 +31,6 @@ const Magnetic: React.FC<MagneticProps> = ({ children, strength = 0.3, className
 
         node.addEventListener("mousemove", onMouseMove);
         node.addEventListener("mouseleave", handleReset);
-        node.addEventListener("touchstart", (e) => {
-            const touch = e.touches[0];
-            handleMove(touch.clientX, touch.clientY);
-        }, { passive: true });
         node.addEventListener("touchmove", onTouchMove, { passive: true });
         node.addEventListener("touchend", handleReset);
 
@@ -49,14 +42,11 @@ const Magnetic: React.FC<MagneticProps> = ({ children, strength = 0.3, className
         };
     }, [strength]);
 
-    const { x, y } = position;
-
     return (
         <div
             ref={ref}
-            className={`inline-block transition-transform duration-100 ease-out ${className}`}
+            className={`inline-block transition-transform duration-150 ease-out ${className}`}
             style={{
-                transform: `translate3d(${x}px, ${y}px, 0)`,
                 willChange: 'transform'
             }}
         >

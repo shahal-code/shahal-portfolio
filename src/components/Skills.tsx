@@ -53,7 +53,7 @@ const Skills = () => {
                     `}
                       style={{
                         transitionDelay: `${index * 0.05}s`,
-                        transform: isVisible ? `translateY(${offset}px)` : 'none'
+                        transform: isVisible && typeof window !== 'undefined' && window.innerWidth >= 768 ? `translateY(${offset}px)` : 'none'
                       }}
                     >
                       {/* Glow effect on hover */}

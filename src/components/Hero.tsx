@@ -31,10 +31,10 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
   // Scroll Parallax settings (Lens Focus & Flying Past Effect)
   const { scrollY } = useScroll();
-  // Aggressively scale up to simulate flying toward the image
-  const scale = useTransform(scrollY, [0, 500], [1, 1.8]); // Reduced from 3.5 for stability
-  // Pull the image upward significantly as it scales
-  const yFly = useTransform(scrollY, [0, 500], [0, -150]); // Reduced from -300
+  // Aggressively scale up to simulate flying toward the image (Disabled on mobile for performance)
+  const scale = useTransform(scrollY, [0, 500], isMobile ? [1, 1] : [1, 1.8]);
+  // Pull the image upward significantly as it scales (Disabled on mobile)
+  const yFly = useTransform(scrollY, [0, 500], isMobile ? [0, 0] : [0, -150]);
 
   // Filter (blur) removed for performance - real-time backdrop blur during scroll is heavy
   const filter = "none";
