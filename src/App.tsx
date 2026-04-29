@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/react";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, useLocation, Outlet } from "react-router-dom";
@@ -118,6 +119,7 @@ const App = () => {
         <BrowserRouter>
           <AppContent />
         </BrowserRouter>
+        <Analytics />
       </ThemeProvider>
     </QueryClientProvider>
   );
