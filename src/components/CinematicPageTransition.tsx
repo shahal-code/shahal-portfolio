@@ -31,13 +31,13 @@ const CinematicPageTransition: React.FC<CinematicPageTransitionProps> = ({ child
                     y: isMobile ? -10 : -20,
                 }}
                 transition={{
-                    duration: isMobile ? 0.4 : 1.2,
+                    duration: isMobile ? 0.6 : 2.0,
                     ease: isMobile ? "easeOut" : [0.22, 1, 0.36, 1],
-                    // Spring for scale and movement to feel physical
-                    scale: isMobile ? { duration: 0.4 } : { type: "spring", stiffness: 60, damping: 15 },
-                    y: isMobile ? { duration: 0.4 } : { type: "spring", stiffness: 60, damping: 15 },
+                    // Spring for scale and movement to feel physical but slower
+                    scale: isMobile ? { duration: 0.6 } : { type: "spring", stiffness: 30, damping: 20 },
+                    y: isMobile ? { duration: 0.6 } : { type: "spring", stiffness: 30, damping: 20 },
                     // Lighting filters use the base duration
-                    filter: { duration: isMobile ? 0.1 : 0.8 }
+                    filter: { duration: isMobile ? 0.2 : 1.5 }
                 }}
                 className="w-full relative origin-center lens-focus"
             >

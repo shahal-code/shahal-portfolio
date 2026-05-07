@@ -185,13 +185,13 @@ All colors MUST be HSL.
 
   /* Trigger classes */
   .theme-wipe-right::view-transition-new(root) {
-    animation: 1500ms cubic-bezier(0.4, 0, 0.2, 1) both wipe-right;
+    animation: 2500ms cubic-bezier(0.4, 0, 0.2, 1) both wipe-right;
     will-change: clip-path;
     contain: paint;
   }
 
   .theme-wipe-left::view-transition-new(root) {
-    animation: 1500ms cubic-bezier(0.4, 0, 0.2, 1) both wipe-left;
+    animation: 2500ms cubic-bezier(0.4, 0, 0.2, 1) both wipe-left;
     will-change: clip-path;
     contain: paint;
   }
