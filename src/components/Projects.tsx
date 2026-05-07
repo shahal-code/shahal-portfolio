@@ -28,15 +28,15 @@ const Projects = () => {
                 Portfolio
               </span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                <span className="animate-color-cycle">Mini</span> <span className="animate-color-cycle-reverse">Projects</span>
+                My <span className="animate-color-cycle">Recent</span> <span className="animate-color-cycle-reverse">Works</span>
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                A selection of mini projects that showcase my skills in design and development.
+                A showcase of my recent projects, featuring full-stack applications and professional web solutions.
               </p>
             </div>
 
             {/* Project cards */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-10 max-w-5xl mx-auto">
               {projectsList.map((project: any, index: number) => (
                 <SpotlightCard
                   key={index}
@@ -52,6 +52,15 @@ const Projects = () => {
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
+                    
+                    {/* Currently Working Badge */}
+                    {project.status && (
+                      <div className="absolute top-4 right-4 z-10">
+                        <span className="px-4 py-1.5 bg-primary/20 backdrop-blur-xl border border-primary/40 text-primary text-[10px] font-bold uppercase tracking-widest rounded-full shadow-[0_0_20px_rgba(139,92,246,0.3)] animate-pulse">
+                          {project.status}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Content */}

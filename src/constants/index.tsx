@@ -172,51 +172,20 @@ export const SERVICES = [
 
 export const PROJECTS = [
   {
-    title: "Weather Checker",
-    description: "A real-time weather application that delivers precise atmospheric data and forecasts with a focus on ease of use and visual clarity.",
-    tags: ["JavaScript", "API Integration", "HTML", "CSS"],
-    image: "https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&auto=format&fit=crop&q=60",
-    github: "https://github.com/shahal-code/wetherChecker",
-    demo: "https://shahal-code.github.io/wetherChecker/"
+    title: "TechKart Ecommerce Website",
+    description: "A premium full-stack e-commerce platform built with the MERN stack. Features include advanced product filtering, secure payment integration, user authentication, and a robust admin dashboard for inventory management.",
+    tags: ["MERN Stack", "Redux", "Stripe API", "Tailwind CSS"],
+    image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&auto=format&fit=crop&q=60",
+    github: "https://github.com/shahal-gitei",
+    demo: "#",
+    status: "Currently Working"
   },
   {
-    title: "Simple Calculator",
-    description: "A sleek and responsive calculator application with a focus on smooth interactions and clean mathematical logic.",
-    tags: ["JavaScript", "HTML", "CSS", "UI/UX"],
-    image: "https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=800&auto=format&fit=crop&q=60",
-    github: "https://github.com/shahal-code/Calculator-App",
-    demo: "https://shahal-code.github.io/Calculator-App/"
-  },
-  {
-    title: "Minimalist Todo App",
-    description: "A clean and intuitive task management application designed for productivity with a streamlined user interface and local storage persistence.",
-    tags: ["JavaScript", "HTML", "CSS", "Responsive"],
-    image: "https://images.unsplash.com/photo-1540350394557-8d14678e7f91?w=800&auto=format&fit=crop&q=60",
-    github: "https://github.com/shahal-code/Todo-App",
-    demo: "https://shahal-code.github.io/Todo-App/"
-  },
-  {
-    title: "Premium Cars Showcase",
-    description: "A high-end automotive showcase website featuring a selection of luxury vehicles with a clean, modern aesthetic.",
-    tags: ["HTML", "CSS", "UI/UX", "Responsible Design"],
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&auto=format&fit=crop&q=60",
-    github: "https://github.com/shahal-code/premium-cars",
-    demo: "https://shahal-code.github.io/premium-cars/"
-  },
-  {
-    title: "Login Session Management",
-    description: "A secure login system featuring robust session management, developed to explore Node.js backend architecture and user authentication flows.",
-    tags: ["Node.js", "Express", "EJS", "Authentication"],
-    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&auto=format&fit=crop&q=60",
-    github: "https://github.com/shahal-code/login-session",
-    demo: "#"
-  },
-  {
-    title: "User Management System",
-    description: "A robust administrative dashboard for managing user records, featuring secure data handling and an intuitive management interface.",
-    tags: ["Node.js", "Express", "MongoDB", "Admin Panel"],
-    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&auto=format&fit=crop&q=60",
-    github: "https://github.com/shahal-code/UserManagment-Project",
-    demo: "#"
+    title: "Mirasco.in Website",
+    description: "A professional event management and services website featuring a modern, responsive design. Implemented with smooth animations, dynamic service showcases, and a streamlined booking inquiry system.",
+    tags: ["React", "Framer Motion", "Tailwind CSS", "Node.js"],
+    image: "https://images.unsplash.com/photo-1505373630103-821c70e3cff2?w=800&auto=format&fit=crop&q=60",
+    github: "https://github.com/shahal-gitei",
+    demo: "https://mirasco.in"
   }
 ];

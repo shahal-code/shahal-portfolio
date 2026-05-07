@@ -59,7 +59,7 @@ const Header = ({ onOpenContact }: HeaderProps) => {
     { label: "About", sectionId: "about" },
     { label: "Services", sectionId: "services" },
     { label: "Skills", sectionId: "skills" },
-    { label: "Mini Projects", sectionId: "projects" }
+    { label: "Projects", sectionId: "projects" }
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -144,8 +144,8 @@ const Header = ({ onOpenContact }: HeaderProps) => {
       <div className="md:hidden flex justify-center w-full">
         <div className={`
           flex items-center justify-between gap-8 px-8 py-3 rounded-full border border-white/10 transition-all duration-500
-          ${isScrolled 
-            ? "bg-background/60 backdrop-blur-2xl shadow-2xl w-[92%] border-white/20" 
+          ${isScrolled
+            ? "bg-background/60 backdrop-blur-2xl shadow-2xl w-[92%] border-white/20"
             : "bg-transparent w-full border-transparent"
           }
         `}>

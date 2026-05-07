@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  Code, Palette, Sparkles, Mail, MapPin, Phone, 
-  Github, Linkedin, Twitter, Instagram, 
-  ExternalLink, Layout, Database, Server, 
-  Zap, Cpu, Monitor, Globe, Lock, Repeat, 
+  Code, Palette, Sparkles, Mail, MapPin, Phone,
+  Github, Linkedin, Twitter, Instagram,
+  ExternalLink, Layout, Database, Server,
+  Zap, Cpu, Monitor, Globe, Lock, Repeat,
   Video, Terminal, Briefcase, GraduationCap,
   ChevronRight, BrainCircuit, Rocket, Smartphone,
   Layers, Settings, Search, Wrench, HardDrive,
@@ -12,10 +12,10 @@ import {
 
 // Mapping for standard Lucide icons
 const IconMap: Record<string, any> = {
-  Code, Palette, Sparkles, Mail, MapPin, Phone, 
-  Github, Linkedin, Twitter, Instagram, 
-  ExternalLink, Layout, Database, Server, 
-  Zap, Cpu, Monitor, Globe, Lock, Repeat, 
+  Code, Palette, Sparkles, Mail, MapPin, Phone,
+  Github, Linkedin, Twitter, Instagram,
+  ExternalLink, Layout, Database, Server,
+  Zap, Cpu, Monitor, Globe, Lock, Repeat,
   Video, Terminal, Briefcase, GraduationCap,
   ChevronRight, BrainCircuit, Rocket, Smartphone,
   Layers, Settings, Search, Wrench, HardDrive,
