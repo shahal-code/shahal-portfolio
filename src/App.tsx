@@ -20,7 +20,7 @@ import MobileDock from "@/components/MobileDock";
 
 const MainLayout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen relative z-10">
       <SmoothScroll />
       <SpaceBackground />
       <Header />
