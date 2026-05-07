@@ -79,7 +79,12 @@ const BrandLogos = {
   Tailwind: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#06B6D4]"><path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C7.666 17.818 9.027 19 12.001 19c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z" /></svg>,
   GitHub: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#181717]"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>,
   React: () => <svg viewBox="-11.5 -10.232 23 20.463" className="w-full h-full fill-[#61DAFB]"><circle cx="0" cy="0" r="2.05" /><g fill="none" stroke="#61DAFB" strokeWidth="1"><ellipse rx="11" ry="4.2" /><ellipse rx="11" ry="4.2" transform="rotate(60)" /><ellipse rx="11" ry="4.2" transform="rotate(120)" /></g></svg>,
+  TypeScript: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#3178C6]"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.105-.705 0-.525.21-.915 1.246-.915.99 0 1.245.585 1.35 1.545h2.325c-.135-1.965-1.29-3.405-3.645-3.405-2.505 0-3.6 1.5-3.6 3.06 0 1.335.825 2.49 2.1 3.06l1.32.555c1.23.51 1.44.81 1.44 1.35 0 .585-.435 1.095-1.395 1.095-.84 0-1.44-.3-1.635-1.545h-2.355c.165 2.49 1.515 3.39 3.93 3.39 2.505 0 3.735-1.02 3.735-3.045zM12.403 21.54c1.11-.465 1.11-.465 1.11-.465s.015-6.855.015-9.285H11.1v6.84c0 1.5-.045 1.845-.75 1.845-.375 0-.585-.165-.675-.405-.225-.495-.21-1.89-.21-1.89h-2.31s-.015 2.475.015 3.63c.045 1.29.555 1.635 1.635 1.635 1.38-.005 1.95-.315 2.603-2.4l-.015.54z" /></svg>,
+  Flutter: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#02569B]"><path d="M14.314 0L2.3 12l4.674 4.657L21.3 4.657 14.314 0zm.011 10.157l-4.663 4.639 7.001 6.98L24 14.819l-9.675-4.662z" /></svg>,
+  AWS: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#232F3E]"><path d="M12 0L2.5 5v14L12 24l9.5-5V5L12 0zm0 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z" /></svg>,
+  Nextjs: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#000000]"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.862 18.95l-5.005-7.007h-.001l-.001 7.007h-1.002V8.002h1.002l5.005 7.007h.001l.001-7.007h1.002v10.948z" /></svg>,
   NoSQL: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#47A248]"><path d="M21 16.5c0 .38-.21.71-.53.88l-7.97 4.43c-.31.17-.69.17-1 0L3.53 17.38c-.32-.17-.53-.5-.53-.88V7.5c0-.38.21-.71.53-.88l7.97-4.43c.31-.17.69-.17 1 0l7.97 4.43c.32.17.53.5.53.88v9z" /></svg>,
+  Cloudinary: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#3448C5]"><path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm0 4.8a7.2 7.2 0 1 0 0 14.4 7.2 7.2 0 0 0 0-14.4z" /></svg>,
   VideoEditing: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#FF0000]"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg>,
   Linux: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#fbc02d]"><path d="M12.013 0a8.03 8.03 0 0 0-7.234 4.542c-.22.443-.1 1.01.277 1.341 1.013.882 1.487 1.83 1.487 2.951 0 1.135-.506 2.454-1.506 3.328a.747.747 0 0 0-.019.016l-3.23 2.766A1.002 1.002 0 0 0 2.5 17h19.013a.998.998 0 0 0 .717-1.696l-3.23-3.056a.742.742 0 0 0-.019-.016c-1-.874-1.506-2.193-1.506-3.328 0-1.121.474-2.069 1.487-2.951.378-.33.497-.898.277-1.341A8.03 8.03 0 0 0 12.013 0zM12 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" /></svg>,
   Lightroom: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#31A8FF]"><rect width="24" height="24" rx="4" /><text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold" fontFamily="Arial">Lr</text></svg>
@@ -89,24 +94,28 @@ export const SKILLS = [
   { name: "HTML", icon: BrandLogos.HTML, category: "Frontend" },
   { name: "CSS", icon: BrandLogos.CSS, category: "Frontend" },
   { name: "JavaScript", icon: BrandLogos.JS, category: "Frontend" },
+  { name: "TypeScript", icon: BrandLogos.TypeScript, category: "Frontend" },
+  { name: "React", icon: BrandLogos.React, category: "Frontend" },
+  { name: "Next.js", icon: BrandLogos.Nextjs, category: "Frontend" },
   { name: "Node.js", icon: BrandLogos.Node, category: "Backend" },
   { name: "Express", icon: BrandLogos.Express, category: "Backend" },
   { name: "MongoDB", icon: BrandLogos.MongoDB, category: "Database" },
+  { name: "AWS", icon: BrandLogos.AWS, category: "Backend" },
+  { name: "Cloudinary", icon: BrandLogos.Cloudinary, category: "Tools" },
   { name: "Bootstrap", icon: BrandLogos.Bootstrap, category: "Styling" },
+  { name: "Tailwind", icon: BrandLogos.Tailwind, category: "Styling" },
+  { name: "Flutter", icon: BrandLogos.Flutter, category: "Mobile" },
+  { name: "Dart", icon: BrandLogos.Flutter, category: "Mobile" },
   { name: "VS Code", icon: BrandLogos.VSCode, category: "Tools" },
   { name: "Git", icon: BrandLogos.Git, category: "Tools" },
-  { name: "C", icon: BrandLogos.C, category: "Backend" },
-  { name: "Figma", icon: BrandLogos.Figma, category: "Design" },
-  { name: "Tailwind", icon: BrandLogos.Tailwind, category: "Styling" },
   { name: "GitHub", icon: BrandLogos.GitHub, category: "Tools" },
-  { name: "NoSQL", icon: BrandLogos.NoSQL, category: "Database" },
-  { name: "Video Editing", icon: BrandLogos.VideoEditing, category: "Design" },
-  { name: "React", icon: BrandLogos.React, category: "Frontend" },
   { name: "Linux", icon: BrandLogos.Linux, category: "Tools" },
+  { name: "Figma", icon: BrandLogos.Figma, category: "Design" },
+  { name: "Video Editing", icon: BrandLogos.VideoEditing, category: "Design" },
   { name: "Lightroom", icon: BrandLogos.Lightroom, category: "Design" },
 ];
 
-export const TOOLS = ["VS Code", "Git", "NoSql", "Cursor", "Figma", "MongoDB", "GitHub"];
+export const TOOLS = ["VS Code", "Git", "AWS", "Cloudinary", "Figma", "MongoDB", "GitHub"];
 
 export const EDUCATION = [
   {
@@ -146,27 +155,38 @@ export const EXPERIENCE_LIST = [
 export const SERVICES = [
   {
     title: "Frontend Development",
-    description: "Crafting beautiful and responsive user interfaces using HTML, CSS, Bootstrap, and React focusing on modern web standards.",
+    description: "Crafting beautiful and responsive user interfaces using React, Next.js, and TypeScript focusing on modern web standards.",
     icon: Layout,
     color: "hsl(var(--primary))",
+    skills: ["React", "Next.js", "TypeScript", "HTML", "CSS", "Tailwind", "Bootstrap"]
   },
   {
     title: "Backend Development",
-    description: "Building server-side logic and managing databases with Node.js, Express, and MongoDB to create functional applications.",
+    description: "Building scalable server-side logic and managing databases with Node.js, Express, AWS, and MongoDB.",
     icon: Server,
     color: "#10b981", // Emerald
+    skills: ["Node.js", "Express", "MongoDB", "AWS", "NoSQL"]
+  },
+  {
+    title: "Mobile App Development",
+    description: "Creating high-performance cross-platform mobile applications using Flutter and Dart for iOS and Android.",
+    icon: Zap,
+    color: "#06b6d4", // Cyan
+    skills: ["Flutter", "Dart", "Firebase", "Mobile UI"]
+  },
+  {
+    title: "MERN Stack Development",
+    description: "Mastering full-stack development to build robust applications from scratch, focusing on security and performance.",
+    icon: Code,
+    color: "#3b82f6", // Blue
+    skills: ["MongoDB", "Express", "React", "Node.js"]
   },
   {
     title: "Video Editing",
     description: "Creating engaging visual content with smooth transitions and clean cuts for social media and personal branding.",
     icon: Video,
     color: "#f59e0b", // Amber
-  },
-  {
-    title: "MERN Stack Learning",
-    description: "Successfully building full-stack applications as part of an intensive training program, mastering end-to-end development.",
-    icon: Code,
-    color: "#3b82f6", // Blue
+    skills: ["Premiere Pro", "After Effects", "Color Grading"]
   },
 ];
 

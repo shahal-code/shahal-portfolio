@@ -87,7 +87,7 @@ const Projects = () => {
                     <div className="pt-6 grid grid-cols-2 gap-4">
                       <Magnetic strength={0.4} className="w-full">
                         <RippleButton
-                          className="w-full h-11 text-[11px] font-bold rounded-full text-foreground bg-white/5 backdrop-blur-3xl border border-white/10 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.1),0_5px_15px_rgba(0,0,0,0.1)] hover:bg-white/10 active:scale-95 transition-all"
+                          className="w-full h-11 text-[11px] font-bold rounded-full text-foreground bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/20 dark:border-white/10 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.1),0_5px_15px_rgba(0,0,0,0.1)] hover:bg-card/60 dark:hover:bg-white/10 active:scale-95 transition-all"
                           onClick={() => window.open(project.github, "_blank", "noopener,noreferrer")}
                         >
                           <span className="flex items-center justify-center">

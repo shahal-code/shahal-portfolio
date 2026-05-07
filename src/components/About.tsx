@@ -38,13 +38,13 @@ const About = () => {
               {/* Summary Card - Highlight Brototype */}
               <div className={`lg:col-span-8 reveal-base reveal-up ${isVisible ? 'revealed' : ''}`}>
                 <Magnetic strength={0.1} className="w-full h-full">
-                  <div className="p-8 rounded-[2.5rem] bg-card border border-border/50 shadow-sm backdrop-blur-3xl h-full cursor-pointer hover:border-primary/30 transition-all duration-500">
+                  <div className="p-8 rounded-[2.5rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl h-full cursor-pointer hover:border-primary/50 transition-all duration-700">
                     <div className="flex flex-col md:flex-row gap-8 items-start">
-                      <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 animate-pulse-slow">
+                      <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 animate-pulse-slow border border-primary/20">
                         <Globe className="w-10 h-10 text-primary" />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <h3 className="text-2xl font-bold mb-4 flex items-center gap-2 text-foreground">
                           BROTOTYPE <span className="text-primary text-sm font-normal">| Intensive MERN Program</span>
                         </h3>
                         <p className="text-muted-foreground leading-relaxed text-lg mb-6">
@@ -54,7 +54,7 @@ const About = () => {
                           <div className="flex items-center gap-2 text-sm text-primary/80">
                             <MapPin size={16} /> Kerala, India
                           </div>
-                          <a href="https://www.brototype.com" target="_blank" rel="noopener" className="flex items-center gap-2 text-sm hover:text-primary transition-colors underline underline-offset-4">
+                          <a href="https://www.brototype.com" target="_blank" rel="noopener" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors underline underline-offset-4">
                             www.brototype.com
                           </a>
                         </div>
@@ -68,9 +68,9 @@ const About = () => {
               <div className={`lg:col-span-4 grid grid-cols-2 gap-4 reveal-base reveal-up ${isVisible ? 'revealed' : ''}`} style={{ transitionDelay: '0.2s' }}>
                 {HIGHLIGHTS.map((item, idx) => (
                   <Magnetic key={idx} strength={0.2} className="w-full">
-                    <div className="p-6 rounded-[2rem] bg-card border border-border/50 shadow-sm backdrop-blur-3xl hover:border-primary/30 transition-all duration-500 group h-full cursor-pointer">
+                    <div className="p-6 rounded-[2rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl hover:border-primary/50 transition-all duration-700 group h-full cursor-pointer">
                       <item.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
-                      <h4 className="font-bold text-sm mb-1">{item.title}</h4>
+                      <h4 className="font-bold text-sm mb-1 text-foreground">{item.title}</h4>
                       <p className="text-[10px] text-muted-foreground">{item.description}</p>
                     </div>
                   </Magnetic>
@@ -81,31 +81,31 @@ const About = () => {
               <div className={`lg:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6 reveal-base reveal-up ${isVisible ? 'revealed' : ''}`} style={{ transitionDelay: '0.3s' }}>
 
                 {/* Education Timeline */}
-                <div className="p-8 rounded-[2.5rem] bg-card border border-border/50 shadow-sm backdrop-blur-3xl flex flex-col h-full">
+                <div className="p-8 rounded-[2.5rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl flex flex-col h-full">
                   <div className="flex items-center gap-4 mb-8">
-                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center border border-accent/20">
                       <GraduationCap className="w-6 h-6 text-accent" />
                     </div>
-                    <h3 className="text-xl font-bold">Education</h3>
+                    <h3 className="text-xl font-bold text-foreground">Education</h3>
                   </div>
                   <div className="space-y-4">
                     {EDUCATION.map((edu, idx) => (
                       <div
                         key={idx}
                         onClick={() => setExpandedEdu(expandedEdu === idx ? null : idx)}
-                        className="p-5 rounded-2xl bg-white/5 border border-white/5 cursor-pointer hover:border-primary/30 transition-all group"
+                        className="p-5 rounded-2xl bg-black/5 dark:bg-white/5 border border-border/20 dark:border-white/5 cursor-pointer hover:border-primary/30 transition-all group"
                       >
                         <div className="flex justify-between items-start mb-2">
                           <div>
                             <span className="text-primary text-xs font-bold tracking-widest uppercase mb-1 block">{edu.period}</span>
-                            <h4 className="font-bold text-base mb-1 group-hover:text-primary transition-colors">{edu.title}</h4>
+                            <h4 className="font-bold text-base mb-1 text-foreground group-hover:text-primary transition-colors">{edu.title}</h4>
                             <p className="text-xs text-muted-foreground">{edu.institution}</p>
                           </div>
                           <div className="text-primary/50">
                             {expandedEdu === idx ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                           </div>
                         </div>
-                        <div className={`text-sm leading-relaxed text-muted-foreground/80 transition-all duration-500 overflow-hidden ${expandedEdu === idx ? 'max-h-96 mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
+                        <div className={`text-sm leading-relaxed text-muted-foreground transition-all duration-500 overflow-hidden ${expandedEdu === idx ? 'max-h-96 mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
                           {edu.description}
                         </div>
                       </div>
@@ -114,27 +114,27 @@ const About = () => {
                 </div>
 
                 {/* Professional Experience */}
-                <div className="p-8 rounded-[2.5rem] bg-card border border-border/50 shadow-sm backdrop-blur-3xl flex flex-col h-full">
+                <div className="p-8 rounded-[2.5rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl flex flex-col h-full">
                   <div className="flex items-center gap-4 mb-8">
-                    <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center border border-green-500/20">
                       <Briefcase className="w-6 h-6 text-green-500" />
                     </div>
-                    <h3 className="text-xl font-bold">Experience</h3>
+                    <h3 className="text-xl font-bold text-foreground">Experience</h3>
                   </div>
                   <div className="space-y-4">
                     {EXPERIENCE_LIST.map((exp, idx) => (
                       <div
                         key={idx}
                         onClick={() => setExpandedExp(expandedExp === idx ? null : idx)}
-                        className="p-5 rounded-2xl bg-white/5 border border-white/5 cursor-pointer hover:border-primary/30 transition-all group"
+                        className="p-5 rounded-2xl bg-black/5 dark:bg-white/5 border border-border/20 dark:border-white/5 cursor-pointer hover:border-primary/30 transition-all group"
                       >
                         <div className="flex justify-between items-start mb-2">
                           <div>
                             <h4 className="font-bold text-base text-primary">{exp.title}</h4>
-                            <p className="text-xs text-foreground/80 mb-2">{exp.company}</p>
+                            <p className="text-xs text-muted-foreground mb-2">{exp.company}</p>
                           </div>
                           <div className="flex items-center gap-3">
-                            <span className="text-xs text-muted-foreground bg-white/5 px-2 py-0.5 rounded-full">{exp.period}</span>
+                            <span className="text-xs text-muted-foreground bg-black/5 dark:bg-white/5 px-2 py-0.5 rounded-full">{exp.period}</span>
                             <div className="text-primary/50">
                               {expandedExp === idx ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                             </div>
@@ -161,9 +161,9 @@ const About = () => {
 
                 {/* Video Editing */}
                 <Magnetic strength={0.2} className="w-full h-full">
-                  <div className="p-8 rounded-[2.5rem] bg-card border border-border/50 shadow-sm backdrop-blur-3xl h-full cursor-pointer group hover:border-primary/30 transition-all">
-                    <h3 className="text-lg font-bold mb-3">Video Editing</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                  <div className="p-8 rounded-[2.5rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl h-full cursor-pointer group hover:border-primary/50 transition-all duration-700">
+                    <h3 className="text-lg font-bold mb-3 text-foreground">Video Editing</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                       Intermediate-level experience crafting engaging visuals with smooth transitions, clean cuts, effects, and sound design to enhance storytelling.
                     </p>
                   </div>
@@ -171,12 +171,12 @@ const About = () => {
 
                 {/* Counter */}
                 <Magnetic strength={0.3} className="w-full h-full">
-                  <div className="p-8 rounded-[2.5rem] bg-card border border-border/50 shadow-sm backdrop-blur-3xl flex items-center justify-center group overflow-hidden relative h-full cursor-pointer hover:border-primary/30 transition-all">
+                  <div className="p-8 rounded-[2.5rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl flex items-center justify-center group overflow-hidden relative h-full cursor-pointer hover:border-primary/50 transition-all duration-700">
                     <div className="z-10 text-center">
                       <span className="text-6xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{experienceCount}</span>
                       <p className="text-xs uppercase tracking-widest font-bold text-muted-foreground mt-2">Projects Completed</p>
                     </div>
-                    <div className="absolute inset-0 bg-primary/5 blur-3xl group-hover:bg-primary/10 transition-colors" />
+                    <div className="absolute inset-0 bg-primary/5 dark:bg-primary/10 blur-3xl group-hover:bg-primary/20 transition-colors" />
                   </div>
                 </Magnetic>
 

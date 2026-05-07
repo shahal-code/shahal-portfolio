@@ -155,13 +155,13 @@ All colors MUST be HSL.
   }
 
   html {
-    overflow-x: hidden;
+    overflow: clip;
     max-width: 100%;
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
-    overflow-x: hidden;
+    @apply bg-transparent text-foreground font-sans;
+    overflow: clip;
     max-width: 100%;
   }
 

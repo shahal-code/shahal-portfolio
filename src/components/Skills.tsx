@@ -45,10 +45,11 @@ const Skills = () => {
                   <Magnetic key={index} strength={0.1}>
                     <RippleButton
                       className={`
-                      group relative bg-primary/10 border border-primary/20 backdrop-blur-[20px] rounded-full px-5 py-2.5
+                      group relative bg-card/40 dark:bg-primary/5 border border-border/50 dark:border-primary/20 backdrop-blur-[20px] rounded-full px-5 py-2.5
                       flex items-center gap-3 transition-all duration-500 
-                      shadow-[inset_2px_2px_4px_rgba(255,255,255,0.1),inset_-2px_-4px_8px_rgba(0,0,0,0.2),0_10px_30px_hsl(var(--primary)/0.1)]
-                      hover:bg-primary/20 hover:border-primary/40 hover:scale-105 hover:shadow-[inset_2px_2px_4px_rgba(255,255,255,0.2),inset_-2px_-4px_8px_rgba(0,0,0,0.2),0_15px_30px_hsl(var(--primary)/0.2)]
+                      shadow-[inset_2px_2px_4px_rgba(255,255,255,0.05),0_10px_30px_rgba(0,0,0,0.05)]
+                      dark:shadow-[inset_2px_2px_4px_rgba(255,255,255,0.1),inset_-2px_-4px_8px_rgba(0,0,0,0.2),0_10px_30px_hsl(var(--primary)/0.1)]
+                      hover:bg-primary/20 hover:border-primary/40 hover:scale-105 hover:shadow-xl
                       reveal-base reveal-scale ${isVisible ? 'revealed' : ''} cursor-pointer
                     `}
                       style={{
@@ -71,7 +72,7 @@ const Skills = () => {
                           <h3 className="font-bold text-foreground text-[10px] md:text-xs leading-tight group-hover:text-primary transition-colors">
                             {skill.name}
                           </h3>
-                          <span className="text-[7px] font-bold text-muted-foreground uppercase opacity-40 mt-0.5">
+                          <span className="text-[7px] font-bold text-primary uppercase opacity-40 mt-0.5">
                             {skill.category}
                           </span>
                         </div>
