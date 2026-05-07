@@ -18,7 +18,7 @@ const ThemeToggle = () => {
     // Apply the correct animation direction class
     const doc = document.documentElement;
     const animationClass = nextTheme === "dark" ? "theme-wipe-right" : "theme-wipe-left";
-    doc.classList.add(animationClass);
+    doc.classList.add(animationClass, "is-transitioning-theme");
 
     // @ts-ignore
     const transition = document.startViewTransition(() => {
@@ -28,7 +28,7 @@ const ThemeToggle = () => {
     });
 
     transition.finished.finally(() => {
-      doc.classList.remove("theme-wipe-right", "theme-wipe-left");
+      doc.classList.remove(animationClass, "is-transitioning-theme");
     });
   };
 

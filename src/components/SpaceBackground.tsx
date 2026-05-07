@@ -30,7 +30,7 @@ const SpaceBackground = () => {
         const width = window.innerWidth;
         const height = window.innerHeight;
         // Cap DPR at 1.0 for maximum performance
-        const dpr = 1.0; 
+        const dpr = 1.0;
 
         const scene = new THREE.Scene();
         const backgroundColor = isDark ? 0x000000 : 0xf1f5f9;
@@ -116,6 +116,10 @@ const SpaceBackground = () => {
 
         const animate = () => {
             animationFrameId = requestAnimationFrame(animate);
+            
+            // Skip rendering if a theme transition is in progress to maximize smoothness
+            if (document.documentElement.classList.contains('is-transitioning-theme')) return;
+
             const elapsedTime = clock.getElapsedTime();
 
             material.uniforms.time.value = elapsedTime;
@@ -150,7 +154,7 @@ const SpaceBackground = () => {
     return (
         <div
             ref={mountRef}
-            className={`fixed inset-0 z-[-1] pointer-events-none transition-colors duration-700 ${isDark ? 'bg-black' : 'bg-slate-50'}`}
+            className={`fixed inset-0 z-[-1] pointer-events-none ${isDark ? 'bg-black' : 'bg-slate-50'}`}
         />
     );
 };
