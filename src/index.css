@@ -155,14 +155,18 @@ All colors MUST be HSL.
   }
 
   html {
-    overflow: clip;
+    overflow-x: clip;
+    overflow-y: auto;
     max-width: 100%;
+    scroll-behavior: smooth;
   }
 
   body {
     @apply bg-transparent text-foreground font-sans;
-    overflow: clip;
+    overflow-x: clip;
+    overflow-y: auto;
     max-width: 100%;
+    min-height: 100vh;
   }
 
   ::view-transition-old(root),
