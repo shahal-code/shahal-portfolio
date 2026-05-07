@@ -246,12 +246,33 @@ All colors MUST be HSL.
   /* Optimized transitions - Desktop only */
   /* Global transitions removed for performance - relying on View Transitions and specific element classes */
 
-  /* Faster interaction for mobile */
+  /* Faster interaction and disabled scroll effects for mobile */
   @media (max-width: 768px) {
+    /* Kill all scroll reveal animations - show content instantly */
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    /* Force framer-motion elements to final state */
+    [style*="opacity: 0"], 
+    [style*="transform: translateY"] {
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
+    }
 
     button,
     a {
-      transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+      transition: background-color 0.2s ease-out, transform 0.2s ease-out !important;
+    }
+
+    /* Disable lens/blur effects on mobile for performance */
+    .lens-focus {
+      filter: none !important;
+      backdrop-filter: none !important;
     }
   }
 }

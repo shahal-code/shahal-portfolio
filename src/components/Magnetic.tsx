@@ -10,7 +10,7 @@ const Magnetic: React.FC<MagneticProps> = ({ children, strength = 0.3, className
     const ref = useRef<HTMLDivElement>(null);
     useEffect(() => {
         const node = ref.current;
-        if (!node) return;
+        if (!node || window.innerWidth < 768) return;
 
         const handleMove = (clientX: number, clientY: number) => {
             const { left, top, width, height } = node.getBoundingClientRect();
