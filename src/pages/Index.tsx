@@ -12,7 +12,37 @@ const Index = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = "Muhammed Shahal | Freelance MERN Stack & Full Stack Developer";
+    // Primary page title — optimized for "Muhammed Shahal" + "freelance web developers"
+    document.title = "Muhammed Shahal | Freelance MERN Stack & Full Stack Developer in Kerala, India";
+
+    // Ensure meta description is set correctly for this page
+    let desc = document.querySelector('meta[name="description"]');
+    if (desc) {
+      (desc as HTMLMetaElement).content =
+        "Muhammed Shahal is a professional freelance MERN Stack Developer and Full Stack Web Engineer in Kerala, India. Expert in React, Node.js, MongoDB, and Express. Hire a skilled web developer for scalable, high-performance web applications.";
+    }
+
+    // Ensure canonical points to homepage
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      (canonical as HTMLLinkElement).href = "https://www.shahl.in/";
+    }
+
+    // Ensure robots is set correctly for homepage
+    let robotsMeta = document.querySelector('meta[name="robots"]');
+    if (robotsMeta) {
+      robotsMeta.setAttribute("content", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
+    }
+
+    // Ensure OG tags are correct for homepage
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute("content", "Muhammed Shahal | Freelance MERN Stack & Full Stack Developer");
+
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute("content", "Muhammed Shahal is a professional freelance MERN Stack Developer and Full Stack Web Engineer from Kerala, India. Expert in React, Node.js, MongoDB, and Express. Hire now.");
+
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute("content", "https://www.shahl.in/");
   }, []);
 
   useEffect(() => {
