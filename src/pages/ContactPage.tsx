@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 const ContactPage = () => {
     useEffect(() => {
+        document.title = "Contact Muhammed Shahal | Hire Freelance MERN Stack Developer";
         window.scrollTo(0, 0);
     }, []);
 

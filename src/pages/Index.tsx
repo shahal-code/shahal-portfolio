@@ -12,6 +12,10 @@ const Index = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    document.title = "Muhammed Shahal | Freelance MERN Stack & Full Stack Developer";
+  }, []);
+
+  useEffect(() => {
     // If we came from another page (like Contact) with a scrollTo request
     if (location.state?.scrollTo) {
       const timer = setTimeout(() => {
