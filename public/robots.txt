@@ -14,4 +14,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://shahal-portfolio.vercel.app/sitemap.xml
+Sitemap: https://www.shahl.in/sitemap.xml
