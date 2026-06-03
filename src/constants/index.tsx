@@ -87,7 +87,8 @@ const BrandLogos = {
   Cloudinary: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#3448C5]"><path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm0 4.8a7.2 7.2 0 1 0 0 14.4 7.2 7.2 0 0 0 0-14.4z" /></svg>,
   VideoEditing: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#FF0000]"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg>,
   Linux: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#fbc02d]"><path d="M12.013 0a8.03 8.03 0 0 0-7.234 4.542c-.22.443-.1 1.01.277 1.341 1.013.882 1.487 1.83 1.487 2.951 0 1.135-.506 2.454-1.506 3.328a.747.747 0 0 0-.019.016l-3.23 2.766A1.002 1.002 0 0 0 2.5 17h19.013a.998.998 0 0 0 .717-1.696l-3.23-3.056a.742.742 0 0 0-.019-.016c-1-.874-1.506-2.193-1.506-3.328 0-1.121.474-2.069 1.487-2.951.378-.33.497-.898.277-1.341A8.03 8.03 0 0 0 12.013 0zM12 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" /></svg>,
-  Lightroom: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#31A8FF]"><rect width="24" height="24" rx="4" /><text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold" fontFamily="Arial">Lr</text></svg>
+  Lightroom: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#31A8FF]"><rect width="24" height="24" rx="4" /><text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold" fontFamily="Arial">Lr</text></svg>,
+  Redis: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#DC382D]"><path d="M21.921 7.15c-1.89-1.282-4.526-1.528-6.195-1.528-1.503 0-2.613.31-2.909.403-.664-.476-1.745-1.077-3.415-1.077-1.127 0-2.22.257-3.04.597.433-.61.85-1.378 1.056-2.185.195-.764.128-1.428-.198-1.93-.326-.502-.858-.755-1.536-.755-.664 0-1.272.238-1.758.694-.783.743-1.096 2.016-.86 3.513.2 1.258.747 2.65 1.583 3.978-2.673.74-3.606 1.83-3.606 2.766 0 1.284 1.802 2.378 4.793 2.915 2.018 3.535 5.568 5.753 9.475 5.753 5.485 0 8.784-3.834 8.784-7.575 0-2.433-1.248-4.298-2.174-5.524zm-14.778 2.375c.995 0 2.228.32 3.197.834.69-.414 1.554-.775 2.505-.985-.75-.487-1.785-.888-2.964-.888-1.084 0-2.02.327-2.738.92-.001.037 0 .083 0 .119zm9.569 9.948c-3.14 0-6.042-1.706-7.854-4.506.744.114 1.543.176 2.37.176 1.254 0 2.45-.164 3.53-.464.717.387 1.584.598 2.553.598.665 0 1.283-.112 1.833-.314-1.284 2.825-3.18 4.51-2.432 4.51zm3.832-7.86c0 1.09-1.203 2.083-3.21 2.656-.255-.78-.716-1.516-1.39-2.066.864-.176 1.62-.43 2.193-.728.87-.457 1.22-.924 1.22-1.293 0-.62-1.034-1.428-2.885-1.922 1.488.58 2.433 1.34 2.433 2.023 0 .428-.435.918-1.246 1.385-.63.364-1.474.67-2.458.895-.884-1.12-2.176-1.854-3.705-2.072 1.475-.29 3.033-.424 4.55-.424 1.135 0 2.074.154 2.61.427 1.26.634 1.888 1.68 1.888 2.766v.053z"/></svg>
 };
 
 export const SKILLS = [
@@ -100,6 +101,7 @@ export const SKILLS = [
   { name: "Node.js", icon: BrandLogos.Node, category: "Backend" },
   { name: "Express", icon: BrandLogos.Express, category: "Backend" },
   { name: "MongoDB", icon: BrandLogos.MongoDB, category: "Database" },
+  { name: "Redis", icon: BrandLogos.Redis, category: "Database" },
   { name: "AWS", icon: BrandLogos.AWS, category: "Backend" },
   { name: "Cloudinary", icon: BrandLogos.Cloudinary, category: "Tools" },
   { name: "Bootstrap", icon: BrandLogos.Bootstrap, category: "Styling" },
@@ -192,11 +194,20 @@ export const SERVICES = [
 
 export const PROJECTS = [
   {
+    title: "NovuTalks - Real-Time Chat Application",
+    description: "A high-performance, real-time communication platform inspired by WhatsApp. Engineered for seamless interactions, featuring instant messaging, low-latency WebSockets, and real-time data synchronization.",
+    tags: ["React", "Node.js", "WebSockets", "WebRTC", "Redis"],
+    image: "/novutalks.svg",
+    github: "https://github.com/shahal-code",
+    demo: "https://www.novutalks.in/",
+    status: "Currently Working"
+  },
+  {
     title: "TechKart Ecommerce Website",
     description: "A premium full-stack e-commerce platform built with the MERN stack. Features include advanced product filtering, secure payment integration, user authentication, and a robust admin dashboard for inventory management.",
     tags: ["MERN Stack", "Redux", "Stripe API", "Tailwind CSS"],
     image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&auto=format&fit=crop&q=60",
-    github: "https://github.com/shahal-gitei",
+    github: "https://github.com/shahal-code",
     demo: "#",
     status: "Currently Working"
   },
@@ -204,8 +215,8 @@ export const PROJECTS = [
     title: "Mirasco.in Website",
     description: "A professional event management and services website featuring a modern, responsive design. Implemented with smooth animations, dynamic service showcases, and a streamlined booking inquiry system.",
     tags: ["React", "Framer Motion", "Tailwind CSS", "Node.js"],
-    image: "https://images.unsplash.com/photo-1505373630103-821c70e3cff2?w=800&auto=format&fit=crop&q=60",
-    github: "https://github.com/shahal-gitei",
+    image: "/mirasco.png",
+    github: "https://github.com/shahal-code",
     demo: "https://mirasco.in"
   }
 ];
