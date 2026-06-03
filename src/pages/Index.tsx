@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import React, { useEffect, Suspense, lazy } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
-import Services from "@/components/Services";
-import Connect from "@/components/Connect";
+
+const Skills = lazy(() => import("@/components/Skills"));
+const Projects = lazy(() => import("@/components/Projects"));
+const Services = lazy(() => import("@/components/Services"));
+const Connect = lazy(() => import("@/components/Connect"));
 
 const Index = () => {
   const location = useLocation();
@@ -19,7 +20,7 @@ const Index = () => {
     let desc = document.querySelector('meta[name="description"]');
     if (desc) {
       (desc as HTMLMetaElement).content =
-        "Muhammed Shahal is a professional freelance MERN Stack Developer and Full Stack Web Engineer in Kerala, India. Expert in React, Node.js, MongoDB, and Express. Hire a skilled web developer for scalable, high-performance web applications.";
+        "Muhammed Shahal is a freelance MERN stack developer based in Kerala, India. Expert in React, Node.js, MongoDB, and Express. Hire a skilled full stack web developer for scalable, high-performance web applications.";
     }
 
     // Ensure canonical points to homepage
@@ -39,7 +40,7 @@ const Index = () => {
     if (ogTitle) ogTitle.setAttribute("content", "Muhammed Shahal | Freelance MERN Stack & Full Stack Developer");
 
     const ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) ogDesc.setAttribute("content", "Muhammed Shahal is a professional freelance MERN Stack Developer and Full Stack Web Engineer from Kerala, India. Expert in React, Node.js, MongoDB, and Express. Hire now.");
+    if (ogDesc) ogDesc.setAttribute("content", "Muhammed Shahal is a freelance MERN stack developer from Kerala, India. Expert in React, Node.js, MongoDB, and Express. Hire now.");
 
     const ogUrl = document.querySelector('meta[property="og:url"]');
     if (ogUrl) ogUrl.setAttribute("content", "https://www.shahl.in/");
@@ -67,10 +68,12 @@ const Index = () => {
     <div className="w-full">
       <Hero />
       <About />
-      <Services />
-      <Skills />
-      <Projects />
-      <Connect />
+      <Suspense fallback={<div className="min-h-screen" />}>
+        <Services />
+        <Skills />
+        <Projects />
+        <Connect />
+      </Suspense>
     </div>
   );
 };
