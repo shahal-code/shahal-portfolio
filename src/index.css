@@ -536,6 +536,11 @@ html[data-low-performance="true"] .reveal-base {
   transition: none !important;
 }
 
+html[data-low-performance="true"] .noise-overlay {
+  display: none !important;
+  animation: none !important;
+}
+
 /* Custom Scrollbar Styles */
 @layer base {
   ::-webkit-scrollbar {
