@@ -82,13 +82,15 @@ const BrandLogos = {
   TypeScript: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#3178C6]"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.105-.705 0-.525.21-.915 1.246-.915.99 0 1.245.585 1.35 1.545h2.325c-.135-1.965-1.29-3.405-3.645-3.405-2.505 0-3.6 1.5-3.6 3.06 0 1.335.825 2.49 2.1 3.06l1.32.555c1.23.51 1.44.81 1.44 1.35 0 .585-.435 1.095-1.395 1.095-.84 0-1.44-.3-1.635-1.545h-2.355c.165 2.49 1.515 3.39 3.93 3.39 2.505 0 3.735-1.02 3.735-3.045zM12.403 21.54c1.11-.465 1.11-.465 1.11-.465s.015-6.855.015-9.285H11.1v6.84c0 1.5-.045 1.845-.75 1.845-.375 0-.585-.165-.675-.405-.225-.495-.21-1.89-.21-1.89h-2.31s-.015 2.475.015 3.63c.045 1.29.555 1.635 1.635 1.635 1.38-.005 1.95-.315 2.603-2.4l-.015.54z" /></svg>,
   Flutter: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#02569B]"><path d="M14.314 0L2.3 12l4.674 4.657L21.3 4.657 14.314 0zm.011 10.157l-4.663 4.639 7.001 6.98L24 14.819l-9.675-4.662z" /></svg>,
   AWS: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#232F3E]"><path d="M12 0L2.5 5v14L12 24l9.5-5V5L12 0zm0 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z" /></svg>,
+  Firebase: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#FFCA28]"><path d="M3.89 15.672L6.255 1.46c.086-.52.78-.638 1.033-.176l2.54 4.757 1.014-1.93c.212-.405.796-.405 1.008 0l8.26 15.705L3.89 15.672z" /><path fill="#FFA000" d="M3.89 15.672l5.94-9.631 2.975 5.57-8.915 4.061z" /><path fill="#F57F17" d="M20.11 19.816L12.805 11.61 3.89 15.672l4.934 7.032c.286.408.862.508 1.275.222l10.011-3.11z" /></svg>,
   Nextjs: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#000000]"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.862 18.95l-5.005-7.007h-.001l-.001 7.007h-1.002V8.002h1.002l5.005 7.007h.001l.001-7.007h1.002v10.948z" /></svg>,
   NoSQL: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#47A248]"><path d="M21 16.5c0 .38-.21.71-.53.88l-7.97 4.43c-.31.17-.69.17-1 0L3.53 17.38c-.32-.17-.53-.5-.53-.88V7.5c0-.38.21-.71.53-.88l7.97-4.43c.31-.17.69-.17 1 0l7.97 4.43c.32.17.53.5.53.88v9z" /></svg>,
   Cloudinary: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#3448C5]"><path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm0 4.8a7.2 7.2 0 1 0 0 14.4 7.2 7.2 0 0 0 0-14.4z" /></svg>,
   VideoEditing: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#FF0000]"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg>,
   Linux: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#fbc02d]"><path d="M12.013 0a8.03 8.03 0 0 0-7.234 4.542c-.22.443-.1 1.01.277 1.341 1.013.882 1.487 1.83 1.487 2.951 0 1.135-.506 2.454-1.506 3.328a.747.747 0 0 0-.019.016l-3.23 2.766A1.002 1.002 0 0 0 2.5 17h19.013a.998.998 0 0 0 .717-1.696l-3.23-3.056a.742.742 0 0 0-.019-.016c-1-.874-1.506-2.193-1.506-3.328 0-1.121.474-2.069 1.487-2.951.378-.33.497-.898.277-1.341A8.03 8.03 0 0 0 12.013 0zM12 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" /></svg>,
   Lightroom: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#31A8FF]"><rect width="24" height="24" rx="4" /><text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold" fontFamily="Arial">Lr</text></svg>,
-  Redis: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#DC382D]"><path d="M21.921 7.15c-1.89-1.282-4.526-1.528-6.195-1.528-1.503 0-2.613.31-2.909.403-.664-.476-1.745-1.077-3.415-1.077-1.127 0-2.22.257-3.04.597.433-.61.85-1.378 1.056-2.185.195-.764.128-1.428-.198-1.93-.326-.502-.858-.755-1.536-.755-.664 0-1.272.238-1.758.694-.783.743-1.096 2.016-.86 3.513.2 1.258.747 2.65 1.583 3.978-2.673.74-3.606 1.83-3.606 2.766 0 1.284 1.802 2.378 4.793 2.915 2.018 3.535 5.568 5.753 9.475 5.753 5.485 0 8.784-3.834 8.784-7.575 0-2.433-1.248-4.298-2.174-5.524zm-14.778 2.375c.995 0 2.228.32 3.197.834.69-.414 1.554-.775 2.505-.985-.75-.487-1.785-.888-2.964-.888-1.084 0-2.02.327-2.738.92-.001.037 0 .083 0 .119zm9.569 9.948c-3.14 0-6.042-1.706-7.854-4.506.744.114 1.543.176 2.37.176 1.254 0 2.45-.164 3.53-.464.717.387 1.584.598 2.553.598.665 0 1.283-.112 1.833-.314-1.284 2.825-3.18 4.51-2.432 4.51zm3.832-7.86c0 1.09-1.203 2.083-3.21 2.656-.255-.78-.716-1.516-1.39-2.066.864-.176 1.62-.43 2.193-.728.87-.457 1.22-.924 1.22-1.293 0-.62-1.034-1.428-2.885-1.922 1.488.58 2.433 1.34 2.433 2.023 0 .428-.435.918-1.246 1.385-.63.364-1.474.67-2.458.895-.884-1.12-2.176-1.854-3.705-2.072 1.475-.29 3.033-.424 4.55-.424 1.135 0 2.074.154 2.61.427 1.26.634 1.888 1.68 1.888 2.766v.053z"/></svg>
+  Redis: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#DC382D]"><path d="M21.921 7.15c-1.89-1.282-4.526-1.528-6.195-1.528-1.503 0-2.613.31-2.909.403-.664-.476-1.745-1.077-3.415-1.077-1.127 0-2.22.257-3.04.597.433-.61.85-1.378 1.056-2.185.195-.764.128-1.428-.198-1.93-.326-.502-.858-.755-1.536-.755-.664 0-1.272.238-1.758.694-.783.743-1.096 2.016-.86 3.513.2 1.258.747 2.65 1.583 3.978-2.673.74-3.606 1.83-3.606 2.766 0 1.284 1.802 2.378 4.793 2.915 2.018 3.535 5.568 5.753 9.475 5.753 5.485 0 8.784-3.834 8.784-7.575 0-2.433-1.248-4.298-2.174-5.524zm-14.778 2.375c.995 0 2.228.32 3.197.834.69-.414 1.554-.775 2.505-.985-.75-.487-1.785-.888-2.964-.888-1.084 0-2.02.327-2.738.92-.001.037 0 .083 0 .119zm9.569 9.948c-3.14 0-6.042-1.706-7.854-4.506.744.114 1.543.176 2.37.176 1.254 0 2.45-.164 3.53-.464.717.387 1.584.598 2.553.598.665 0 1.283-.112 1.833-.314-1.284 2.825-3.18 4.51-2.432 4.51zm3.832-7.86c0 1.09-1.203 2.083-3.21 2.656-.255-.78-.716-1.516-1.39-2.066.864-.176 1.62-.43 2.193-.728.87-.457 1.22-.924 1.22-1.293 0-.62-1.034-1.428-2.885-1.922 1.488.58 2.433 1.34 2.433 2.023 0 .428-.435.918-1.246 1.385-.63.364-1.474.67-2.458.895-.884-1.12-2.176-1.854-3.705-2.072 1.475-.29 3.033-.424 4.55-.424 1.135 0 2.074.154 2.61.427 1.26.634 1.888 1.68 1.888 2.766v.053z" /></svg>,
+  DevOps: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-none stroke-[#2496ED]" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M7.5 7.5h9v9h-9z" /><path d="M7.5 12H3.75a2.25 2.25 0 0 1 0-4.5H6" /><path d="M16.5 12h3.75a2.25 2.25 0 0 1 0 4.5H18" /><path d="M12 7.5V4.25" /><path d="M12 16.5v3.25" /><path d="M9.75 10.25h4.5" /><path d="M9.75 13.75h4.5" /></svg>
 };
 
 export const SKILLS = [
@@ -97,21 +99,24 @@ export const SKILLS = [
   { name: "JavaScript", icon: BrandLogos.JS, category: "Frontend" },
   { name: "TypeScript", icon: BrandLogos.TypeScript, category: "Frontend" },
   { name: "React", icon: BrandLogos.React, category: "Frontend" },
+  { name: "React Native", icon: BrandLogos.React, category: "Mobile" },
   { name: "Next.js", icon: BrandLogos.Nextjs, category: "Frontend" },
   { name: "Node.js", icon: BrandLogos.Node, category: "Backend" },
   { name: "Express", icon: BrandLogos.Express, category: "Backend" },
   { name: "MongoDB", icon: BrandLogos.MongoDB, category: "Database" },
   { name: "Redis", icon: BrandLogos.Redis, category: "Database" },
   { name: "AWS", icon: BrandLogos.AWS, category: "Backend" },
+  { name: "Firebase", icon: BrandLogos.Firebase, category: "Backend" },
   { name: "Cloudinary", icon: BrandLogos.Cloudinary, category: "Tools" },
   { name: "Bootstrap", icon: BrandLogos.Bootstrap, category: "Styling" },
   { name: "Tailwind", icon: BrandLogos.Tailwind, category: "Styling" },
-  { name: "Flutter", icon: BrandLogos.Flutter, category: "Mobile" },
-  { name: "Dart", icon: BrandLogos.Flutter, category: "Mobile" },
   { name: "VS Code", icon: BrandLogos.VSCode, category: "Tools" },
   { name: "Git", icon: BrandLogos.Git, category: "Tools" },
   { name: "GitHub", icon: BrandLogos.GitHub, category: "Tools" },
   { name: "Linux", icon: BrandLogos.Linux, category: "Tools" },
+  { name: "CI/CD Pipeline", icon: BrandLogos.DevOps, category: "DevOps" },
+  { name: "Docker", icon: BrandLogos.DevOps, category: "DevOps" },
+  { name: "Kubernetes", icon: BrandLogos.DevOps, category: "DevOps" },
   { name: "Figma", icon: BrandLogos.Figma, category: "Design" },
   { name: "Video Editing", icon: BrandLogos.VideoEditing, category: "Design" },
   { name: "Lightroom", icon: BrandLogos.Lightroom, category: "Design" },
@@ -171,10 +176,10 @@ export const SERVICES = [
   },
   {
     title: "Mobile App Development",
-    description: "Creating high-performance cross-platform mobile applications using Flutter and Dart for iOS and Android.",
+    description: "Creating high-performance cross-platform mobile applications using React Native for iOS and Android.",
     icon: Zap,
     color: "#06b6d4", // Cyan
-    skills: ["Flutter", "Dart", "Firebase", "Mobile UI"]
+    skills: ["React Native", "TypeScript", "Firebase", "Mobile UI"]
   },
   {
     title: "MERN Stack Development",
