@@ -1,6 +1,4 @@
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { SERVICES } from "@/constants";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
 import SpotlightCard from "./ui/SpotlightCard";
@@ -9,28 +7,6 @@ import IconRenderer from "./IconRenderer";
 const Services = () => {
     const { data } = usePortfolioData();
     const servicesList = data?.services?.length > 0 ? data.services : SERVICES;
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [direction, setDirection] = useState(1);
-
-    const serviceCount = servicesList.length;
-    const safeActiveIndex = serviceCount > 0 ? Math.min(activeIndex, serviceCount - 1) : 0;
-    const activeService = servicesList[safeActiveIndex];
-
-    const showService = (nextIndex: number) => {
-        if (!serviceCount || nextIndex === safeActiveIndex) return;
-        setDirection(nextIndex > safeActiveIndex ? 1 : -1);
-        setActiveIndex(nextIndex);
-    };
-
-    const showPrevious = () => {
-        const nextIndex = safeActiveIndex === 0 ? serviceCount - 1 : safeActiveIndex - 1;
-        showService(nextIndex);
-    };
-
-    const showNext = () => {
-        const nextIndex = safeActiveIndex === serviceCount - 1 ? 0 : safeActiveIndex + 1;
-        showService(nextIndex);
-    };
 
     return (
         <section id="services" className="py-24 relative overflow-hidden">
@@ -45,70 +21,47 @@ const Services = () => {
                     </h2>
                 </div>
 
-                {/* Layout: Button controlled carousel */}
+                {/* Layout: Carousel on Mobile, Grid on Desktop */}
                 <div className="relative">
-                    <div className="mx-auto max-w-[760px]">
-                        <div className="relative overflow-visible px-12 md:px-16">
-                            <AnimatePresence initial={false} mode="wait">
-                                {activeService && (
-                                    <motion.div
-                                        key={safeActiveIndex}
-                                        className="w-full"
-                                        initial={{
-                                            opacity: 0,
-                                            x: direction > 0 ? 80 : -80,
-                                            scale: 0.92,
-                                            rotate: direction > 0 ? 4 : -4,
-                                        }}
-                                        animate={{ opacity: 1, x: 0, scale: 1, rotate: 0 }}
-                                        exit={{
-                                            opacity: 0,
-                                            x: direction > 0 ? -80 : 80,
-                                            scale: 0.92,
-                                            rotate: direction > 0 ? -4 : 4,
-                                        }}
-                                        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                                    >
-                                        <ServiceCard service={activeService} index={safeActiveIndex} />
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-
-                            <button
-                                type="button"
-                                onClick={showPrevious}
-                                className="absolute left-0 top-1/2 z-50 h-12 w-12 -translate-y-1/2 rounded-full border border-primary/30 bg-primary text-primary-foreground flex items-center justify-center shadow-[0_18px_40px_hsl(var(--primary)/0.35)] transition-all hover:scale-105 active:scale-95"
-                                aria-label="Previous service"
+                    {/* Mobile: Horizontal Snap Carousel */}
+                    <div
+                        className="flex md:hidden gap-6 overflow-x-auto snap-x snap-mandatory pb-8 hide-scrollbar"
+                    >
+                        {servicesList.map((service: any, index: number) => (
+                            <motion.div
+                                key={index}
+                                className="min-w-[85vw] snap-center"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1 }}
                             >
-                                <ChevronLeft className="h-6 w-6" />
-                            </button>
+                                <ServiceCard service={service} index={index} />
+                            </motion.div>
+                        ))}
+                    </div>
 
-                            <button
-                                type="button"
-                                onClick={showNext}
-                                className="absolute right-0 top-1/2 z-50 h-12 w-12 -translate-y-1/2 rounded-full border border-primary/30 bg-primary text-primary-foreground flex items-center justify-center shadow-[0_18px_40px_hsl(var(--primary)/0.35)] transition-all hover:scale-105 active:scale-95"
-                                aria-label="Next service"
+                    {/* Desktop: Centered Flex Grid Layout */}
+                    <div className="hidden md:flex flex-wrap justify-center gap-8">
+                        {servicesList.map((service: any, index: number) => (
+                            <motion.div
+                                key={index}
+                                className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1.5rem)] max-w-[450px]"
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1, duration: 0.8 }}
                             >
-                                <ChevronRight className="h-6 w-6" />
-                            </button>
-                        </div>
+                                <ServiceCard service={service} index={index} />
+                            </motion.div>
+                        ))}
+                    </div>
 
-                        <div className="mt-6 flex items-center justify-center gap-2">
-                            {servicesList.map((service: any, index: number) => (
-                                <button
-                                    key={`${service.title}-${index}`}
-                                    type="button"
-                                    onClick={() => showService(index)}
-                                    className={`h-2 rounded-full transition-all duration-300 ${
-                                        index === safeActiveIndex ? "w-8 bg-primary" : "w-2 bg-primary/25"
-                                    }`}
-                                    aria-label={`Show ${service.title}`}
-                                />
-                            ))}
-                        </div>
-
-                        <div className="mt-4 flex items-center justify-center text-xs text-muted-foreground opacity-50">
-                            <span>Use arrows to explore</span>
+                    {/* Mobile Visual Hint */}
+                    <div className="md:hidden flex items-center justify-center gap-2 mt-4 text-xs text-muted-foreground opacity-50">
+                        <span>Swipe to explore</span>
+                        <div className="flex gap-1">
+                            <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
+                            <div className="w-1 h-1 rounded-full bg-primary animate-pulse delay-75" />
+                            <div className="w-1 h-1 rounded-full bg-primary animate-pulse delay-150" />
                         </div>
                     </div>
                 </div>
@@ -164,7 +117,7 @@ const ServiceCard = ({ service, index }: { service: any, index: number }) => (
         <div className="pt-6 border-t border-border/10 dark:border-white/5 flex items-center justify-between">
             <span className="text-sm font-medium text-muted-foreground">0{index + 1}</span>
             <div className="w-10 h-10 rounded-full flex items-center justify-center bg-black/5 dark:bg-white/5 group-hover:bg-primary group-hover:text-black transition-all duration-500">
-                <ChevronRight className="h-5 w-5" />
+                →
             </div>
         </div>
     </SpotlightCard>
