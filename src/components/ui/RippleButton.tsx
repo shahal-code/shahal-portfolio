@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { useLowPerformanceMode } from "@/hooks/usePerformanceMode";
 
 interface RippleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
@@ -17,6 +18,7 @@ interface Ripple {
 const RippleButton: React.FC<RippleButtonProps> = ({ children, className, onClick, ...props }) => {
     const [ripples, setRipples] = useState<Ripple[]>([]);
     const [isJumping, setIsJumping] = useState(false);
+    const lowPerformance = useLowPerformanceMode();
 
     useEffect(() => {
         if (ripples.length > 0) {
@@ -29,6 +31,11 @@ const RippleButton: React.FC<RippleButtonProps> = ({ children, className, onClic
     }, [ripples]);
 
     const createRipple = (event: React.MouseEvent<HTMLButtonElement>) => {
+        if (lowPerformance) {
+            onClick?.(event);
+            return;
+        }
+
         const button = event.currentTarget;
         const rect = button.getBoundingClientRect();
         
@@ -64,7 +71,7 @@ const RippleButton: React.FC<RippleButtonProps> = ({ children, className, onClic
         <button
             className={cn(
                 "relative overflow-hidden transition-transform",
-                isJumping && "animate-water-jump",
+                !lowPerformance && isJumping && "animate-water-jump",
                 className
             )}
             onClick={createRipple}
@@ -72,30 +79,31 @@ const RippleButton: React.FC<RippleButtonProps> = ({ children, className, onClic
         >
             <span className="relative z-10">{children}</span>
             
-            {/* The Gooey Ripples Layer */}
-            <div 
-                className="absolute inset-0 pointer-events-none"
-                style={{ filter: "url(#goo)" }}
-            >
-                {ripples.map((ripple) => (
-                    <span
-                        key={ripple.id}
-                        className="absolute rounded-full bg-primary/60 animate-liquid-splash"
-                        style={{
-                            left: ripple.x,
-                            top: ripple.y,
-                            width: '40px',
-                            height: '40px',
-                            marginLeft: '-20px',
-                            marginTop: '-20px',
-                            willChange: "transform, opacity",
-                            "--x-offset": `${ripple.xOffset}px`,
-                            "--y-offset": `${ripple.yOffset}px`,
-                            transform: `scale(${ripple.scale}) translateZ(0)`,
-                        } as React.CSSProperties}
-                    />
-                ))}
-            </div>
+            {!lowPerformance && (
+                <div 
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ filter: "url(#goo)" }}
+                >
+                    {ripples.map((ripple) => (
+                        <span
+                            key={ripple.id}
+                            className="absolute rounded-full bg-primary/60 animate-liquid-splash"
+                            style={{
+                                left: ripple.x,
+                                top: ripple.y,
+                                width: '40px',
+                                height: '40px',
+                                marginLeft: '-20px',
+                                marginTop: '-20px',
+                                willChange: "transform, opacity",
+                                "--x-offset": `${ripple.xOffset}px`,
+                                "--y-offset": `${ripple.yOffset}px`,
+                                transform: `scale(${ripple.scale}) translateZ(0)`,
+                            } as React.CSSProperties}
+                        />
+                    ))}
+                </div>
+            )}
         </button>
     );
 };

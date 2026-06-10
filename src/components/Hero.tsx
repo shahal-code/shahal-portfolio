@@ -8,6 +8,7 @@ import RippleButton from "@/components/ui/RippleButton";
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useLowPerformanceMode } from "@/hooks/usePerformanceMode";
 
 interface HeroProps {
   onOpenContact?: () => void;
@@ -29,17 +30,19 @@ const Hero = ({ onOpenContact }: HeroProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const isMobile = useIsMobile();
+  const isLowPerformance = useLowPerformanceMode();
+  const reduceMotion = isMobile || isLowPerformance;
 
   // Scroll Parallax settings (Disabled on mobile for performance)
   const { scrollY } = useScroll();
-  const scale = useTransform(scrollY, [0, 500], isMobile ? [1, 1] : [1, 1.8]);
-  const yFly = useTransform(scrollY, [0, 500], isMobile ? [0, 0] : [0, -150]);
+  const scale = useTransform(scrollY, [0, 500], reduceMotion ? [1, 1] : [1, 1.8]);
+  const yFly = useTransform(scrollY, [0, 500], reduceMotion ? [0, 0] : [0, -150]);
   const opacity = useTransform(scrollY, [0, 500], [1, 0]);
 
   // Background blob & image transformations (Must be top-level)
-  const blob1Y = useTransform(scrollY, [0, 500], isMobile ? [0, 0] : [0, -100]);
-  const blob2Y = useTransform(scrollY, [0, 500], isMobile ? [0, 0] : [0, -150]);
-  const bgImageY = useTransform(scrollY, [0, 500], isMobile ? [0, 0] : [0, 100]);
+  const blob1Y = useTransform(scrollY, [0, 500], reduceMotion ? [0, 0] : [0, -100]);
+  const blob2Y = useTransform(scrollY, [0, 500], reduceMotion ? [0, 0] : [0, -150]);
+  const bgImageY = useTransform(scrollY, [0, 500], reduceMotion ? [0, 0] : [0, 100]);
 
   // Filter (blur) removed for performance - real-time backdrop blur during scroll is heavy
   const filter = "none";
@@ -50,8 +53,8 @@ const Hero = ({ onOpenContact }: HeroProps) => {
   const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
   const mouseYSpring = useSpring(yTilt, { stiffness: 150, damping: 20 });
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], isMobile ? ["0deg", "0deg"] : ["7deg", "-7deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], isMobile ? ["0deg", "0deg"] : ["-7deg", "7deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], reduceMotion ? ["0deg", "0deg"] : ["7deg", "-7deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], reduceMotion ? ["0deg", "0deg"] : ["-7deg", "7deg"]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -102,9 +105,13 @@ const Hero = ({ onOpenContact }: HeroProps) => {
       </div>
 
       <div className="absolute inset-0 bg-transparent" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-primary/0 to-primary/0 dark:from-primary/8" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/10 via-accent/0 to-accent/0 dark:from-accent/30" />
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-violet-500/5 to-violet-500/0 blur-2xl md:block hidden dark:from-violet-500/10" />
+      {!reduceMotion && (
+        <>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-primary/0 to-primary/0 dark:from-primary/8" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/10 via-accent/0 to-accent/0 dark:from-accent/30" />
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-violet-500/5 to-violet-500/0 blur-2xl md:block hidden dark:from-violet-500/10" />
+        </>
+      )}
 
       {/* Seamless transition mask */}
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-transparent" />
@@ -113,7 +120,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
       <div className="premium-divider bottom-0" />
 
       {/* Floating decorative elements - Hidden on mobile for buttery smooth scrolling */}
-      {!isMobile && (
+      {!reduceMotion && (
         <>
           <motion.div
             style={{ y: blob1Y }}
@@ -227,11 +234,12 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
               {/* Image container with Pure Water Effect */}
               <div
-                className="relative w-full h-full rounded-full overflow-hidden transition-all duration-500 group-hover:scale-[1.02]
-                  bg-blue-400/5 md:backdrop-blur-[2px] border border-white/30 p-2
-                  shadow-[0_10px_30px_rgba(0,0,0,0.1)] md:shadow-[inset_0_0_20px_rgba(255,255,255,0.6),inset_10px_10px_40px_rgba(255,255,255,0.5),0_25px_60px_rgba(0,0,0,0.2)]
-                  group-hover:shadow-[0_15px_40px_rgba(0,0,0,0.2)] md:group-hover:shadow-[inset_0_0_30px_rgba(255,255,255,0.8),inset_20px_20px_60px_rgba(255,255,255,0.6),0_35px_80px_rgba(0,0,0,0.3)]
-                "
+                className={`relative w-full h-full rounded-full overflow-hidden transition-all duration-500 group-hover:scale-[1.02]
+                  bg-blue-400/5 border border-white/30 p-2
+                  shadow-[0_10px_30px_rgba(0,0,0,0.1)]
+                  group-hover:shadow-[0_15px_40px_rgba(0,0,0,0.2)]
+                  ${reduceMotion ? "" : "md:backdrop-blur-[2px] md:shadow-[inset_0_0_20px_rgba(255,255,255,0.6),inset_10px_10px_40px_rgba(255,255,255,0.5),0_25px_60px_rgba(0,0,0,0.2)] md:group-hover:shadow-[inset_0_0_30px_rgba(255,255,255,0.8),inset_20px_20px_60px_rgba(255,255,255,0.6),0_35px_80px_rgba(0,0,0,0.3)]"}
+                `}
                 style={{ transform: "translateZ(20px)" }} // Pop forward
               >
 
@@ -253,7 +261,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
           </motion.div>
 
           {/* Mobile-only CTA buttons (Text -> Image -> Buttons order) */}
-          <div className="flex lg:hidden flex-row gap-4 items-center justify-center w-full mt-2 animate-fade-in">
+          <div className={`flex lg:hidden flex-row gap-4 items-center justify-center w-full mt-2 ${reduceMotion ? "" : "animate-fade-in"}`}>
             <Magnetic strength={0.4}>
               <RippleButton
                 className="relative text-base px-8 h-12 rounded-full overflow-hidden group text-primary-foreground bg-primary/20 backdrop-blur-3xl border border-primary/30 shadow-[inset_2px_2px_4px_rgba(255,255,255,0.3),inset_-2px_-4px_8px_rgba(0,0,0,0.3),0_10px_30px_hsl(var(--primary)/0.2)] hover:scale-105 active:scale-95 transition-all duration-300"

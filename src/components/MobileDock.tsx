@@ -4,11 +4,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Magnetic from "./Magnetic";
 import RippleButton from "./ui/RippleButton";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLowPerformanceMode } from "@/hooks/usePerformanceMode";
 
 const MobileDock = () => {
     const [activeSection, setActiveSection] = useState("hero");
     const location = useLocation();
     const navigate = useNavigate();
+    const lowPerformance = useLowPerformanceMode();
 
     const navLinks = [
         { id: "hero", icon: Home, label: "Home" },
@@ -72,7 +74,7 @@ const MobileDock = () => {
                     const Icon = link.icon;
 
                     return (
-                        <Magnetic key={link.id} strength={0.2}>
+                        <Magnetic key={link.id} strength={lowPerformance ? 0 : 0.2}>
                             <RippleButton
                                 onClick={() => scrollToSection(link.id)}
                                 className={`
@@ -85,7 +87,7 @@ const MobileDock = () => {
                             >
                                 <Icon size={24} className={isActive ? "scale-105" : "scale-100"} />
                                 
-                                {isActive && (
+                                {isActive && !lowPerformance && (
                                     <motion.div
                                         layoutId="active-pill-mobile"
                                         className="absolute inset-0 rounded-full -z-10"

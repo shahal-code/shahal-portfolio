@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound";
 import CinematicPageTransition from "@/components/CinematicPageTransition";
 import React from "react";
 import SpaceBackground from "@/components/SpaceBackground";
+import { useLowPerformanceMode } from "@/hooks/usePerformanceMode";
 
 const queryClient = new QueryClient();
 
@@ -51,11 +52,17 @@ const AppContent = () => {
 };
 
 const App = () => {
+  const lowPerformance = useLowPerformanceMode();
+
   useEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
   }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.lowPerformance = lowPerformance ? "true" : "false";
+  }, [lowPerformance]);
 
   return (
     <QueryClientProvider client={queryClient}>

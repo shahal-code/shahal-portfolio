@@ -490,6 +490,52 @@ All colors MUST be HSL.
   }
 }
 
+/* Low Performance Mode */
+html[data-low-performance="true"] * {
+  scroll-behavior: auto;
+}
+
+html[data-low-performance="true"] .animate-color-cycle,
+html[data-low-performance="true"] .animate-color-cycle-reverse,
+html[data-low-performance="true"] .animate-fade-in,
+html[data-low-performance="true"] .animate-fade-in-up,
+html[data-low-performance="true"] .animate-fade-in-up-delayed,
+html[data-low-performance="true"] .animate-fade-in-up-delayed-2,
+html[data-low-performance="true"] .animate-fade-in-up-delayed-3,
+html[data-low-performance="true"] .animate-float,
+html[data-low-performance="true"] .animate-float-delayed,
+html[data-low-performance="true"] .animate-pulse-slow,
+html[data-low-performance="true"] .animate-bounce,
+html[data-low-performance="true"] .animate-pulse,
+html[data-low-performance="true"] .animate-water-jump,
+html[data-low-performance="true"] .animate-liquid-splash {
+  animation: none !important;
+}
+
+html[data-low-performance="true"] .backdrop-blur-3xl,
+html[data-low-performance="true"] .backdrop-blur-2xl,
+html[data-low-performance="true"] .backdrop-blur-xl,
+html[data-low-performance="true"] .backdrop-blur-\[20px\],
+html[data-low-performance="true"] .md\:backdrop-blur-\[2px\] {
+  backdrop-filter: none !important;
+}
+
+html[data-low-performance="true"] .shadow-2xl,
+html[data-low-performance="true"] .shadow-xl {
+  box-shadow: none !important;
+}
+
+html[data-low-performance="true"] .transition-all,
+html[data-low-performance="true"] .transition-transform {
+  transition-property: none !important;
+}
+
+html[data-low-performance="true"] .reveal-base {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
 /* Custom Scrollbar Styles */
 @layer base {
   ::-webkit-scrollbar {

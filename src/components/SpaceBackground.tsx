@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useLowPerformanceMode } from '@/hooks/usePerformanceMode';
 
 const SpaceBackground = () => {
     const mountRef = useRef<HTMLDivElement>(null);
     const isMobile = useIsMobile();
+    const isLowPerformance = useLowPerformanceMode();
     const [isDark, setIsDark] = useState(true);
 
     useEffect(() => {
@@ -24,6 +26,8 @@ const SpaceBackground = () => {
     }, []);
 
     useEffect(() => {
+        if (isLowPerformance) return;
+
         if (!mountRef.current) return;
 
         // --- 1. Basic Setup (Optimized) ---
@@ -149,7 +153,7 @@ const SpaceBackground = () => {
             material.dispose();
             renderer.dispose();
         };
-    }, [isMobile, isDark]);
+    }, [isMobile, isDark, isLowPerformance]);
 
     return (
         <div

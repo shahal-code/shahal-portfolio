@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useLowPerformanceMode } from "@/hooks/usePerformanceMode";
 
 interface MagneticProps {
     children: React.ReactElement;
@@ -8,7 +9,11 @@ interface MagneticProps {
 
 const Magnetic: React.FC<MagneticProps> = ({ children, strength = 0.3, className = "" }) => {
     const ref = useRef<HTMLDivElement>(null);
+    const lowPerformance = useLowPerformanceMode();
+
     useEffect(() => {
+        if (lowPerformance) return;
+
         const node = ref.current;
         if (!node) return;
 
@@ -40,14 +45,14 @@ const Magnetic: React.FC<MagneticProps> = ({ children, strength = 0.3, className
             node.removeEventListener("touchmove", onTouchMove);
             node.removeEventListener("touchend", handleReset);
         };
-    }, [strength]);
+    }, [strength, lowPerformance]);
 
     return (
         <div
             ref={ref}
-            className={`inline-block transition-transform duration-150 ease-out ${className}`}
+            className={`inline-block ${lowPerformance ? "" : "transition-transform duration-150 ease-out"} ${className}`}
             style={{
-                willChange: 'transform'
+                willChange: lowPerformance ? 'auto' : 'transform'
             }}
         >
             {children}
