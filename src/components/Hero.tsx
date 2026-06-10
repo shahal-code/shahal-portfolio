@@ -239,7 +239,8 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                 <img
                   src="/Me-color.jpg"
                   alt={PERSONAL_DETAILS.name}
-                  loading="lazy"
+                  loading="eager"
+                  fetchPriority="high"
                   className="w-full h-full rounded-full object-cover shadow-inner grayscale group-hover:grayscale-0 transition-all duration-1000 ease-in-out select-none"
                   onContextMenu={(e) => e.preventDefault()}
                   draggable="false"

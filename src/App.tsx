@@ -14,8 +14,8 @@ import Index from "./pages/Index";
 import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
 import CinematicPageTransition from "@/components/CinematicPageTransition";
-import React, { Suspense, lazy } from "react";
-const SpaceBackground = lazy(() => import("@/components/SpaceBackground"));
+import React from "react";
+import SpaceBackground from "@/components/SpaceBackground";
 
 const queryClient = new QueryClient();
 
@@ -25,9 +25,7 @@ const MainLayout = () => {
   return (
     <div className="flex flex-col min-h-screen relative z-10">
       <SmoothScroll />
-      <Suspense fallback={null}>
-        <SpaceBackground />
-      </Suspense>
+      <SpaceBackground />
       <Header />
       <main className="flex-grow">
         <CinematicPageTransition>

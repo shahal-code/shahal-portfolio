@@ -1,12 +1,11 @@
-import React, { useEffect, Suspense, lazy } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-
-const Skills = lazy(() => import("@/components/Skills"));
-const Projects = lazy(() => import("@/components/Projects"));
-const Services = lazy(() => import("@/components/Services"));
-const Connect = lazy(() => import("@/components/Connect"));
+import Skills from "@/components/Skills";
+import Projects from "@/components/Projects";
+import Services from "@/components/Services";
+import Connect from "@/components/Connect";
 
 const Index = () => {
   const location = useLocation();
@@ -68,12 +67,10 @@ const Index = () => {
     <div className="w-full">
       <Hero />
       <About />
-      <Suspense fallback={<div className="min-h-screen" />}>
-        <Services />
-        <Skills />
-        <Projects />
-        <Connect />
-      </Suspense>
+      <Services />
+      <Skills />
+      <Projects />
+      <Connect />
     </div>
   );
 };
