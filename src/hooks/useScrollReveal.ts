@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 interface UseScrollRevealOptions {
   threshold?: number;
@@ -12,30 +12,11 @@ export const useScrollReveal = ({
   triggerOnce = false,
 }: UseScrollRevealOptions = {}) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
+  // Keep content visible immediately instead of waiting for scroll-triggered reveal.
+  void threshold;
+  void rootMargin;
+  void triggerOnce;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          if (triggerOnce) {
-            observer.unobserve(element);
-          }
-        } else if (!triggerOnce) {
-          setIsVisible(false);
-        }
-      },
-      { threshold, rootMargin }
-    );
-
-    observer.observe(element);
-
-    return () => observer.disconnect();
-  }, [threshold, rootMargin, triggerOnce]);
-
-  return { ref, isVisible };
+  return { ref, isVisible: true };
 };

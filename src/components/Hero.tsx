@@ -128,14 +128,14 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
       <div ref={sectionRef} className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-12">
-          <div className={`flex-1 text-center lg:text-left reveal-base reveal-up ${isVisible ? 'revealed' : ''}`}>
+          <div className="flex-1 text-center lg:text-left reveal-base reveal-up revealed">
             {/* Main heading with gradient */}
             <h1 className="w-fit mx-auto lg:mx-0 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 leading-tight tracking-tight shrink-0 transition-all">
               <span className="animate-color-cycle">{firstName}</span> <span className="animate-color-cycle-reverse">{lastName}.</span>
             </h1>
 
             {/* Decorative Gradient Line */}
-            <div className={`w-24 h-1.5 bg-gradient-to-r from-primary to-accent rounded-full mb-8 opacity-80 transition-all duration-1000 delay-300 ${isVisible ? 'w-24 opacity-80' : 'w-0 opacity-0'}`} />
+            <div className="w-24 h-1.5 bg-gradient-to-r from-primary to-accent rounded-full mb-8 opacity-80 transition-all duration-1000" />
 
             {/* Role/subtitle */}
             <p className="text-lg md:text-2xl font-medium text-primary mb-4 md:mb-6 tracking-wide">
@@ -204,7 +204,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
           {/* Right Image Column with 3D Tilt & Scroll Parallax */}
           <motion.div
             style={{ scale, filter, opacity, y: yFly }}
-            className={`flex-1 relative perspective-1000 lens-focus ${isVisible ? 'opacity-100' : 'opacity-0'}`} // Lens Focus effect
+            className="flex-1 relative perspective-1000 lens-focus opacity-100" // Lens Focus effect
           >
             <motion.div
               onMouseMove={handleMouseMove}
@@ -253,7 +253,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
           </motion.div>
 
           {/* Mobile-only CTA buttons (Text -> Image -> Buttons order) */}
-          <div className="flex lg:hidden flex-row gap-4 items-center justify-center w-full mt-2 animate-fade-in delay-500">
+          <div className="flex lg:hidden flex-row gap-4 items-center justify-center w-full mt-2 animate-fade-in">
             <Magnetic strength={0.4}>
               <RippleButton
                 className="relative text-base px-8 h-12 rounded-full overflow-hidden group text-primary-foreground bg-primary/20 backdrop-blur-3xl border border-primary/30 shadow-[inset_2px_2px_4px_rgba(255,255,255,0.3),inset_-2px_-4px_8px_rgba(0,0,0,0.3),0_10px_30px_hsl(var(--primary)/0.2)] hover:scale-105 active:scale-95 transition-all duration-300"
