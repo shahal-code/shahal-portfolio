@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Home, User, Layers, Code, Briefcase } from "lucide-react";
+import { Home, User, Layers, Code, Briefcase, Sparkles } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Magnetic from "./Magnetic";
 import RippleButton from "./ui/RippleButton";
@@ -18,6 +18,7 @@ const MobileDock = () => {
         { id: "services", icon: Layers, label: "Services" },
         { id: "skills", icon: Code, label: "Skills" },
         { id: "projects", icon: Briefcase, label: "Projects" },
+        { id: "freelance", icon: Sparkles, label: "Freelance" },
     ];
 
     useEffect(() => {

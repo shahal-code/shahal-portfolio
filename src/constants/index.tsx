@@ -200,28 +200,56 @@ export const SERVICES = [
 export const PROJECTS = [
   {
     title: "NovuTalks - Real-Time Chat Application",
-    description: "A high-performance, real-time communication platform inspired by WhatsApp. Engineered for seamless interactions, featuring instant messaging, low-latency WebSockets, and real-time data synchronization.",
-    tags: ["React", "Node.js", "WebSockets", "WebRTC", "Redis"],
+    description: "A high-performance, real-time communication platform inspired by WhatsApp. Engineered for seamless interactions, featuring instant messaging, low-latency WebSockets, WebRTC, Redis, REST API, and GraphQL API integration built on the MERN stack.",
+    tags: ["MERN Stack", "React", "Node.js", "Express", "MongoDB", "WebSockets", "WebRTC", "Redis", "REST API", "GraphQL API"],
     image: "/novutalks.svg",
     github: "https://github.com/shahal-code",
     demo: "https://www.novutalks.in/",
-    status: "Currently Working"
+    status: "Live"
   },
   {
-    title: "TechKart Ecommerce Website",
-    description: "A premium full-stack e-commerce platform built with the MERN stack. Features include advanced product filtering, secure payment integration, user authentication, and a robust admin dashboard for inventory management.",
-    tags: ["MERN Stack", "Redux", "Stripe API", "Tailwind CSS"],
+    title: "NovuAI — Agentic AI Chat Assistant",
+    description: "An intelligent RAG-based AI chat assistant powered by Groq LLM. Engineered with Retrieval-Augmented Generation for context-aware responses and agentic AI capabilities, featuring Google & WhatsApp authentication, REST API backend, and real-time chat sync across devices built with MERN stack & Next.js.",
+    tags: ["MERN Stack", "Groq LLM", "RAG", "Agentic AI", "React", "Node.js", "MongoDB", "Express", "REST API", "Vercel"],
+    image: "/novuai.png",
+    github: "https://github.com/shahal-code",
+    demo: "https://novuai.vercel.app",
+    status: "Live"
+  }
+];
+
+export const FREELANCE_PROJECTS = [
+  {
+    title: "Mirasco.in",
+    tagline: "Dynamic Event Management & Services Website",
+    description: "A fully dynamic landing page for an event management company — the client can update all content (services, gallery, team, pricing) through a custom admin panel without touching code. Built with React, TypeScript, Node.js, Express, MongoDB, REST API, and Framer Motion for buttery-smooth animations.",
+    tags: ["React", "TypeScript", "Node.js", "Express", "MongoDB", "REST API", "Framer Motion"],
+    image: "/mirasco.png",
+    github: "https://github.com/shahal-code",
+    demo: "https://mirasco.in",
+    status: "Live",
+    year: "2025"
+  },
+  {
+    title: "TechKart",
+    tagline: "Full-Stack E-Commerce Platform",
+    description: "A highly scalable MERN stack e-commerce platform developed for a client business. Features include a dynamic product catalog, advanced multi-category filtering, real-time cart management, secure Razorpay payment integration, comprehensive order tracking, REST API, JWT-based authentication, and a robust admin dashboard for end-to-end inventory and order lifecycle management.",
+    tags: ["MongoDB", "Express", "React", "Node.js", "Razorpay", "Redux Toolkit", "REST API", "JWT"],
     image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&auto=format&fit=crop&q=60",
     github: "https://github.com/shahal-code",
     demo: "#",
-    status: "Currently Working"
+    status: "In Progress",
+    year: "2025"
   },
   {
-    title: "Mirasco.in Website",
-    description: "A professional event management and services website featuring a modern, responsive design. Implemented with smooth animations, dynamic service showcases, and a streamlined booking inquiry system.",
-    tags: ["React", "Framer Motion", "Tailwind CSS", "Node.js"],
-    image: "/mirasco.png",
+    title: "EspareHub",
+    tagline: "Large-Scale Multi-Vendor E-Commerce Marketplace",
+    description: "A large-scale production multi-vendor marketplace serving 100+ real-time users at esparehub.shop. Multiple sellers list and manage products under one roof with dedicated vendor dashboards, commission tracking, order lifecycle management, Razorpay payment integration, GraphQL API & REST API, and AWS-powered media & infra. Actively in development with new features shipping continuously.",
+    tags: ["MongoDB", "Express", "React", "Node.js", "Razorpay", "GraphQL API", "REST API", "AWS", "Multi-Vendor"],
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&auto=format&fit=crop&q=60",
     github: "https://github.com/shahal-code",
-    demo: "https://mirasco.in"
+    demo: "https://esparehub.shop",
+    status: "Currently Working",
+    year: "2025"
   }
 ];

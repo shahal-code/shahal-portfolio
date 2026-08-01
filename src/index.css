@@ -722,3 +722,25 @@ html[data-low-performance="true"] .noise-overlay {
     opacity: 1 !important;
   }
 }
+
+/* ── Freelance cards responsive layout ── */
+/* Mobile: full-width, fully rounded, no offset */
+.freelance-card-wrap {
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.freelance-card-wrap article {
+  border-radius: 1rem !important;
+}
+
+/* Desktop: 48% width, edge-flush on one side */
+@media (min-width: 1024px) {
+  .freelance-card-wrap {
+    width: 48% !important;
+  }
+  .freelance-card-left  { margin-left: 0 !important;    margin-right: auto !important; }
+  .freelance-card-right { margin-left: auto !important; margin-right: 0 !important;    }
+  .freelance-card-left article  { border-radius: 0 1.5rem 1.5rem 0 !important; }
+  .freelance-card-right article { border-radius: 1.5rem 0 0 1.5rem !important; }
+}

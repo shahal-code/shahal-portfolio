@@ -24,7 +24,7 @@ const Header = ({ onOpenContact }: HeaderProps) => {
           setIsScrolled(window.scrollY > 50);
 
           if (!isManualScroll.current) {
-            const sections = ["hero", "about", "services", "skills", "projects"];
+            const sections = ["hero", "about", "services", "skills", "projects", "freelance"];
             let minDistance = Infinity;
             let currentSection = activeSection;
 
@@ -59,7 +59,8 @@ const Header = ({ onOpenContact }: HeaderProps) => {
     { label: "About", sectionId: "about" },
     { label: "Services", sectionId: "services" },
     { label: "Skills", sectionId: "skills" },
-    { label: "Projects", sectionId: "projects" }
+    { label: "Projects", sectionId: "projects" },
+    { label: "Freelance", sectionId: "freelance" }
   ];
 
   const scrollToSection = (sectionId: string) => {

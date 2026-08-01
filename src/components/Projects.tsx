@@ -1,134 +1,226 @@
-import { ExternalLink, Github, Lock } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ExternalLink, Github, Lock, MapPin, Calendar, ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
 import RippleButton from "@/components/ui/RippleButton";
+import Magnetic from "@/components/Magnetic";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { PROJECTS } from "@/constants";
-import Magnetic from "@/components/Magnetic";
-import SpotlightCard from "@/components/ui/SpotlightCard"; // Imported SpotlightCard
-import Scroll3DWrapper from "@/components/Scroll3DWrapper";
+
+type Project = {
+  title: string;
+  description: string;
+  tags: string[];
+  image: string;
+  github: string;
+  demo: string;
+  status?: string;
+};
+
+const getProjectType = (title: string) => {
+  const normalizedTitle = title.toLowerCase();
+  if (normalizedTitle.includes("chat") || normalizedTitle.includes("talks")) return "Realtime Platform";
+  if (normalizedTitle.includes("ai") || normalizedTitle.includes("novuai")) return "Agentic AI Build";
+  return "Full Stack Build";
+};
 
 const Projects = () => {
   const { data } = usePortfolioData();
-  const projectsList = data?.projects?.length > 0 ? data.projects : PROJECTS;
-
-  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
+  const projectsList = (data?.projects?.length > 0 ? data.projects : PROJECTS) as Project[];
+  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.08 });
 
   return (
-    <section id="projects" className="py-28 relative scroll-mt-32">
-      {/* Section divider */}
+    <section id="projects" className="relative py-24 sm:py-28 scroll-mt-32 overflow-hidden">
+      {/* Ambient glows */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/3 -right-32 w-72 h-72 rounded-full bg-primary/8 blur-[100px]" />
+        <div className="absolute bottom-1/4 -left-32 w-72 h-72 rounded-full bg-cyan-500/8 blur-[100px]" />
+      </div>
+
       <div className="premium-divider top-0" />
 
-      <Scroll3DWrapper>
-        <div className="container mx-auto px-4 sm:px-6">
-          <div ref={sectionRef} className="max-w-6xl mx-auto">
-            {/* Section header */}
-            <div className="text-center mb-20 reveal-base reveal-up revealed">
-              <span className="inline-block text-sm font-semibold text-primary tracking-widest uppercase mb-4 px-4 py-1.5 bg-primary/10 rounded-full">
+      {/* ── Section Header ── */}
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div ref={sectionRef} className="max-w-6xl mx-auto mb-16">
+          <div className={`reveal-base reveal-up ${isVisible ? "revealed" : ""}`}>
+            <div className="flex flex-col gap-4">
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-primary w-fit">
                 Portfolio
               </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                My <span className="animate-color-cycle">Recent</span> <span className="animate-color-cycle-reverse">Works</span>
+              <h2 className="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
+                Selected <span className="animate-color-cycle">Project</span>{" "}
+                <span className="animate-color-cycle-reverse">Missions</span>
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                A showcase of my recent projects, featuring full-stack applications and professional web solutions.
+              <p className="max-w-md text-sm leading-7 text-muted-foreground">
+                Featured builds with live previews, stack details, and direct access to code or live demos.
               </p>
             </div>
+          </div>
+        </div>
+      </div>
 
-            {/* Project cards */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-10 max-w-5xl mx-auto">
-              {projectsList.map((project: any, index: number) => (
-                <SpotlightCard
-                  key={index}
-                  className="group bg-card border border-border/50 backdrop-blur-3xl rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_30px_60px_rgba(0,0,0,0.15)] reveal-base reveal-up revealed"
-                  spotlightColor="rgba(139, 92, 246, 0.2)"
+      {/* ── Cards: full viewport width, alternating left/right ── */}
+      <div className="relative z-10 w-full space-y-6">
+        {projectsList.map((project: Project, index: number) => {
+          const isLeft = index % 2 === 0;
+          const projectType = getProjectType(project.title);
+
+          return (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, x: isLeft ? -140 : 140 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className={`freelance-card-wrap ${isLeft ? "freelance-card-left" : "freelance-card-right"}`}
+            >
+              <article
+                className="group relative border border-white/10 bg-white/[0.015] backdrop-blur-sm overflow-hidden transition-all duration-500 hover:border-primary/25 hover:bg-white/[0.03] hover:shadow-[0_0_50px_hsl(var(--primary)/0.07)] flex flex-col sm:flex-row"
+                style={{ minHeight: "200px" }}
+              >
+                {/* Hover glow line */}
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                {/* ── Image panel — outer edge side ── */}
+                <div
+                  className="relative w-full sm:w-[38%] flex-shrink-0 overflow-hidden"
+                  style={{
+                    order: isLeft ? 0 : 1,
+                    minHeight: "180px",
+                  }}
                 >
-                  {/* Image */}
-                  <div className="h-60 relative overflow-hidden bg-muted">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
-                    
-                    {/* Currently Working Badge */}
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="absolute inset-0 h-full w-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:saturate-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/20 to-transparent" />
+
+                  {/* Badges on image */}
+                  <span className="absolute top-3 left-3 rounded-full border border-white/20 bg-black/50 px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-white/90 backdrop-blur-md">
+                    {projectType}
+                  </span>
+                  <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-full border border-white/15 bg-black/50 px-2.5 py-1 text-[9px] font-bold text-white/80 backdrop-blur-md">
+                    <ArrowUpRight className="w-3 h-3 text-primary" />
+                  </div>
+                </div>
+
+                {/* ── Content panel ── */}
+                <div
+                  className="flex flex-col justify-between gap-4 p-5 sm:p-7 flex-1"
+                  style={{ order: isLeft ? 1 : 0 }}
+                >
+                  {/* Number + status */}
+                  <div
+                    className="flex items-center gap-2.5 w-full"
+                    style={{ flexDirection: isLeft ? "row" : "row-reverse" }}
+                  >
+                    <span className="font-mono text-xs font-bold text-primary/70">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="h-px w-6 bg-primary/30 flex-shrink-0" />
+                    <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+                      {projectType}
+                    </span>
+                    <span className="flex-1" />
                     {project.status && (
-                      <div className="absolute top-4 right-4 z-10">
-                        <span className="px-4 py-1.5 bg-primary/20 backdrop-blur-xl border border-primary/40 text-primary text-[10px] font-bold uppercase tracking-widest rounded-full shadow-[0_0_20px_rgba(139,92,246,0.3)] animate-pulse">
-                          {project.status}
-                        </span>
-                      </div>
+                      <span className="flex items-center gap-1 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-primary">
+                        <span className="w-1 h-1 rounded-full bg-primary animate-pulse" />
+                        {project.status}
+                      </span>
                     )}
                   </div>
 
-                  {/* Content */}
-                  <div className="p-8">
-                    <h3 className="text-2xl font-bold text-foreground mb-3 tracking-tight group-hover:text-primary transition-colors">
+                  {/* Title */}
+                  <div style={{ textAlign: isLeft ? "left" : "right" }}>
+                    <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-primary">
                       {project.title}
                     </h3>
-                    <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
-                      {project.description}
-                    </p>
+                  </div>
 
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-8">
-                      {project.tags.map((tag, tagIndex) => (
-                        <span
-                          key={tagIndex}
-                          className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest rounded-lg border border-primary/20"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                  {/* Description */}
+                  <p
+                    className="text-xs leading-6 text-muted-foreground line-clamp-3"
+                    style={{ textAlign: isLeft ? "left" : "right" }}
+                  >
+                    {project.description}
+                  </p>
 
-                    <div className="pt-6 grid grid-cols-2 gap-4">
-                      <Magnetic strength={0.4} className="w-full">
+                  {/* Tags */}
+                  <div
+                    className="flex flex-wrap gap-1.5"
+                    style={{ justifyContent: isLeft ? "flex-start" : "flex-end" }}
+                  >
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-primary/80"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* URL + Buttons */}
+                  <div
+                    className="flex flex-col gap-2 pt-3 border-t border-white/[0.06]"
+                    style={{ alignItems: isLeft ? "flex-start" : "flex-end" }}
+                  >
+                    {project.demo && project.demo !== "#" && (
+                      <div
+                        className="flex items-center gap-1.5 text-[10px] text-muted-foreground/60"
+                        style={{ flexDirection: isLeft ? "row" : "row-reverse" }}
+                      >
+                        <MapPin className="w-2.5 h-2.5 flex-shrink-0" />
+                        <span className="font-mono">{project.demo.replace("https://", "")}</span>
+                      </div>
+                    )}
+
+                    <div
+                      className="flex flex-wrap gap-2"
+                      style={{ justifyContent: isLeft ? "flex-start" : "flex-end" }}
+                    >
+                      <Magnetic strength={0.3}>
                         <RippleButton
-                          className="w-full h-11 text-[11px] font-bold rounded-full text-foreground bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/20 dark:border-white/10 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.1),0_5px_15px_rgba(0,0,0,0.1)] hover:bg-card/60 dark:hover:bg-white/10 active:scale-95 transition-all"
+                          className="h-8 rounded-full border border-white/10 bg-white/[0.04] px-4 text-[10px] font-bold text-foreground backdrop-blur-xl transition-all hover:border-primary/40 hover:bg-primary/10 active:scale-95"
                           onClick={() => window.open(project.github, "_blank", "noopener,noreferrer")}
                         >
-                          <span className="flex items-center justify-center">
-                            <Github className="w-3.5 h-3.5 mr-1.5" />
+                          <span className="flex items-center gap-1.5">
+                            <Github className="w-3 h-3" />
                             Code
                           </span>
                         </RippleButton>
                       </Magnetic>
 
-                      <Magnetic strength={0.4} className="w-full">
+                      <Magnetic strength={0.3}>
                         <RippleButton
-                          className="w-full h-11 text-[11px] font-bold rounded-full text-primary-foreground bg-primary/20 backdrop-blur-3xl border border-primary/30 shadow-[inset_2px_2px_4px_rgba(255,255,255,0.3),inset_-2px_-4px_8px_rgba(0,0,0,0.3),0_10px_20px_hsl(var(--primary)/0.15)] hover:scale-[1.03] active:scale-95 transition-all"
+                          className={`h-8 rounded-full border px-4 text-[10px] font-bold backdrop-blur-xl transition-all active:scale-95 ${
+                            project.demo && project.demo !== "#"
+                              ? "border-primary/40 bg-primary/20 text-primary-foreground hover:bg-primary/30"
+                              : "cursor-not-allowed border-white/10 bg-white/[0.03] text-muted-foreground"
+                          }`}
                           onClick={() => {
                             if (project.demo && project.demo !== "#") {
                               window.open(project.demo, "_blank", "noopener,noreferrer");
                             }
                           }}
                         >
-                          <span className="flex items-center justify-center">
+                          <span className="flex items-center gap-1.5">
                             {project.demo && project.demo !== "#" ? (
-                              <>
-                                <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
-                                Live Demo
-                              </>
+                              <><ExternalLink className="w-3 h-3" />Live Demo</>
                             ) : (
-                              <>
-                                <Lock className="w-3.5 h-3.5 mr-1.5" />
-                                Not Available
-                              </>
+                              <><Lock className="w-3 h-3" />Not Available</>
                             )}
                           </span>
                         </RippleButton>
                       </Magnetic>
                     </div>
                   </div>
-                </SpotlightCard>
-              ))}
-            </div>
-          </div>
-        </div>
-      </Scroll3DWrapper>
-
+                </div>
+              </article>
+            </motion.div>
+          );
+        })}
+      </div>
     </section>
   );
 };

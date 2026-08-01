@@ -136,4 +136,12 @@ export default {
   	}
   },
   plugins: [require("tailwindcss-animate")],
+  safelist: [
+    "text-left", "text-right",
+    "justify-start", "justify-end",
+    "flex-row", "flex-row-reverse",
+    "lg:flex-row", "lg:flex-row-reverse",
+    "sm:justify-start", "sm:justify-end",
+    "sm:flex-row-reverse",
+  ],
 } satisfies Config;
