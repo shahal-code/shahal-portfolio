@@ -1,4 +1,4 @@
-import { useEffect, Suspense, lazy } from "react";
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/react";
@@ -16,10 +16,10 @@ import NotFound from "./pages/NotFound";
 import React from "react";
 import { useLowPerformanceMode } from "@/hooks/usePerformanceMode";
 
-// Lazy-load heavy components — keeps initial bundle lean and unblocks first paint
-const SpaceBackground = lazy(() => import("@/components/common/SpaceBackground"));
-const CinematicPageTransition = lazy(() => import("@/components/layout/CinematicPageTransition"));
-const MobileDock = lazy(() => import("@/components/layout/MobileDock"));
+// Direct imports — no lazy loading for shell components (prevents blank screen flicker)
+import SpaceBackground from "@/components/common/SpaceBackground";
+import CinematicPageTransition from "@/components/layout/CinematicPageTransition";
+import MobileDock from "@/components/layout/MobileDock";
 
 const queryClient = new QueryClient();
 
@@ -27,20 +27,14 @@ const MainLayout = () => {
   return (
     <div className="flex flex-col min-h-screen relative z-10">
       <SmoothScroll />
-      <Suspense fallback={null}>
-        <SpaceBackground />
-      </Suspense>
+      <SpaceBackground />
       <Header />
       <main className="flex-grow">
-        <Suspense fallback={null}>
-          <CinematicPageTransition>
-            <Outlet />
-          </CinematicPageTransition>
-        </Suspense>
+        <CinematicPageTransition>
+          <Outlet />
+        </CinematicPageTransition>
       </main>
-      <Suspense fallback={null}>
-        <MobileDock />
-      </Suspense>
+      <MobileDock />
       <Footer />
     </div>
   );
