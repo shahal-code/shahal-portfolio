@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { ArrowDown, Instagram, Github, Twitter } from "lucide-react";
+import { ArrowDown, Instagram, Github, MessageCircle } from "lucide-react";
 import { PERSONAL_DETAILS, CONTACT_INFO } from "@/constants";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
@@ -183,13 +183,13 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
               <Magnetic strength={0.6}>
                 <a
-                  href={CONTACT_INFO.social.find(s => s.name === "Twitter")?.url}
+                  href={CONTACT_INFO.social.find(s => s.name === "WhatsApp")?.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/5 text-primary hover:text-primary hover:bg-primary/15 backdrop-blur-3xl transition-all duration-300 hover:scale-110 active:scale-95 border border-primary/20 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.2)]"
-                  aria-label="Twitter"
+                  aria-label="WhatsApp"
                 >
-                  <Twitter className="w-6 h-6" />
+                  <MessageCircle className="w-6 h-6" />
                 </a>
               </Magnetic>
 
@@ -288,13 +288,13 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
             <Magnetic strength={0.6}>
               <a
-                href={(contact.social?.find((s: any) => s.name === "Twitter") || contact.socials?.find((s: any) => s.name === "Twitter"))?.url}
+                href={(contact.social?.find((s: any) => s.name === "WhatsApp") || contact.socials?.find((s: any) => s.name === "WhatsApp"))?.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/5 text-primary hover:text-primary hover:bg-primary/15 backdrop-blur-3xl transition-all duration-300 hover:scale-110 active:scale-95 border border-primary/20 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.2)]"
-                aria-label="Twitter"
+                aria-label="WhatsApp"
               >
-                <Twitter className="w-6 h-6" />
+                <MessageCircle className="w-6 h-6" />
               </a>
             </Magnetic>
 

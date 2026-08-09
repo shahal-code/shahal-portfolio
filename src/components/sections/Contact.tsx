@@ -1,4 +1,4 @@
-import { Mail, ExternalLink, Copy, Check, Github, Linkedin, Instagram, Twitter } from "lucide-react";
+import { Mail, ExternalLink, Copy, Check, Github, Linkedin, Instagram, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/useToast";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
@@ -52,12 +52,12 @@ const Contact = () => {
       iconColor: "#E1306C"
     },
     {
-      name: "Twitter / X",
-      label: "Live Updates",
-      icon: Twitter,
-      url: socialLinks.find((s: any) => s.name === "Twitter")?.url,
-      color: "rgba(29, 155, 240, 0.2)",
-      iconColor: "#1D9BF0"
+      name: "WhatsApp",
+      label: "Chat with Me",
+      icon: MessageCircle,
+      url: `https://wa.me/917510107241`,
+      color: "rgba(37, 211, 102, 0.2)",
+      iconColor: "#25D366"
     }
   ];
 

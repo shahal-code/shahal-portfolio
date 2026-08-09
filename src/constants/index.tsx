@@ -7,7 +7,7 @@ import {
   Phone,
   Github,
   Linkedin,
-  Twitter,
+  MessageCircle,
   Instagram,
   ExternalLink,
   Layout,
@@ -45,7 +45,7 @@ export const CONTACT_INFO = {
   social: [
     { name: "GitHub", url: "https://github.com/shahal-gitei", icon: Github },
     { name: "LinkedIn", url: "https://www.linkedin.com/in/muhammed-shahal-059bb7348?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", icon: Linkedin },
-    { name: "Twitter", url: "https://x.com/HeyyShahl_", icon: Twitter },
+    { name: "WhatsApp", url: "https://wa.me/917510107241", icon: MessageCircle },
     { name: "Instagram", url: "https://www.instagram.com/sh_ahl__?igsh=MXRyZm01dWMyYXo1ZQ==", icon: Instagram }
   ]
 };
