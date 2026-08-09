@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate, useLocation, Outlet } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { ThemeProvider } from "@/components/common/ThemeProvider";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import Header from "@/components/layout/Header";
@@ -13,27 +13,34 @@ import Footer from "@/components/layout/Footer";
 import Index from "./pages/Index";
 import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
-import CinematicPageTransition from "@/components/layout/CinematicPageTransition";
 import React from "react";
-import SpaceBackground from "@/components/common/SpaceBackground";
 import { useLowPerformanceMode } from "@/hooks/usePerformanceMode";
 
-const queryClient = new QueryClient();
+// Lazy-load heavy components — keeps initial bundle lean and unblocks first paint
+const SpaceBackground = lazy(() => import("@/components/common/SpaceBackground"));
+const CinematicPageTransition = lazy(() => import("@/components/layout/CinematicPageTransition"));
+const MobileDock = lazy(() => import("@/components/layout/MobileDock"));
 
-import MobileDock from "@/components/layout/MobileDock";
+const queryClient = new QueryClient();
 
 const MainLayout = () => {
   return (
     <div className="flex flex-col min-h-screen relative z-10">
       <SmoothScroll />
-      <SpaceBackground />
+      <Suspense fallback={null}>
+        <SpaceBackground />
+      </Suspense>
       <Header />
       <main className="flex-grow">
-        <CinematicPageTransition>
-          <Outlet />
-        </CinematicPageTransition>
+        <Suspense fallback={null}>
+          <CinematicPageTransition>
+            <Outlet />
+          </CinematicPageTransition>
+        </Suspense>
       </main>
-      <MobileDock />
+      <Suspense fallback={null}>
+        <MobileDock />
+      </Suspense>
       <Footer />
     </div>
   );
@@ -80,4 +87,3 @@ const App = () => {
 };
 
 export default App;
-

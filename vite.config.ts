@@ -17,4 +17,23 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Three.js isolated — only loaded when SpaceBackground mounts
+          "three": ["three"],
+          // Framer Motion separated from main bundle
+          "framer": ["framer-motion"],
+          // React core vendor chunk
+          "vendor": ["react", "react-dom", "react-router-dom"],
+          // Tanstack query
+          "query": ["@tanstack/react-query"],
+        },
+      },
+    },
+    // Warn at 600KB instead of 500KB to reduce noise
+    chunkSizeWarningLimit: 600,
+  },
 }));
+

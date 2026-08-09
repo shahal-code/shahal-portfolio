@@ -1,12 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, Suspense, lazy } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+
+// Hero loads eagerly — it's the LCP element
 import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
-import Skills from "@/components/sections/Skills";
-import Projects from "@/components/sections/Projects";
-import FreelanceProjects from "@/components/sections/FreelanceProjects";
-import Services from "@/components/sections/Services";
-import Connect from "@/components/sections/Connect";
+
+// All below-fold sections lazy-loaded — dramatically reduces initial JS parse time
+const About = lazy(() => import("@/components/sections/About"));
+const Services = lazy(() => import("@/components/sections/Services"));
+const Skills = lazy(() => import("@/components/sections/Skills"));
+const Projects = lazy(() => import("@/components/sections/Projects"));
+const FreelanceProjects = lazy(() => import("@/components/sections/FreelanceProjects"));
+const Connect = lazy(() => import("@/components/sections/Connect"));
+
+// Placeholder that reserves height to prevent CLS while sections load
+const SectionPlaceholder = ({ height = "100vh" }: { height?: string }) => (
+  <div style={{ minHeight: height }} />
+);
 
 const Index = () => {
   const location = useLocation();
@@ -66,13 +76,28 @@ const Index = () => {
 
   return (
     <div className="w-full">
+      {/* Hero loads immediately — LCP element */}
       <Hero />
-      <About />
-      <Services />
-      <Skills />
-      <Projects />
-      <FreelanceProjects />
-      <Connect />
+
+      {/* Below-fold sections load lazily — big TBT win */}
+      <Suspense fallback={<SectionPlaceholder />}>
+        <About />
+      </Suspense>
+      <Suspense fallback={<SectionPlaceholder />}>
+        <Services />
+      </Suspense>
+      <Suspense fallback={<SectionPlaceholder />}>
+        <Skills />
+      </Suspense>
+      <Suspense fallback={<SectionPlaceholder />}>
+        <Projects />
+      </Suspense>
+      <Suspense fallback={<SectionPlaceholder />}>
+        <FreelanceProjects />
+      </Suspense>
+      <Suspense fallback={<SectionPlaceholder height="50vh" />}>
+        <Connect />
+      </Suspense>
     </div>
   );
 };

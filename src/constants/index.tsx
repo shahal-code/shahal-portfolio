@@ -211,7 +211,7 @@ export const PROJECTS = [
     title: "NovuAI — Agentic AI Chat Assistant",
     description: "An intelligent RAG-based AI chat assistant powered by Groq LLM. Engineered with Retrieval-Augmented Generation for context-aware responses and agentic AI capabilities, featuring Google & WhatsApp authentication, REST API backend, and real-time chat sync across devices built with MERN stack & Next.js.",
     tags: ["MERN Stack", "Groq LLM", "RAG", "Agentic AI", "React", "Node.js", "MongoDB", "Express", "REST API", "Vercel"],
-    image: "/images/novuai.png",
+    image: "/images/novuai.webp",
     github: "https://github.com/shahal-code",
     demo: "https://novuai.vercel.app",
     status: "Live"
