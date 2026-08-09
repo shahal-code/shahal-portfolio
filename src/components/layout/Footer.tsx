@@ -7,7 +7,7 @@ const Footer = () => {
   const fullName = (profile && profile.name) ? profile.name : PERSONAL_DETAILS.name;
   const initials = fullName.split(" ").map((n: string) => n[0]).join("");
   return (
-    <footer className="py-12 border-t border-border/50 relative overflow-hidden">
+    <footer className="py-12 border-t border-border/50 relative overflow-hidden min-h-[140px]">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex flex-col items-center text-center gap-6">
           <div className="flex flex-col items-center gap-4">
@@ -17,7 +17,7 @@ const Footer = () => {
                 © {new Date().getFullYear()} All rights reserved.
               </span>
             </div>
-            <p className="text-muted-foreground text-sm max-w-xs text-center">
+            <p className="text-muted-foreground text-sm max-w-xs text-center min-h-[40px] flex items-center justify-center">
               Crafted with passion using React & Tailwind. Building clean, functional digital experiences.
             </p>
           </div>
