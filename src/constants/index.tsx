@@ -40,12 +40,12 @@ export const PERSONAL_DETAILS = {
 
 export const CONTACT_INFO = {
   email: "shahalwork14@gmail.com",
-  phone: "+917510107241",
+  phone: "+919048867241",
   location: "Kerala, India",
   social: [
     { name: "GitHub", url: "https://github.com/shahal-gitei", icon: Github },
     { name: "LinkedIn", url: "https://www.linkedin.com/in/muhammed-shahal-059bb7348?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", icon: Linkedin },
-    { name: "WhatsApp", url: "https://wa.me/917510107241", icon: MessageCircle },
+    { name: "WhatsApp", url: "https://wa.me/919048867241", icon: MessageCircle },
     { name: "Instagram", url: "https://www.instagram.com/sh_ahl__?igsh=MXRyZm01dWMyYXo1ZQ==", icon: Instagram }
   ]
 };

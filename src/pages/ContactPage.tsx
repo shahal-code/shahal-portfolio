@@ -52,7 +52,7 @@ const ContactPage = () => {
             {/* Hidden SEO semantic content for contact page crawlers */}
             <div style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap' }} aria-hidden="true">
                 <h1>Contact Muhammed Shahal — Hire Freelance Web Developer Kerala</h1>
-                <p>Get in touch with Muhammed Shahal, a professional freelance MERN Stack Developer and Full Stack Web Engineer based in Malappuram, Kerala, India. Available for hire for web development projects globally. Contact via email: shahalwork14@gmail.com or phone: +917510107241.</p>
+                <p>Get in touch with Muhammed Shahal, a professional freelance MERN Stack Developer and Full Stack Web Engineer based in Malappuram, Kerala, India. Available for hire for web development projects globally. Contact via email: shahalwork14@gmail.com or phone: +919048867241.</p>
                 <p>Muhammed Shahal is open to freelance web development projects, remote collaborations, and full-time opportunities. Specializes in React, Node.js, MongoDB, Express, TypeScript, and Flutter.</p>
             </div>
             <Contact />

@@ -55,7 +55,7 @@ const Contact = () => {
       name: "WhatsApp",
       label: "Chat with Me",
       icon: MessageCircle,
-      url: `https://wa.me/917510107241`,
+      url: `https://wa.me/919048867241`,
       color: "rgba(37, 211, 102, 0.2)",
       iconColor: "#25D366"
     }
