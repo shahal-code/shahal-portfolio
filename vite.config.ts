@@ -21,6 +21,8 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
+          // Lucide icons separated
+          "icons": ["lucide-react"],
           // Three.js isolated — only loaded when SpaceBackground mounts
           "three": ["three"],
           // Framer Motion separated from main bundle
