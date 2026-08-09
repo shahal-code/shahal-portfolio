@@ -1,4 +1,4 @@
-import Contact from "@/components/Contact";
+import Contact from "@/components/sections/Contact";
 import { useEffect } from "react";
 
 const ContactPage = () => {

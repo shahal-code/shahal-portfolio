@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { SERVICES } from "@/constants";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
-import SpotlightCard from "./ui/SpotlightCard";
-import IconRenderer from "./IconRenderer";
+import SpotlightCard from "@/components/ui/SpotlightCard";
+import IconRenderer from "@/components/common/IconRenderer";
 
 const Services = () => {
     const { data } = usePortfolioData();

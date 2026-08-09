@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { HIGHLIGHTS, PERSONAL_DETAILS, EDUCATION, EXPERIENCE_LIST } from "@/constants";
-import Magnetic from "@/components/Magnetic";
-import Scroll3DWrapper from "@/components/Scroll3DWrapper";
+import Magnetic from "@/components/common/Magnetic";
+import Scroll3DWrapper from "@/components/common/Scroll3DWrapper";
 import { GraduationCap, Briefcase, MapPin, Globe, ChevronDown, ChevronUp } from "lucide-react";
 
 const About = () => {

@@ -1,9 +1,9 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { SKILLS } from "@/constants";
-import Magnetic from "@/components/Magnetic";
-import Scroll3DWrapper from "@/components/Scroll3DWrapper";
-import IconRenderer from "@/components/IconRenderer";
+import Magnetic from "@/components/common/Magnetic";
+import Scroll3DWrapper from "@/components/common/Scroll3DWrapper";
+import IconRenderer from "@/components/common/IconRenderer";
 
 import RippleButton from "@/components/ui/RippleButton";
 

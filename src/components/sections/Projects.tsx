@@ -1,37 +1,39 @@
-import { ExternalLink, Github, Lock, MapPin, Calendar, Users } from "lucide-react";
+import { ExternalLink, Github, Lock, MapPin, Calendar, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import RippleButton from "@/components/ui/RippleButton";
-import Magnetic from "@/components/Magnetic";
+import Magnetic from "@/components/common/Magnetic";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { FREELANCE_PROJECTS } from "@/constants";
+import { usePortfolioData } from "@/hooks/usePortfolioData";
+import { PROJECTS } from "@/constants";
 
-type FreelanceProject = {
+type Project = {
   title: string;
-  tagline: string;
   description: string;
   tags: string[];
   image: string;
   github: string;
   demo: string;
-  status: string;
-  year: string;
+  status?: string;
 };
 
-const statusConfig: Record<string, { color: string; bg: string; dot: string }> = {
-  Live: { color: "text-emerald-400", bg: "bg-emerald-400/10 border-emerald-400/25", dot: "bg-emerald-400" },
-  "In Progress": { color: "text-amber-400", bg: "bg-amber-400/10 border-amber-400/25", dot: "bg-amber-400" },
-  "Currently Working": { color: "text-amber-400", bg: "bg-amber-400/10 border-amber-400/25", dot: "bg-amber-400" },
+const getProjectType = (title: string) => {
+  const normalizedTitle = title.toLowerCase();
+  if (normalizedTitle.includes("chat") || normalizedTitle.includes("talks")) return "Realtime Platform";
+  if (normalizedTitle.includes("ai") || normalizedTitle.includes("novuai")) return "Agentic AI Build";
+  return "Full Stack Build";
 };
 
-const FreelanceProjects = () => {
+const Projects = () => {
+  const { data } = usePortfolioData();
+  const projectsList = (data?.projects?.length > 0 ? data.projects : PROJECTS) as Project[];
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.08 });
-  const projects = FREELANCE_PROJECTS as FreelanceProject[];
 
   return (
-    <section id="freelance" className="relative py-24 sm:py-28 scroll-mt-32 overflow-hidden">
+    <section id="projects" className="relative py-24 sm:py-28 scroll-mt-32 overflow-hidden">
+      {/* Ambient glows */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/3 -left-32 w-72 h-72 rounded-full bg-primary/8 blur-[100px]" />
-        <div className="absolute bottom-1/4 -right-32 w-72 h-72 rounded-full bg-emerald-500/8 blur-[100px]" />
+        <div className="absolute top-1/3 -right-32 w-72 h-72 rounded-full bg-primary/8 blur-[100px]" />
+        <div className="absolute bottom-1/4 -left-32 w-72 h-72 rounded-full bg-cyan-500/8 blur-[100px]" />
       </div>
 
       <div className="premium-divider top-0" />
@@ -42,43 +44,25 @@ const FreelanceProjects = () => {
           <div className={`reveal-base reveal-up ${isVisible ? "revealed" : ""}`}>
             <div className="flex flex-col gap-4">
               <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-primary w-fit">
-                <Users className="w-3 h-3" />
-                Client Work
+                Portfolio
               </span>
               <h2 className="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
-                Freelance <span className="animate-color-cycle">Projects</span>
+                Selected <span className="animate-color-cycle">Project</span>{" "}
+                <span className="animate-color-cycle-reverse">Missions</span>
               </h2>
               <p className="max-w-md text-sm leading-7 text-muted-foreground">
-                Real-world client builds — shipped to production, serving live users.
+                Featured builds with live previews, stack details, and direct access to code or live demos.
               </p>
-
-              {/* Unified stat bar */}
-              <div className="mt-4 inline-flex items-center gap-0 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm overflow-hidden w-fit">
-                {[
-                  { value: "3", label: "Projects", color: "#a78bfa" },
-                  { value: "2+", label: "Clients", color: "#34d399" },
-                  { value: "2", label: "Live", color: "#22d3ee" },
-                ].map((s, i, arr) => (
-                  <div
-                    key={s.label}
-                    className="flex flex-col items-center justify-center px-7 py-3"
-                    style={{ borderRight: i < arr.length - 1 ? "1px solid rgba(255,255,255,0.08)" : "none" }}
-                  >
-                    <span className="text-xl font-black" style={{ color: s.color }}>{s.value}</span>
-                    <span className="mt-0.5 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">{s.label}</span>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── Cards: full viewport width ── */}
+      {/* ── Cards: full viewport width, alternating left/right ── */}
       <div className="relative z-10 w-full space-y-6">
-        {projects.map((project, index) => {
-          const status = statusConfig[project.status] ?? statusConfig["Live"];
+        {projectsList.map((project: Project, index: number) => {
           const isLeft = index % 2 === 0;
+          const projectType = getProjectType(project.title);
 
           return (
             <motion.div
@@ -89,7 +73,8 @@ const FreelanceProjects = () => {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className={`freelance-card-wrap ${isLeft ? "freelance-card-left" : "freelance-card-right"}`}
             >
-              <article className="group relative border border-white/10 bg-white/[0.015] backdrop-blur-sm overflow-hidden transition-all duration-500 hover:border-primary/25 hover:bg-white/[0.03] hover:shadow-[0_0_50px_hsl(var(--primary)/0.07)] flex flex-col sm:flex-row"
+              <article
+                className="group relative border border-white/10 bg-white/[0.015] backdrop-blur-sm overflow-hidden transition-all duration-500 hover:border-primary/25 hover:bg-white/[0.03] hover:shadow-[0_0_50px_hsl(var(--primary)/0.07)] flex flex-col sm:flex-row"
                 style={{ minHeight: "200px" }}
               >
                 {/* Hover glow line */}
@@ -112,11 +97,10 @@ const FreelanceProjects = () => {
 
                   {/* Badges on image */}
                   <span className="absolute top-3 left-3 rounded-full border border-white/20 bg-black/50 px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-white/90 backdrop-blur-md">
-                    Client
+                    {projectType}
                   </span>
                   <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-full border border-white/15 bg-black/50 px-2.5 py-1 text-[9px] font-bold text-white/80 backdrop-blur-md">
-                    <Calendar className="w-2 h-2" />
-                    {project.year}
+                    <ArrowUpRight className="w-3 h-3 text-primary" />
                   </div>
                 </div>
 
@@ -135,13 +119,15 @@ const FreelanceProjects = () => {
                     </span>
                     <span className="h-px w-6 bg-primary/30 flex-shrink-0" />
                     <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
-                      Freelance
+                      {projectType}
                     </span>
                     <span className="flex-1" />
-                    <span className={`flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-widest ${status.color} ${status.bg}`}>
-                      <span className={`w-1 h-1 rounded-full animate-pulse ${status.dot}`} />
-                      {project.status}
-                    </span>
+                    {project.status && (
+                      <span className="flex items-center gap-1 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-primary">
+                        <span className="w-1 h-1 rounded-full bg-primary animate-pulse" />
+                        {project.status}
+                      </span>
+                    )}
                   </div>
 
                   {/* Title */}
@@ -149,9 +135,6 @@ const FreelanceProjects = () => {
                     <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-primary">
                       {project.title}
                     </h3>
-                    <p className="mt-0.5 text-[9px] font-bold uppercase tracking-widest text-muted-foreground/60">
-                      {project.tagline}
-                    </p>
                   </div>
 
                   {/* Description */}
@@ -223,9 +206,9 @@ const FreelanceProjects = () => {
                         >
                           <span className="flex items-center gap-1.5">
                             {project.demo && project.demo !== "#" ? (
-                              <><ExternalLink className="w-3 h-3" />Visit</>
+                              <><ExternalLink className="w-3 h-3" />Live Demo</>
                             ) : (
-                              <><Lock className="w-3 h-3" />N/A</>
+                              <><Lock className="w-3 h-3" />Not Available</>
                             )}
                           </span>
                         </RippleButton>
@@ -242,4 +225,4 @@ const FreelanceProjects = () => {
   );
 };
 
-export default FreelanceProjects;
+export default Projects;

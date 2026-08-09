@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import RippleButton from "@/components/ui/RippleButton";
-import Magnetic from "@/components/Magnetic";
-import Scroll3DWrapper from "@/components/Scroll3DWrapper";
+import Magnetic from "@/components/common/Magnetic";
+import Scroll3DWrapper from "@/components/common/Scroll3DWrapper";
 
 const Connect = () => {
     const navigate = useNavigate();

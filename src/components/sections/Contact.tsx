@@ -1,12 +1,12 @@
 import { Mail, ExternalLink, Copy, Check, Github, Linkedin, Instagram, Twitter } from "lucide-react";
 import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/useToast";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { CONTACT_INFO } from "@/constants";
-import Magnetic from "@/components/Magnetic";
+import Magnetic from "@/components/common/Magnetic";
 import SpotlightCard from "@/components/ui/SpotlightCard";
-import Scroll3DWrapper from "@/components/Scroll3DWrapper";
+import Scroll3DWrapper from "@/components/common/Scroll3DWrapper";
 
 const Contact = () => {
   const [copied, setCopied] = useState(false);

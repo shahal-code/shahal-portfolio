@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import ThemeToggle from "@/components/ThemeToggle";
-import Magnetic from "@/components/Magnetic";
+import ThemeToggle from "@/components/common/ThemeToggle";
+import Magnetic from "@/components/common/Magnetic";
 import RippleButton from "@/components/ui/RippleButton";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 

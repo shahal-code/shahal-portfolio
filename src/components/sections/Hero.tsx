@@ -3,11 +3,11 @@ import { ArrowDown, Instagram, Github, Twitter } from "lucide-react";
 import { PERSONAL_DETAILS, CONTACT_INFO } from "@/constants";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import Magnetic from "@/components/Magnetic";
+import Magnetic from "@/components/common/Magnetic";
 import RippleButton from "@/components/ui/RippleButton";
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/useMobile";
 import { useLowPerformanceMode } from "@/hooks/usePerformanceMode";
 
 interface HeroProps {
@@ -244,15 +244,18 @@ const Hero = ({ onOpenContact }: HeroProps) => {
               >
 
                 {/* Portrait Image (BW -> Color Toggle) */}
-                <img
-                  src="/Me-color.jpg"
-                  alt={PERSONAL_DETAILS.name}
-                  loading="eager"
-                  fetchPriority="high"
-                  className="w-full h-full rounded-full object-cover shadow-inner grayscale group-hover:grayscale-0 transition-all duration-1000 ease-in-out select-none"
-                  onContextMenu={(e) => e.preventDefault()}
-                  draggable="false"
-                />
+                <picture>
+                  <source srcSet="/images/Me-color.webp" type="image/webp" />
+                  <img
+                    src="/images/Me-color.jpg"
+                    alt={PERSONAL_DETAILS.name}
+                    loading="eager"
+                    fetchPriority="high"
+                    className="w-full h-full rounded-full object-cover shadow-inner grayscale group-hover:grayscale-0 transition-all duration-1000 ease-in-out select-none"
+                    onContextMenu={(e) => e.preventDefault()}
+                    draggable="false"
+                  />
+                </picture>
 
                 {/* Subtle soft overlay for depth */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/40 to-background/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />

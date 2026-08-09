@@ -1,6 +1,6 @@
 import { Moon, Sun } from "lucide-react";
 import { flushSync } from "react-dom";
-import { useTheme } from "@/components/ThemeProvider";
+import { useTheme } from "@/components/common/ThemeProvider";
 import { Button } from "@/components/ui/button";
 
 const ThemeToggle = () => {

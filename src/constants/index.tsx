@@ -202,7 +202,7 @@ export const PROJECTS = [
     title: "NovuTalks - Real-Time Chat Application",
     description: "A high-performance, real-time communication platform inspired by WhatsApp. Engineered for seamless interactions, featuring instant messaging, low-latency WebSockets, WebRTC, Redis, REST API, and GraphQL API integration built on the MERN stack.",
     tags: ["MERN Stack", "React", "Node.js", "Express", "MongoDB", "WebSockets", "WebRTC", "Redis", "REST API", "GraphQL API"],
-    image: "/novutalks.svg",
+    image: "/images/novutalks.svg",
     github: "https://github.com/shahal-code",
     demo: "https://www.novutalks.in/",
     status: "Live"
@@ -211,7 +211,7 @@ export const PROJECTS = [
     title: "NovuAI — Agentic AI Chat Assistant",
     description: "An intelligent RAG-based AI chat assistant powered by Groq LLM. Engineered with Retrieval-Augmented Generation for context-aware responses and agentic AI capabilities, featuring Google & WhatsApp authentication, REST API backend, and real-time chat sync across devices built with MERN stack & Next.js.",
     tags: ["MERN Stack", "Groq LLM", "RAG", "Agentic AI", "React", "Node.js", "MongoDB", "Express", "REST API", "Vercel"],
-    image: "/novuai.png",
+    image: "/images/novuai.png",
     github: "https://github.com/shahal-code",
     demo: "https://novuai.vercel.app",
     status: "Live"
@@ -224,7 +224,7 @@ export const FREELANCE_PROJECTS = [
     tagline: "Dynamic Event Management & Services Website",
     description: "A fully dynamic landing page for an event management company — the client can update all content (services, gallery, team, pricing) through a custom admin panel without touching code. Built with React, TypeScript, Node.js, Express, MongoDB, REST API, and Framer Motion for buttery-smooth animations.",
     tags: ["React", "TypeScript", "Node.js", "Express", "MongoDB", "REST API", "Framer Motion"],
-    image: "/mirasco.png",
+    image: "/images/mirasco.png",
     github: "https://github.com/shahal-code",
     demo: "https://mirasco.in",
     status: "Live",

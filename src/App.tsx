@@ -6,21 +6,21 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, useLocation, Outlet } from "react-router-dom";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import SmoothScroll from "@/components/SmoothScroll";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/components/common/ThemeProvider";
+import SmoothScroll from "@/components/layout/SmoothScroll";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import Index from "./pages/Index";
 import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
-import CinematicPageTransition from "@/components/CinematicPageTransition";
+import CinematicPageTransition from "@/components/layout/CinematicPageTransition";
 import React from "react";
-import SpaceBackground from "@/components/SpaceBackground";
+import SpaceBackground from "@/components/common/SpaceBackground";
 import { useLowPerformanceMode } from "@/hooks/usePerformanceMode";
 
 const queryClient = new QueryClient();
 
-import MobileDock from "@/components/MobileDock";
+import MobileDock from "@/components/layout/MobileDock";
 
 const MainLayout = () => {
   return (

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Home, User, Layers, Code, Briefcase, Sparkles } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Magnetic from "./Magnetic";
-import RippleButton from "./ui/RippleButton";
+import Magnetic from "@/components/common/Magnetic";
+import RippleButton from "@/components/ui/RippleButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLowPerformanceMode } from "@/hooks/usePerformanceMode";
 

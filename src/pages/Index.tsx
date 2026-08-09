@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
-import FreelanceProjects from "@/components/FreelanceProjects";
-import Services from "@/components/Services";
-import Connect from "@/components/Connect";
+import Hero from "@/components/sections/Hero";
+import About from "@/components/sections/About";
+import Skills from "@/components/sections/Skills";
+import Projects from "@/components/sections/Projects";
+import FreelanceProjects from "@/components/sections/FreelanceProjects";
+import Services from "@/components/sections/Services";
+import Connect from "@/components/sections/Connect";
 
 const Index = () => {
   const location = useLocation();
