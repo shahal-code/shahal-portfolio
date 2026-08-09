@@ -33,16 +33,18 @@ const Hero = ({ onOpenContact }: HeroProps) => {
   const isLowPerformance = useLowPerformanceMode();
   const reduceMotion = isMobile || isLowPerformance;
 
-  // Scroll Parallax settings (Disabled on mobile for performance)
+  // Scroll Parallax — GPU-composited transforms only (opacity + translateY, NO scale to avoid reflow)
   const { scrollY } = useScroll();
-  const scale = useTransform(scrollY, [0, 500], reduceMotion ? [1, 1] : [1, 1.8]);
-  const yFly = useTransform(scrollY, [0, 500], reduceMotion ? [0, 0] : [0, -150]);
-  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
+  const yFly = useTransform(scrollY, [0, 600], reduceMotion ? [0, 0] : [0, -80]);
+  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
 
-  // Background blob & image transformations (Must be top-level)
-  const blob1Y = useTransform(scrollY, [0, 500], reduceMotion ? [0, 0] : [0, -100]);
-  const blob2Y = useTransform(scrollY, [0, 500], reduceMotion ? [0, 0] : [0, -150]);
-  const bgImageY = useTransform(scrollY, [0, 500], reduceMotion ? [0, 0] : [0, 100]);
+  // Background blob & image transformations (lighter values = less GPU work)
+  const blob1Y = useTransform(scrollY, [0, 600], reduceMotion ? [0, 0] : [0, -50]);
+  const blob2Y = useTransform(scrollY, [0, 600], reduceMotion ? [0, 0] : [0, -80]);
+  const bgImageY = useTransform(scrollY, [0, 600], reduceMotion ? [0, 0] : [0, 50]);
+
+  // scale removed — it caused forced layout recalculations on every scroll frame
+  const scale = 1;
 
   // Filter (blur) removed for performance - real-time backdrop blur during scroll is heavy
   const filter = "none";

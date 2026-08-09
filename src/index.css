@@ -155,7 +155,7 @@ All colors MUST be HSL.
     overflow-x: clip;
     overflow-y: auto;
     max-width: 100%;
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth removed — Lenis handles smooth scroll, double-smooth causes lag */
     height: 100%;
     height: -webkit-fill-available;
     background-color: hsl(var(--background));
@@ -416,30 +416,32 @@ All colors MUST be HSL.
 
 /* Scroll Reveal Animations */
 @layer utilities {
+  /* reveal-base — content is always visible (no skeleton delay) */
   .reveal-base {
-    opacity: 0;
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-      transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
   }
 
   .reveal-up {
-    transform: translateY(40px);
+    transform: translateY(0);
   }
 
   .reveal-down {
-    transform: translateY(-40px);
+    transform: translateY(0);
   }
 
   .reveal-left {
-    transform: translateX(-40px);
+    transform: translateX(0);
   }
 
   .reveal-right {
-    transform: translateX(40px);
+    transform: translateX(0);
   }
 
   .reveal-scale {
-    transform: scale(0.95);
+    transform: scale(1);
   }
 
   .revealed {
@@ -463,26 +465,10 @@ All colors MUST be HSL.
     transition-delay: 0.4s;
   }
 
-  /* Subtle mobile reveals */
+  /* Mobile: no transform delays needed - content always visible */
   @media (max-width: 768px) {
-    .reveal-up {
-      transform: translateY(24px);
-    }
-
-    .reveal-down {
-      transform: translateY(-24px);
-    }
-
-    .reveal-left {
-      transform: translateX(-24px);
-    }
-
-    .reveal-right {
-      transform: translateX(24px);
-    }
-
     .reveal-base {
-      transition-duration: 0.6s;
+      transition-duration: 0.4s;
     }
   }
 }

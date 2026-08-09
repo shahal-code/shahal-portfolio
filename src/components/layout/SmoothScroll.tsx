@@ -10,12 +10,14 @@ const SmoothScroll = () => {
             return;
         }
 
-        // Initialize Lenis for buttery smooth scrolling only on desktop
+        // Initialize Lenis — snappier settings for buttery scroll without lag
         const lenis = new Lenis({
-            duration: 1.0, // Snappier
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            lerp: 0.15, // Higher for more responsiveness
-            smoothWheel: true
+            duration: 0.8,
+            easing: (t) => 1 - Math.pow(1 - t, 4),
+            lerp: 0.12,
+            smoothWheel: true,
+            wheelMultiplier: 1.0,
+            touchMultiplier: 1.5,
         });
 
         // Force scroll to top on refresh if no hash is present
@@ -23,19 +25,21 @@ const SmoothScroll = () => {
             lenis.scrollTo(0, { immediate: true });
         }
 
+        let rafId: number;
         function raf(time: number) {
             lenis.raf(time);
-            requestAnimationFrame(raf);
+            rafId = requestAnimationFrame(raf);
         }
 
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
 
         return () => {
+            cancelAnimationFrame(rafId);
             lenis.destroy();
         };
     }, []);
 
-    return null; // This component handles side effects only
+    return null;
 };
 
 export default SmoothScroll;
