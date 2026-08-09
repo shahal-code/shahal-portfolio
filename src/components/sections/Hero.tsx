@@ -57,6 +57,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], reduceMotion ? ["0deg", "0deg"] : ["-7deg", "7deg"]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduceMotion) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
@@ -69,6 +70,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (reduceMotion) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
