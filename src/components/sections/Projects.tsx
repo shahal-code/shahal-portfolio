@@ -2,7 +2,6 @@ import { ExternalLink, Github, Lock, MapPin, Calendar, ArrowUpRight } from "luci
 import { motion } from "framer-motion";
 import RippleButton from "@/components/ui/RippleButton";
 import Magnetic from "@/components/common/Magnetic";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { PROJECTS } from "@/constants";
 
@@ -26,7 +25,6 @@ const getProjectType = (title: string) => {
 const Projects = () => {
   const { data } = usePortfolioData();
   const projectsList = (data?.projects?.length > 0 ? data.projects : PROJECTS) as Project[];
-  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.08 });
 
   return (
     <section id="projects" className="relative py-24 sm:py-28 scroll-mt-32 overflow-hidden">
@@ -40,8 +38,8 @@ const Projects = () => {
 
       {/* ── Section Header ── */}
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <div ref={sectionRef} className="max-w-6xl mx-auto mb-16">
-          <div className={`reveal-base reveal-up ${isVisible ? "revealed" : ""}`}>
+        <div className="max-w-6xl mx-auto mb-16">
+          <div>
             <div className="flex flex-col gap-4">
               <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-primary w-fit">
                 Portfolio

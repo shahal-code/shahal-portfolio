@@ -11,8 +11,6 @@ const Skills = () => {
   const { data } = usePortfolioData();
   const skillsList = data?.skills?.length > 0 ? data.skills : SKILLS;
 
-  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
-
   return (
     <section id="skills" className="py-28 relative overflow-hidden scroll-mt-32">
       {/* Background decoration */}
@@ -21,9 +19,9 @@ const Skills = () => {
 
       <Scroll3DWrapper>
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div ref={sectionRef} className="max-w-6xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             {/* Section header */}
-            <div className="text-center mb-16 reveal-base reveal-up revealed">
+            <div className="text-center mb-16">
               <span className="inline-block text-sm font-semibold text-primary tracking-widest uppercase mb-4 px-4 py-1.5 bg-primary/10 rounded-full">
                 Expertise
               </span>
@@ -50,10 +48,10 @@ const Skills = () => {
                       shadow-[inset_2px_2px_4px_rgba(255,255,255,0.05),0_10px_30px_rgba(0,0,0,0.05)]
                       dark:shadow-[inset_2px_2px_4px_rgba(255,255,255,0.1),inset_-2px_-4px_8px_rgba(0,0,0,0.2),0_10px_30px_hsl(var(--primary)/0.1)]
                       hover:bg-primary/20 hover:border-primary/40 hover:scale-105 hover:shadow-xl
-                      reveal-base reveal-scale revealed cursor-pointer
+                      cursor-pointer
                     `}
                       style={{
-                        transform: isVisible && typeof window !== 'undefined' && window.innerWidth >= 768 ? `translateY(${offset}px)` : 'none'
+                        transform: typeof window !== 'undefined' && window.innerWidth >= 768 ? `translateY(${offset}px)` : 'none'
                       }}
                     >
                       {/* Glow effect on hover */}

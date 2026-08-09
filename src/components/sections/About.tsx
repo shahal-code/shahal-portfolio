@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { HIGHLIGHTS, PERSONAL_DETAILS, EDUCATION, EXPERIENCE_LIST } from "@/constants";
 import Magnetic from "@/components/common/Magnetic";
@@ -12,7 +11,6 @@ const About = () => {
   const about = profile.about || PERSONAL_DETAILS.about;
   const experienceCount = profile.experienceCount || PERSONAL_DETAILS.experience.miniProjects;
 
-  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
   const [expandedEdu, setExpandedEdu] = useState<number | null>(null);
   const [expandedExp, setExpandedExp] = useState<number | null>(null);
 
@@ -20,9 +18,9 @@ const About = () => {
     <section id="about" className="py-28 relative overflow-hidden scroll-mt-32">
       <Scroll3DWrapper>
         <div className="container mx-auto px-4 sm:px-6">
-          <div ref={sectionRef} className="max-w-6xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             {/* Section header */}
-            <div className="text-center mb-20 reveal-base reveal-up revealed">
+            <div className="text-center mb-20">
               <span className="inline-block text-sm font-semibold text-primary tracking-widest uppercase mb-4 px-4 py-1.5 bg-primary/10 rounded-full">
                 About Me
               </span>
@@ -36,7 +34,7 @@ const About = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 auto-rows-min">
 
               {/* Summary Card - Highlight Brototype */}
-              <div className="lg:col-span-8 reveal-base reveal-up revealed">
+              <div className="lg:col-span-8">
                 <Magnetic strength={0.1} className="w-full h-full">
                   <div className="p-8 rounded-[2.5rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl h-full cursor-pointer hover:border-primary/50 transition-all duration-700">
                     <div className="flex flex-col md:flex-row gap-8 items-start">
@@ -65,7 +63,7 @@ const About = () => {
               </div>
 
               {/* Quick Stats/Highlights */}
-              <div className="lg:col-span-4 grid grid-cols-2 gap-4 reveal-base reveal-up revealed">
+              <div className="lg:col-span-4 grid grid-cols-2 gap-4">
                 {HIGHLIGHTS.map((item, idx) => (
                   <Magnetic key={idx} strength={0.2} className="w-full">
                     <div className="p-6 rounded-[2rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl hover:border-primary/50 transition-all duration-700 group h-full cursor-pointer">
@@ -78,7 +76,7 @@ const About = () => {
               </div>
 
               {/* Education & Experience Row */}
-              <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6 reveal-base reveal-up revealed">
+              <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                 {/* Education Timeline */}
                 <div className="p-8 rounded-[2.5rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl flex flex-col h-full">
@@ -157,7 +155,7 @@ const About = () => {
               </div>
 
               {/* Video & Highlights Row */}
-              <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6 reveal-base reveal-up revealed">
+              <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                 {/* Video Editing */}
                 <Magnetic strength={0.2} className="w-full h-full">

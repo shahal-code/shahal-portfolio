@@ -236,7 +236,7 @@ export const FREELANCE_PROJECTS = [
     description: "A highly scalable MERN stack e-commerce platform developed for a client business. Features include a dynamic product catalog, advanced multi-category filtering, real-time cart management, secure Razorpay payment integration, comprehensive order tracking, REST API, JWT-based authentication, and a robust admin dashboard for end-to-end inventory and order lifecycle management.",
     tags: ["MongoDB", "Express", "React", "Node.js", "Razorpay", "Redux Toolkit", "REST API", "JWT"],
     image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=400&auto=format&fit=crop&q=55",
-    github: "https://github.com/shahal-code",
+    github: "https://github.com/shahal-code/FirstProject-TechKart",
     demo: "#",
     status: "In Progress",
     year: "2025"

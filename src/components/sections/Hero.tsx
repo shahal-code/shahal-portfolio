@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { ArrowDown, Instagram, Github, MessageCircle } from "lucide-react";
 import { PERSONAL_DETAILS, CONTACT_INFO } from "@/constants";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 import Magnetic from "@/components/common/Magnetic";
 import RippleButton from "@/components/ui/RippleButton";
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
@@ -26,7 +25,6 @@ const Hero = ({ onOpenContact }: HeroProps) => {
   const firstName = nameParts[0];
   const lastName = nameParts.slice(1).join(" ");
 
-  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
   const containerRef = useRef<HTMLDivElement>(null);
 
   const isMobile = useIsMobile();
