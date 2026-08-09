@@ -135,9 +135,9 @@ const Hero = ({ onOpenContact }: HeroProps) => {
         </>
       )}
 
-      <div ref={sectionRef} className="container mx-auto px-4 sm:px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-12">
-          <div className="flex-1 text-center lg:text-left reveal-base reveal-up revealed">
+          <div className="flex-1 text-center lg:text-left">
             {/* Main heading with gradient */}
             <h1 className="w-fit mx-auto lg:mx-0 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 leading-tight tracking-tight shrink-0 transition-all">
               <span className="animate-color-cycle">{firstName}</span> <span className="animate-color-cycle-reverse">{lastName}.</span>
