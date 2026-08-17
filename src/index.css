@@ -278,36 +278,18 @@ All colors MUST be HSL.
         hsl(var(--primary) / 0));
   }
 
-  @keyframes text-color-cycle {
-
-    0%,
-    100% {
-      color: hsl(var(--foreground));
-    }
-
-    50% {
-      color: hsl(var(--primary));
-    }
-  }
-
-  @keyframes text-color-cycle-reverse {
-
-    0%,
-    100% {
-      color: hsl(var(--primary));
-    }
-
-    50% {
-      color: hsl(var(--foreground));
-    }
-  }
-
   .animate-color-cycle {
-    animation: text-color-cycle 4s ease-in-out infinite;
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--chart-2, 270 95% 75%)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
   }
 
   .animate-color-cycle-reverse {
-    animation: text-color-cycle-reverse 4s ease-in-out infinite;
+    background: linear-gradient(135deg, hsl(var(--foreground)) 30%, hsl(var(--muted-foreground)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
   }
 
   .custom-scrollbar::-webkit-scrollbar {
@@ -554,67 +536,18 @@ html[data-low-performance="true"] .noise-overlay {
 /* Background Noise Texture */
 .noise-overlay {
   position: fixed;
-  top: -50%;
-  left: -50%;
-  right: -50%;
-  bottom: -50%;
-  width: 200%;
-  height: 200%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   background: transparent url('/noise.png') repeat 0 0;
-  opacity: 0.05;
+  opacity: 0.03;
   z-index: 1;
   pointer-events: none;
-  animation: noise 8s steps(10) infinite;
 }
 
 @media (max-width: 768px) {
   .noise-overlay {
     display: none !important;
-    animation: none !important;
-  }
-}
-
-@keyframes noise {
-
-  0%,
-  100% {
-    transform: translate(0, 0)
-  }
-
-  10% {
-    transform: translate(-5%, -10%)
-  }
-
-  20% {
-    transform: translate(-15%, 5%)
-  }
-
-  30% {
-    transform: translate(7%, -25%)
-  }
-
-  40% {
-    transform: translate(-5%, 25%)
-  }
-
-  50% {
-    transform: translate(-15%, 10%)
-  }
-
-  60% {
-    transform: translate(15%, 0%)
-  }
-
-  70% {
-    transform: translate(0%, 15%)
-  }
-
-  80% {
-    transform: translate(3%, 35%)
-  }
-
-  90% {
-    transform: translate(-10%, 10%)
   }
 }
 
@@ -692,9 +625,9 @@ html[data-low-performance="true"] .noise-overlay {
   align-self: start;
 }
 
-/* Lens Focus GPU-friendly class */
+/* Lens Focus helper class */
 .lens-focus {
-  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 
 /* Reduce motion for users who prefer it */
@@ -706,24 +639,36 @@ html[data-low-performance="true"] .noise-overlay {
   }
 }
 
-/* ── Freelance cards responsive layout ── */
-/* Mobile: full-width, fully rounded, no offset */
+/* ── Freelance & Project cards responsive layout ── */
+/* Mobile: compact centered width, soft rounded corners, no harsh edges */
 .freelance-card-wrap {
-  width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+  width: 90% !important;
+  max-width: 380px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 .freelance-card-wrap article {
-  border-radius: 1rem !important;
+  border-radius: 1.75rem !important;
 }
 
-/* Desktop: 48% width, edge-flush on one side */
+/* Tablet & Desktop */
+@media (min-width: 640px) {
+  .freelance-card-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .freelance-card-wrap article {
+    border-radius: 1.75rem !important;
+  }
+}
+
 @media (min-width: 1024px) {
   .freelance-card-wrap {
     width: 48% !important;
+    max-width: 48% !important;
   }
   .freelance-card-left  { margin-left: 0 !important;    margin-right: auto !important; }
   .freelance-card-right { margin-left: auto !important; margin-right: 0 !important;    }
-  .freelance-card-left article  { border-radius: 0 1.5rem 1.5rem 0 !important; }
-  .freelance-card-right article { border-radius: 1.5rem 0 0 1.5rem !important; }
+  .freelance-card-left article  { border-radius: 0 1.75rem 1.75rem 0 !important; }
+  .freelance-card-right article { border-radius: 1.75rem 0 0 1.75rem !important; }
 }

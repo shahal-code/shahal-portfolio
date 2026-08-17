@@ -22,49 +22,52 @@ const MobileDock = () => {
     ];
 
     useEffect(() => {
-        const handleScroll = () => {
-            const sections = navLinks.map(link => link.id);
-            let currentSection = activeSection;
-            let minDistance = Infinity;
-
-            sections.forEach(section => {
-                const element = document.getElementById(section);
-                if (element) {
-                    const rect = element.getBoundingClientRect();
-                    const distance = Math.abs(rect.top - 100);
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        currentSection = section;
+        const sections = navLinks.map(link => link.id);
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const visibleEntries = entries.filter((e) => e.isIntersecting);
+                if (visibleEntries.length > 0) {
+                    const mostVisible = visibleEntries.reduce((prev, curr) =>
+                        curr.intersectionRatio > prev.intersectionRatio ? curr : prev
+                    );
+                    if (mostVisible.target.id) {
+                        setActiveSection(mostVisible.target.id);
                     }
                 }
-            });
+            },
+            {
+                rootMargin: "-20% 0px -40% 0px",
+                threshold: [0.1, 0.3, 0.6],
+            }
+        );
 
-            if (currentSection !== activeSection) {
-                setActiveSection(currentSection);
+        sections.forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) observer.observe(el);
+        });
+
+        return () => observer.disconnect();
+    }, []);
+
+    const scrollToSection = (sectionId: string) => {
+        const performScroll = () => {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                if (window.__lenis) {
+                    window.__lenis.scrollTo(element, { offset: -70, duration: 1.2 });
+                } else {
+                    element.scrollIntoView({ behavior: "smooth" });
+                }
             }
         };
 
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [activeSection]);
-
-    const scrollToSection = (sectionId: string) => {
         if (location.pathname !== "/") {
             navigate("/");
-            // Small delay to allow navigation to complete before scrolling
-            setTimeout(() => {
-                const element = document.getElementById(sectionId);
-                if (element) {
-                    element.scrollIntoView({ behavior: "smooth" });
-                }
-            }, 100);
+            setTimeout(performScroll, 100);
             return;
         }
 
-        const element = document.getElementById(sectionId);
-        if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-        }
+        performScroll();
     };
 
     return (

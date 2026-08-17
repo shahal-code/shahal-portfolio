@@ -35,43 +35,39 @@ const About = () => {
 
               {/* Summary Card - Highlight Brototype */}
               <div className="lg:col-span-8">
-                <Magnetic strength={0.1} className="w-full h-full">
-                  <div className="p-8 rounded-[2.5rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl h-full cursor-pointer hover:border-primary/50 transition-all duration-700">
-                    <div className="flex flex-col md:flex-row gap-8 items-start">
-                      <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 animate-pulse-slow border border-primary/20">
-                        <Globe className="w-10 h-10 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="text-2xl font-bold mb-4 flex items-center gap-2 text-foreground">
-                          BROTOTYPE <span className="text-primary text-sm font-normal">| Intensive MERN Program</span>
-                        </h3>
-                        <p className="text-muted-foreground leading-relaxed text-lg mb-6">
-                          {about.summary}
-                        </p>
-                        <div className="flex flex-wrap gap-4">
-                          <div className="flex items-center gap-2 text-sm text-primary/80">
-                            <MapPin size={16} /> Kerala, India
-                          </div>
-                          <a href="https://www.brototype.com" target="_blank" rel="noopener" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors underline underline-offset-4">
-                            www.brototype.com
-                          </a>
+                <div className="p-8 rounded-[2.5rem] bg-card/85 dark:bg-white/[0.03] border border-border/60 dark:border-white/10 shadow-lg h-full hover:border-primary/50 transition-colors duration-300">
+                  <div className="flex flex-col md:flex-row gap-8 items-start">
+                    <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 border border-primary/20">
+                      <Globe className="w-10 h-10 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2 text-foreground">
+                        BROTOTYPE <span className="text-primary text-sm font-normal">| Intensive MERN Program</span>
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed text-lg mb-6">
+                        {about.summary}
+                      </p>
+                      <div className="flex flex-wrap gap-4">
+                        <div className="flex items-center gap-2 text-sm text-primary/80">
+                          <MapPin size={16} /> Kerala, India
                         </div>
+                        <a href="https://www.brototype.com" target="_blank" rel="noopener" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors underline underline-offset-4">
+                          www.brototype.com
+                        </a>
                       </div>
                     </div>
                   </div>
-                </Magnetic>
+                </div>
               </div>
 
               {/* Quick Stats/Highlights */}
               <div className="lg:col-span-4 grid grid-cols-2 gap-4">
                 {HIGHLIGHTS.map((item, idx) => (
-                  <Magnetic key={idx} strength={0.2} className="w-full">
-                    <div className="p-6 rounded-[2rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl hover:border-primary/50 transition-all duration-700 group h-full cursor-pointer">
-                      <item.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
-                      <h4 className="font-bold text-sm mb-1 text-foreground">{item.title}</h4>
-                      <p className="text-[10px] text-muted-foreground">{item.description}</p>
-                    </div>
-                  </Magnetic>
+                  <div key={idx} className="p-6 rounded-[2rem] bg-card/85 dark:bg-white/[0.03] border border-border/60 dark:border-white/10 shadow-lg hover:border-primary/50 transition-colors duration-300 group h-full">
+                    <item.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform duration-300" />
+                    <h4 className="font-bold text-sm mb-1 text-foreground">{item.title}</h4>
+                    <p className="text-[10px] text-muted-foreground">{item.description}</p>
+                  </div>
                 ))}
               </div>
 
@@ -79,7 +75,7 @@ const About = () => {
               <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                 {/* Education Timeline */}
-                <div className="p-8 rounded-[2.5rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl flex flex-col h-full">
+                <div className="p-8 rounded-[2.5rem] bg-card/85 dark:bg-white/[0.03] border border-border/60 dark:border-white/10 shadow-lg flex flex-col h-full">
                   <div className="flex items-center gap-4 mb-8">
                     <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center border border-accent/20">
                       <GraduationCap className="w-6 h-6 text-accent" />
@@ -91,7 +87,7 @@ const About = () => {
                       <div
                         key={idx}
                         onClick={() => setExpandedEdu(expandedEdu === idx ? null : idx)}
-                        className="p-5 rounded-2xl bg-black/5 dark:bg-white/5 border border-border/20 dark:border-white/5 cursor-pointer hover:border-primary/30 transition-all group"
+                        className="p-5 rounded-2xl bg-black/5 dark:bg-white/5 border border-border/20 dark:border-white/5 cursor-pointer hover:border-primary/30 transition-colors duration-200 group"
                       >
                         <div className="flex justify-between items-start mb-2">
                           <div>
@@ -103,7 +99,7 @@ const About = () => {
                             {expandedEdu === idx ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                           </div>
                         </div>
-                        <div className={`text-sm leading-relaxed text-muted-foreground transition-all duration-500 overflow-hidden ${expandedEdu === idx ? 'max-h-96 mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
+                        <div className={`text-sm leading-relaxed text-muted-foreground transition-all duration-300 overflow-hidden ${expandedEdu === idx ? 'max-h-96 mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
                           {edu.description}
                         </div>
                       </div>
@@ -112,7 +108,7 @@ const About = () => {
                 </div>
 
                 {/* Professional Experience */}
-                <div className="p-8 rounded-[2.5rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl flex flex-col h-full">
+                <div className="p-8 rounded-[2.5rem] bg-card/85 dark:bg-white/[0.03] border border-border/60 dark:border-white/10 shadow-lg flex flex-col h-full">
                   <div className="flex items-center gap-4 mb-8">
                     <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center border border-green-500/20">
                       <Briefcase className="w-6 h-6 text-green-500" />
@@ -124,7 +120,7 @@ const About = () => {
                       <div
                         key={idx}
                         onClick={() => setExpandedExp(expandedExp === idx ? null : idx)}
-                        className="p-5 rounded-2xl bg-black/5 dark:bg-white/5 border border-border/20 dark:border-white/5 cursor-pointer hover:border-primary/30 transition-all group"
+                        className="p-5 rounded-2xl bg-black/5 dark:bg-white/5 border border-border/20 dark:border-white/5 cursor-pointer hover:border-primary/30 transition-colors duration-200 group"
                       >
                         <div className="flex justify-between items-start mb-2">
                           <div>
@@ -138,7 +134,7 @@ const About = () => {
                             </div>
                           </div>
                         </div>
-                        <div className={`transition-all duration-500 overflow-hidden ${expandedExp === idx ? 'max-h-80 opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
+                        <div className={`transition-all duration-300 overflow-hidden ${expandedExp === idx ? 'max-h-80 opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
                           {exp.points ? (
                             <ul className="text-sm text-muted-foreground list-disc pl-4 space-y-2">
                               {exp.points.map((p, i) => <li key={i}>{p}</li>)}
@@ -158,25 +154,21 @@ const About = () => {
               <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                 {/* Video Editing */}
-                <Magnetic strength={0.2} className="w-full h-full">
-                  <div className="p-8 rounded-[2.5rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl h-full cursor-pointer group hover:border-primary/50 transition-all duration-700">
-                    <h3 className="text-lg font-bold mb-3 text-foreground">Video Editing</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      Intermediate-level experience crafting engaging visuals with smooth transitions, clean cuts, effects, and sound design to enhance storytelling.
-                    </p>
-                  </div>
-                </Magnetic>
+                <div className="p-8 rounded-[2.5rem] bg-card/85 dark:bg-white/[0.03] border border-border/60 dark:border-white/10 shadow-lg h-full group hover:border-primary/50 transition-colors duration-300">
+                  <h3 className="text-lg font-bold mb-3 text-foreground">Video Editing</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Intermediate-level experience crafting engaging visuals with smooth transitions, clean cuts, effects, and sound design to enhance storytelling.
+                  </p>
+                </div>
 
                 {/* Counter */}
-                <Magnetic strength={0.3} className="w-full h-full">
-                  <div className="p-8 rounded-[2.5rem] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/10 shadow-2xl flex items-center justify-center group overflow-hidden relative h-full cursor-pointer hover:border-primary/50 transition-all duration-700">
-                    <div className="z-10 text-center">
-                      <span className="text-6xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{experienceCount}</span>
-                      <p className="text-xs uppercase tracking-widest font-bold text-muted-foreground mt-2">Projects Completed</p>
-                    </div>
-                    <div className="absolute inset-0 bg-primary/5 dark:bg-primary/10 blur-3xl group-hover:bg-primary/20 transition-colors" />
+                <div className="p-8 rounded-[2.5rem] bg-card/85 dark:bg-white/[0.03] border border-border/60 dark:border-white/10 shadow-lg flex items-center justify-center group overflow-hidden relative h-full hover:border-primary/50 transition-colors duration-300">
+                  <div className="z-10 text-center">
+                    <span className="text-6xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{experienceCount}</span>
+                    <p className="text-xs uppercase tracking-widest font-bold text-muted-foreground mt-2">Projects Completed</p>
                   </div>
-                </Magnetic>
+                  <div className="absolute inset-0 bg-primary/5 dark:bg-primary/10 blur-2xl group-hover:bg-primary/15 transition-colors duration-300" />
+                </div>
 
               </div>
             </div>

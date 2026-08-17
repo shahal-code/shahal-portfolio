@@ -72,7 +72,7 @@ const Services = () => {
 
 const ServiceCard = ({ service, index }: { service: any, index: number }) => (
     <SpotlightCard
-        className="group h-[450px] md:h-[500px] bg-card/40 dark:bg-white/5 backdrop-blur-3xl border border-border/50 dark:border-white/5 rounded-[2.5rem] md:rounded-[3rem] p-10 md:p-12 flex flex-col justify-between transition-all duration-700 hover:border-primary/50 dark:hover:bg-white/10 shadow-2xl"
+        className="group h-[450px] md:h-[500px] bg-card/85 dark:bg-white/[0.03] border border-border/60 dark:border-white/10 rounded-[2.5rem] md:rounded-[3rem] p-10 md:p-12 flex flex-col justify-between transition-colors duration-300 hover:border-primary/50 dark:hover:bg-white/[0.06] shadow-lg"
         spotlightColor={`${service.color}30` || "rgba(139, 92, 246, 0.3)"}
     >
         <div className="space-y-6">

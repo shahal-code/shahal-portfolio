@@ -1,45 +1,55 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 
+declare global {
+  interface Window {
+    __lenis?: Lenis;
+  }
+}
+
 const SmoothScroll = () => {
-    useEffect(() => {
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        const isMobile = window.innerWidth < 768;
+  useEffect(() => {
+    // Only disable if user has explicitly set prefers-reduced-motion
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      return;
+    }
 
-        if (isTouchDevice || isMobile) {
-            return;
-        }
+    // Award-winning luxury inertial momentum easing curve
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: "vertical",
+      gestureOrientation: "vertical",
+      smoothWheel: true,
+      wheelMultiplier: 1.05,
+      touchMultiplier: 1.2,
+      infinite: false,
+    });
 
-        // Initialize Lenis — snappier settings for buttery scroll without lag
-        const lenis = new Lenis({
-            duration: 0.8,
-            easing: (t) => 1 - Math.pow(1 - t, 4),
-            lerp: 0.12,
-            smoothWheel: true,
-            wheelMultiplier: 1.0,
-            touchMultiplier: 1.5,
-        });
+    window.__lenis = lenis;
 
-        // Force scroll to top on refresh if no hash is present
-        if (!window.location.hash) {
-            lenis.scrollTo(0, { immediate: true });
-        }
+    // Force scroll to top on refresh if no hash is present
+    if (!window.location.hash) {
+      lenis.scrollTo(0, { immediate: true });
+    }
 
-        let rafId: number;
-        function raf(time: number) {
-            lenis.raf(time);
-            rafId = requestAnimationFrame(raf);
-        }
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
 
-        rafId = requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
-        return () => {
-            cancelAnimationFrame(rafId);
-            lenis.destroy();
-        };
-    }, []);
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      delete window.__lenis;
+    };
+  }, []);
 
-    return null;
+  return null;
 };
 
 export default SmoothScroll;

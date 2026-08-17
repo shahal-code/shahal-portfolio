@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useLowPerformanceMode } from "@/hooks/usePerformanceMode";
 
 interface MagneticProps {
@@ -13,37 +13,47 @@ const Magnetic: React.FC<MagneticProps> = ({ children, strength = 0.3, className
 
     useEffect(() => {
         if (lowPerformance) return;
+        // Don't bind on touch devices to preserve buttery smooth touch scrolling
+        if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+            return;
+        }
 
         const node = ref.current;
         if (!node) return;
 
+        let rafId: number | null = null;
+
         const handleMove = (clientX: number, clientY: number) => {
-            const { left, top, width, height } = node.getBoundingClientRect();
-            const x = (clientX - (left + width / 2)) * strength;
-            const y = (clientY - (top + height / 2)) * strength;
-            node.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            if (rafId !== null) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(() => {
+                const rect = node.getBoundingClientRect();
+                const x = (clientX - (rect.left + rect.width / 2)) * strength;
+                const y = (clientY - (rect.top + rect.height / 2)) * strength;
+                node.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            });
+        };
+
+        const handleMouseEnter = () => {
+            node.style.willChange = 'transform';
         };
 
         const handleReset = () => {
+            if (rafId !== null) cancelAnimationFrame(rafId);
             node.style.transform = `translate3d(0, 0, 0)`;
+            node.style.willChange = 'auto';
         };
 
         const onMouseMove = (e: MouseEvent) => handleMove(e.clientX, e.clientY);
-        const onTouchMove = (e: TouchEvent) => {
-            const touch = e.touches[0];
-            handleMove(touch.clientX, touch.clientY);
-        };
 
+        node.addEventListener("mouseenter", handleMouseEnter);
         node.addEventListener("mousemove", onMouseMove);
         node.addEventListener("mouseleave", handleReset);
-        node.addEventListener("touchmove", onTouchMove, { passive: true });
-        node.addEventListener("touchend", handleReset);
 
         return () => {
+            if (rafId !== null) cancelAnimationFrame(rafId);
+            node.removeEventListener("mouseenter", handleMouseEnter);
             node.removeEventListener("mousemove", onMouseMove);
             node.removeEventListener("mouseleave", handleReset);
-            node.removeEventListener("touchmove", onTouchMove);
-            node.removeEventListener("touchend", handleReset);
         };
     }, [strength, lowPerformance]);
 
@@ -51,9 +61,6 @@ const Magnetic: React.FC<MagneticProps> = ({ children, strength = 0.3, className
         <div
             ref={ref}
             className={`inline-block ${lowPerformance ? "" : "transition-transform duration-150 ease-out"} ${className}`}
-            style={{
-                willChange: lowPerformance ? 'auto' : 'transform'
-            }}
         >
             {children}
         </div>

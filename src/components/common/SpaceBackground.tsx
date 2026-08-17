@@ -50,14 +50,14 @@ const SpaceBackground = () => {
                 antialias: false,
                 powerPreference: "high-performance",
                 stencil: false,
-                depth: true
+                depth: false
             });
             renderer.setSize(width, height);
-            renderer.setPixelRatio(dpr);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.25));
             mountRef.current.appendChild(renderer.domElement);
 
             // --- 2. Starfield (Optimized Particle Count) ---
-            const particlesCount = isMobile ? 250 : 800;
+            const particlesCount = isMobile ? 180 : 450;
             const geometry = new THREE.BufferGeometry();
             const positions = new Float32Array(particlesCount * 3);
             const colors = new Float32Array(particlesCount * 3);
@@ -122,12 +122,12 @@ const SpaceBackground = () => {
 
             const animate = () => {
                 animationFrameId = requestAnimationFrame(animate);
-                if (document.documentElement.classList.contains('is-transitioning-theme')) return;
+                if (document.hidden || document.documentElement.classList.contains('is-transitioning-theme')) return;
 
                 const elapsedTime = clock.getElapsedTime();
                 material.uniforms.time.value = elapsedTime;
-                particles.rotation.y = elapsedTime * 0.05;
-                particles.rotation.x = Math.sin(elapsedTime * 0.2) * 0.1;
+                particles.rotation.y = elapsedTime * 0.04;
+                particles.rotation.x = Math.sin(elapsedTime * 0.15) * 0.08;
 
                 renderer.render(scene, camera);
             };
@@ -161,13 +161,14 @@ const SpaceBackground = () => {
     }, [isMobile, isDark, isLowPerformance]);
 
     if (isLowPerformance) {
-        return <div className="fixed inset-0 z-[-1] pointer-events-none bg-black" />;
+        return <div className="fixed inset-0 z-[-1] pointer-events-none bg-black" style={{ contain: "strict" }} />;
     }
 
     return (
         <div
             ref={mountRef}
             className={`fixed inset-0 z-[-1] pointer-events-none ${isDark ? 'bg-black' : 'bg-slate-50'}`}
+            style={{ contain: "strict", transform: "translateZ(0)" }}
         />
     );
 };

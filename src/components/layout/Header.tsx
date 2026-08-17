@@ -16,43 +16,49 @@ const Header = ({ onOpenContact }: HeaderProps) => {
   const isManualScroll = useRef(false);
 
   useEffect(() => {
-    let ticking = false;
+    let lastScrolled = window.scrollY > 50;
+    setIsScrolled(lastScrolled);
 
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 50);
-
-          if (!isManualScroll.current) {
-            const sections = ["hero", "about", "services", "skills", "projects", "freelance"];
-            let minDistance = Infinity;
-            let currentSection = activeSection;
-
-            sections.forEach(section => {
-              const element = document.getElementById(section);
-              if (element) {
-                const rect = element.getBoundingClientRect();
-                const distance = Math.abs(rect.top - 100);
-                if (distance < minDistance) {
-                  minDistance = distance;
-                  currentSection = section;
-                }
-              }
-            });
-
-            if (currentSection && currentSection !== activeSection) {
-              setActiveSection(currentSection);
-            }
-          }
-          ticking = false;
-        });
-        ticking = true;
+      const scrolled = window.scrollY > 50;
+      if (scrolled !== lastScrolled) {
+        lastScrolled = scrolled;
+        setIsScrolled(scrolled);
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [activeSection]);
+
+    const sections = ["hero", "about", "services", "skills", "projects", "freelance"];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isManualScroll.current) return;
+        const visibleEntries = entries.filter((e) => e.isIntersecting);
+        if (visibleEntries.length > 0) {
+          const mostVisible = visibleEntries.reduce((prev, curr) =>
+            curr.intersectionRatio > prev.intersectionRatio ? curr : prev
+          );
+          if (mostVisible.target.id) {
+            setActiveSection(mostVisible.target.id);
+          }
+        }
+      },
+      {
+        rootMargin: "-20% 0px -40% 0px",
+        threshold: [0.1, 0.3, 0.6],
+      }
+    );
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
+  }, []);
 
   const navLinks = [
     { label: "Home", sectionId: "hero" },
@@ -69,10 +75,14 @@ const Header = ({ onOpenContact }: HeaderProps) => {
       if (element) {
         isManualScroll.current = true;
         setActiveSection(sectionId);
-        element.scrollIntoView({ behavior: "smooth" });
+        if (window.__lenis) {
+          window.__lenis.scrollTo(element, { offset: -70, duration: 1.2 });
+        } else {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
         setTimeout(() => {
           isManualScroll.current = false;
-        }, 1000);
+        }, 1200);
       }
     } else {
       navigate("/", { state: { scrollTo: sectionId } });

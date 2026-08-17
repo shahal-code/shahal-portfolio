@@ -213,18 +213,15 @@ const Hero = ({ onOpenContact }: HeroProps) => {
           {/* Right Image Column with 3D Tilt & Scroll Parallax */}
           <motion.div
             style={{ scale, filter, opacity, y: yFly }}
-            className="flex-1 relative perspective-1000 lens-focus opacity-100" // Lens Focus effect
+            className="flex-1 relative perspective-1000 opacity-100"
           >
             <motion.div
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleMouseLeave}
               style={{
                 rotateX,
                 rotateY,
                 transformStyle: "preserve-3d",
-                touchAction: "pan-y",
               }}
               className="relative w-52 h-52 min-[390px]:w-64 min-[390px]:h-64 sm:w-80 sm:h-80 md:w-[30rem] md:h-[30rem] mx-auto group cursor-pointer"
             >
