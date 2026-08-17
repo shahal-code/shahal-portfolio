@@ -249,7 +249,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                     src="/images/Me-color.jpg"
                     alt={PERSONAL_DETAILS.name}
                     loading="eager"
-                    fetchPriority="high"
+                    fetchpriority="high"
                     className="w-full h-full rounded-full object-cover shadow-inner grayscale group-hover:grayscale-0 transition-all duration-1000 ease-in-out select-none"
                     onContextMenu={(e) => e.preventDefault()}
                     draggable="false"

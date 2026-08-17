@@ -1,23 +1,18 @@
 import { useState } from "react";
-import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { HIGHLIGHTS, PERSONAL_DETAILS, EDUCATION, EXPERIENCE_LIST } from "@/constants";
-import Magnetic from "@/components/common/Magnetic";
-import Scroll3DWrapper from "@/components/common/Scroll3DWrapper";
 import { GraduationCap, Briefcase, MapPin, Globe, ChevronDown, ChevronUp } from "lucide-react";
 
 const About = () => {
-  const { data } = usePortfolioData();
-  const profile = data?.profile || PERSONAL_DETAILS;
-  const about = profile.about || PERSONAL_DETAILS.about;
-  const experienceCount = profile.experienceCount || PERSONAL_DETAILS.experience.miniProjects;
+  const profile = PERSONAL_DETAILS;
+  const about = profile.about;
+  const experienceCount = profile.experience.miniProjects;
 
   const [expandedEdu, setExpandedEdu] = useState<number | null>(null);
   const [expandedExp, setExpandedExp] = useState<number | null>(null);
 
   return (
     <section id="about" className="py-28 relative overflow-hidden scroll-mt-32">
-      <Scroll3DWrapper>
-        <div className="container mx-auto px-4 sm:px-6">
+      <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             {/* Section header */}
             <div className="text-center mb-20">
@@ -171,10 +166,9 @@ const About = () => {
                 </div>
 
               </div>
-            </div>
           </div>
         </div>
-      </Scroll3DWrapper>
+      </div>
     </section>
   );
 };

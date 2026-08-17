@@ -73,6 +73,14 @@ const BrandLogos: Record<string, React.FC<any>> = {
   Lightroom: (props) => <svg viewBox="0 0 24 24" fill="#31A8FF" {...props}><rect width="24" height="24" rx="4" /><text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold" fontFamily="Arial">Lr</text></svg>
 };
 
+const BRAND_LOOKUP = new Map<string, React.FC<any>>(
+  Object.entries(BrandLogos).map(([k, v]) => [k.toLowerCase(), v])
+);
+
+const ICON_LOOKUP = new Map<string, any>(
+  Object.entries(IconMap).map(([k, v]) => [k.toLowerCase(), v])
+);
+
 export const AVAILABLE_ICONS = [
   ...Object.keys(BrandLogos),
   ...Object.keys(IconMap)
@@ -87,22 +95,17 @@ interface IconRendererProps {
 const IconRenderer: React.FC<IconRendererProps> = ({ name, className, ...props }) => {
   const iconName = name.toLowerCase();
 
-  // Check custom logos first (case-insensitive)
-  const brandKey = Object.keys(BrandLogos).find(k => k.toLowerCase() === iconName);
-  if (brandKey) {
-    const Logo = BrandLogos[brandKey];
-    return <Logo className={className} {...props} />;
+  const BrandLogo = BRAND_LOOKUP.get(iconName);
+  if (BrandLogo) {
+    return <BrandLogo className={className} {...props} />;
   }
 
-  // Then check Lucide icons (case-insensitive)
-  const lucideKey = Object.keys(IconMap).find(k => k.toLowerCase() === iconName);
-  if (lucideKey) {
-    const LucideIcon = IconMap[lucideKey];
+  const LucideIcon = ICON_LOOKUP.get(iconName);
+  if (LucideIcon) {
     return <LucideIcon className={className} {...props} />;
   }
 
-  // Fallback to a default icon
   return <Sparkles className={className} {...props} />;
 };
 
-export default IconRenderer;
+export default React.memo(IconRenderer);

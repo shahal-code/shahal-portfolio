@@ -1,7 +1,5 @@
 import { ExternalLink, Github, Lock, MapPin, Calendar, Users } from "lucide-react";
-import { motion } from "framer-motion";
 import RippleButton from "@/components/ui/RippleButton";
-import Magnetic from "@/components/common/Magnetic";
 import { FREELANCE_PROJECTS } from "@/constants";
 
 type FreelanceProject = {
@@ -79,12 +77,8 @@ const FreelanceProjects = () => {
           const isLeft = index % 2 === 0;
 
           return (
-            <motion.div
+            <div
               key={project.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
               className={`freelance-card-wrap ${isLeft ? "freelance-card-left" : "freelance-card-right"}`}
             >
               <article className="group relative rounded-[1.75rem] sm:rounded-2xl border border-white/10 bg-card/80 dark:bg-white/[0.02] overflow-hidden transition-colors duration-300 hover:border-primary/30 hover:bg-white/[0.04] shadow-md hover:shadow-xl flex flex-col sm:flex-row"
@@ -102,7 +96,6 @@ const FreelanceProjects = () => {
                   <img
                     src={project.image}
                     alt={project.title}
-                    loading="lazy"
                     decoding="async"
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
@@ -200,45 +193,41 @@ const FreelanceProjects = () => {
                         isLeft ? "sm:justify-start" : "sm:justify-end"
                       }`}
                     >
-                      <Magnetic strength={0.3}>
-                        <RippleButton
-                          className="h-7 sm:h-8 rounded-full border border-white/10 bg-white/[0.04] px-3 sm:px-4 text-[9px] sm:text-[10px] font-bold text-foreground backdrop-blur-xl transition-all hover:border-primary/40 hover:bg-primary/10 active:scale-95"
-                          onClick={() => window.open(project.github, "_blank", "noopener,noreferrer")}
-                        >
-                          <span className="flex items-center gap-1">
-                            <Github className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                            Code
-                          </span>
-                        </RippleButton>
-                      </Magnetic>
+                      <RippleButton
+                        className="h-7 sm:h-8 rounded-full border border-white/10 bg-white/[0.04] px-3 sm:px-4 text-[9px] sm:text-[10px] font-bold text-foreground backdrop-blur-xl transition-all hover:border-primary/40 hover:bg-primary/10 active:scale-95"
+                        onClick={() => window.open(project.github, "_blank", "noopener,noreferrer")}
+                      >
+                        <span className="flex items-center gap-1">
+                          <Github className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                          Code
+                        </span>
+                      </RippleButton>
 
-                      <Magnetic strength={0.3}>
-                        <RippleButton
-                          className={`h-7 sm:h-8 rounded-full border px-3 sm:px-4 text-[9px] sm:text-[10px] font-bold backdrop-blur-xl transition-all active:scale-95 ${
-                            project.demo && project.demo !== "#"
-                              ? "border-primary/40 bg-primary/20 text-primary-foreground hover:bg-primary/30"
-                              : "cursor-not-allowed border-white/10 bg-white/[0.03] text-muted-foreground"
-                          }`}
-                          onClick={() => {
-                            if (project.demo && project.demo !== "#") {
-                              window.open(project.demo, "_blank", "noopener,noreferrer");
-                            }
-                          }}
-                        >
-                          <span className="flex items-center gap-1">
-                            {project.demo && project.demo !== "#" ? (
-                              <><ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3" />Visit</>
-                            ) : (
-                              <><Lock className="w-2.5 h-2.5 sm:w-3 sm:h-3" />N/A</>
-                            )}
-                          </span>
-                        </RippleButton>
-                      </Magnetic>
+                      <RippleButton
+                        className={`h-7 sm:h-8 rounded-full border px-3 sm:px-4 text-[9px] sm:text-[10px] font-bold backdrop-blur-xl transition-all active:scale-95 ${
+                          project.demo && project.demo !== "#"
+                            ? "border-primary/40 bg-primary/20 text-primary-foreground hover:bg-primary/30"
+                            : "cursor-not-allowed border-white/10 bg-white/[0.03] text-muted-foreground"
+                        }`}
+                        onClick={() => {
+                          if (project.demo && project.demo !== "#") {
+                            window.open(project.demo, "_blank", "noopener,noreferrer");
+                          }
+                        }}
+                      >
+                        <span className="flex items-center gap-1">
+                          {project.demo && project.demo !== "#" ? (
+                            <><ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3" />Visit</>
+                          ) : (
+                            <><Lock className="w-2.5 h-2.5 sm:w-3 sm:h-3" />N/A</>
+                          )}
+                        </span>
+                      </RippleButton>
                     </div>
                   </div>
                 </div>
               </article>
-            </motion.div>
+            </div>
           );
         })}
       </div>

@@ -1,8 +1,5 @@
-import { ExternalLink, Github, Lock, MapPin, Calendar, ArrowUpRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { ExternalLink, Github, Lock, MapPin, ArrowUpRight } from "lucide-react";
 import RippleButton from "@/components/ui/RippleButton";
-import Magnetic from "@/components/common/Magnetic";
-import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { PROJECTS } from "@/constants";
 
 type Project = {
@@ -23,9 +20,6 @@ const getProjectType = (title: string) => {
 };
 
 const Projects = () => {
-  const { data } = usePortfolioData();
-  const projectsList = (data?.projects?.length > 0 ? data.projects : PROJECTS) as Project[];
-
   return (
     <section id="projects" className="relative py-24 sm:py-28 scroll-mt-32 overflow-hidden">
       {/* Ambient glows - optimized */}
@@ -58,17 +52,13 @@ const Projects = () => {
 
       {/* ── Cards: full viewport width, alternating left/right ── */}
       <div className="relative z-10 w-full space-y-6">
-        {projectsList.map((project: Project, index: number) => {
+        {PROJECTS.map((project: Project, index: number) => {
           const isLeft = index % 2 === 0;
           const projectType = getProjectType(project.title);
 
           return (
-            <motion.div
+            <div
               key={project.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
               className={`freelance-card-wrap ${isLeft ? "freelance-card-left" : "freelance-card-right"}`}
             >
               <article
@@ -87,7 +77,6 @@ const Projects = () => {
                   <img
                     src={project.image}
                     alt={project.title}
-                    loading="lazy"
                     decoding="async"
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
@@ -183,45 +172,41 @@ const Projects = () => {
                         isLeft ? "sm:justify-start" : "sm:justify-end"
                       }`}
                     >
-                      <Magnetic strength={0.3}>
-                        <RippleButton
-                          className="h-7 sm:h-8 rounded-full border border-white/10 bg-white/[0.04] px-3 sm:px-4 text-[9px] sm:text-[10px] font-bold text-foreground backdrop-blur-xl transition-all hover:border-primary/40 hover:bg-primary/10 active:scale-95"
-                          onClick={() => window.open(project.github, "_blank", "noopener,noreferrer")}
-                        >
-                          <span className="flex items-center gap-1">
-                            <Github className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                            Code
-                          </span>
-                        </RippleButton>
-                      </Magnetic>
+                      <RippleButton
+                        className="h-7 sm:h-8 rounded-full border border-white/10 bg-white/[0.04] px-3 sm:px-4 text-[9px] sm:text-[10px] font-bold text-foreground backdrop-blur-xl transition-all hover:border-primary/40 hover:bg-primary/10 active:scale-95"
+                        onClick={() => window.open(project.github, "_blank", "noopener,noreferrer")}
+                      >
+                        <span className="flex items-center gap-1">
+                          <Github className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                          Code
+                        </span>
+                      </RippleButton>
 
-                      <Magnetic strength={0.3}>
-                        <RippleButton
-                          className={`h-7 sm:h-8 rounded-full border px-3 sm:px-4 text-[9px] sm:text-[10px] font-bold backdrop-blur-xl transition-all active:scale-95 ${
-                            project.demo && project.demo !== "#"
-                              ? "border-primary/40 bg-primary/20 text-primary-foreground hover:bg-primary/30"
-                              : "cursor-not-allowed border-white/10 bg-white/[0.03] text-muted-foreground"
-                          }`}
-                          onClick={() => {
-                            if (project.demo && project.demo !== "#") {
-                              window.open(project.demo, "_blank", "noopener,noreferrer");
-                            }
-                          }}
-                        >
-                          <span className="flex items-center gap-1">
-                            {project.demo && project.demo !== "#" ? (
-                              <><ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3" />Live Demo</>
-                            ) : (
-                              <><Lock className="w-2.5 h-2.5 sm:w-3 sm:h-3" />Not Available</>
-                            )}
-                          </span>
-                        </RippleButton>
-                      </Magnetic>
+                      <RippleButton
+                        className={`h-7 sm:h-8 rounded-full border px-3 sm:px-4 text-[9px] sm:text-[10px] font-bold backdrop-blur-xl transition-all active:scale-95 ${
+                          project.demo && project.demo !== "#"
+                            ? "border-primary/40 bg-primary/20 text-primary-foreground hover:bg-primary/30"
+                            : "cursor-not-allowed border-white/10 bg-white/[0.03] text-muted-foreground"
+                        }`}
+                        onClick={() => {
+                          if (project.demo && project.demo !== "#") {
+                            window.open(project.demo, "_blank", "noopener,noreferrer");
+                          }
+                        }}
+                      >
+                        <span className="flex items-center gap-1">
+                          {project.demo && project.demo !== "#" ? (
+                            <><ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3" />Live Demo</>
+                          ) : (
+                            <><Lock className="w-2.5 h-2.5 sm:w-3 sm:h-3" />Not Available</>
+                          )}
+                        </span>
+                      </RippleButton>
                     </div>
                   </div>
                 </div>
               </article>
-            </motion.div>
+            </div>
           );
         })}
       </div>

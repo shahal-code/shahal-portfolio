@@ -1,9 +1,6 @@
-import { useState } from "react";
-import { usePortfolioData } from "@/hooks/usePortfolioData";
+import { useState, useMemo } from "react";
 import { SKILLS } from "@/constants";
-import Scroll3DWrapper from "@/components/common/Scroll3DWrapper";
 import IconRenderer from "@/components/common/IconRenderer";
-import RippleButton from "@/components/ui/RippleButton";
 import { Layout, Server, Database, Cloud, Wrench, Layers } from "lucide-react";
 
 interface SkillItem {
@@ -63,19 +60,19 @@ const SECTION_GROUPS: {
 ];
 
 const Skills = () => {
-  const { data } = usePortfolioData();
-  const skillsList: SkillItem[] = (data?.skills?.length > 0 ? data.skills : SKILLS) as SkillItem[];
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
-  const filterTabs = [
+  const filterTabs = useMemo(() => [
     { id: "all", label: "All Disciplines", icon: Layers },
     ...SECTION_GROUPS.map((g) => ({ id: g.id, label: g.title.split(" ")[0], icon: g.icon })),
-  ];
+  ], []);
 
-  const visibleGroups =
+  const visibleGroups = useMemo(() => 
     activeFilter === "all"
       ? SECTION_GROUPS
-      : SECTION_GROUPS.filter((g) => g.id === activeFilter);
+      : SECTION_GROUPS.filter((g) => g.id === activeFilter),
+    [activeFilter]
+  );
 
   return (
     <section id="skills" className="py-24 sm:py-28 relative overflow-hidden scroll-mt-32">
@@ -83,9 +80,8 @@ const Skills = () => {
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
 
-      <Scroll3DWrapper>
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="max-w-6xl mx-auto">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="max-w-6xl mx-auto">
             {/* Section Header */}
             <div className="text-center mb-12">
               <span className="inline-block text-sm font-semibold text-primary tracking-widest uppercase mb-4 px-4 py-1.5 bg-primary/10 rounded-full">
@@ -129,7 +125,7 @@ const Skills = () => {
             {/* 2-Column Bento Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-7">
               {visibleGroups.map((group) => {
-                const groupSkills = skillsList.filter((s) => group.categories.includes(s.category));
+                const groupSkills = SKILLS.filter((s) => group.categories.includes(s.category));
                 if (groupSkills.length === 0) return null;
                 const GroupIcon = group.icon;
                 const isFullWidth = activeFilter === "all" && group.colSpan === "lg:col-span-2";
@@ -170,7 +166,7 @@ const Skills = () => {
                       {/* Glass & Water Specular Capsule Pills */}
                       <div className={`flex flex-wrap gap-2.5 sm:gap-3 relative z-10 ${isFullWidth ? "justify-start" : ""}`}>
                         {groupSkills.map((skill) => (
-                          <RippleButton
+                          <div
                             key={skill.name}
                             className="
                               group/pill relative bg-card/40 dark:bg-primary/5 border border-border/50 dark:border-primary/20 backdrop-blur-md rounded-full px-4 py-2 sm:px-4.5 sm:py-2.5
@@ -201,7 +197,7 @@ const Skills = () => {
                                 </span>
                               </div>
                             </div>
-                          </RippleButton>
+                          </div>
                         ))}
                       </div>
                     </div>
@@ -211,7 +207,6 @@ const Skills = () => {
             </div>
           </div>
         </div>
-      </Scroll3DWrapper>
     </section>
   );
 };
