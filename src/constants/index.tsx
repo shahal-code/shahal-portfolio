@@ -261,6 +261,24 @@ export const PROJECTS = [
     github: "https://github.com/shahal-code",
     demo: "https://novuai.vercel.app",
     status: "Live"
+  },
+  {
+    title: "CodePocket — Online Multi-Language Compiler",
+    description: "A powerful, browser-based compiler platform supporting all major programming languages. Built with a high-performance tech stack featuring Next.js & React on the frontend, and NestJS + Fastify + Node.js powering the backend for ultra-fast code execution. Backed by PostgreSQL with Prisma ORM for data persistence and Redis for blazing-fast caching and session management.",
+    tags: ["Next.js", "React", "NestJS", "Fastify", "Node.js", "PostgreSQL", "Prisma ORM", "Redis"],
+    image: "/images/codepocket.png",
+    github: "https://github.com/shahal-code",
+    demo: "https://codepocket.shahl.in",
+    status: "Live"
+  },
+  {
+    title: "TechKart",
+    description: "A highly scalable MERN stack e-commerce platform. Features include a dynamic product catalog, advanced multi-category filtering, real-time cart management, secure Razorpay payment integration, comprehensive order tracking, REST API, JWT-based authentication, and a robust admin dashboard for end-to-end inventory and order lifecycle management.",
+    tags: ["MongoDB", "Express", "React", "Node.js", "Razorpay", "Redux Toolkit", "REST API", "JWT"],
+    image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=400&auto=format&fit=crop&q=55",
+    github: "https://github.com/shahal-code/FirstProject-TechKart",
+    demo: "#",
+    status: "Completed"
   }
 ];
 
@@ -276,17 +294,7 @@ export const FREELANCE_PROJECTS = [
     status: "Live",
     year: "2025"
   },
-  {
-    title: "TechKart",
-    tagline: "Full-Stack E-Commerce Platform",
-    description: "A highly scalable MERN stack e-commerce platform developed for a client business. Features include a dynamic product catalog, advanced multi-category filtering, real-time cart management, secure Razorpay payment integration, comprehensive order tracking, REST API, JWT-based authentication, and a robust admin dashboard for end-to-end inventory and order lifecycle management.",
-    tags: ["MongoDB", "Express", "React", "Node.js", "Razorpay", "Redux Toolkit", "REST API", "JWT"],
-    image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=400&auto=format&fit=crop&q=55",
-    github: "https://github.com/shahal-code/FirstProject-TechKart",
-    demo: "#",
-    status: "In Progress",
-    year: "2025"
-  },
+
   {
     title: "EspareHub",
     tagline: "Large-Scale Multi-Vendor E-Commerce Marketplace",
