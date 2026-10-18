@@ -45,7 +45,7 @@ const Services = () => {
                         {servicesList.map((service: any, index: number) => (
                             <motion.div
                                 key={index}
-                                className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1.5rem)] max-w-[450px]"
+                                className="w-full md:w-[calc(50%-1rem)] max-w-[480px]"
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1, duration: 0.8 }}
