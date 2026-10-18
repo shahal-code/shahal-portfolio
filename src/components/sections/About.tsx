@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { HIGHLIGHTS, PERSONAL_DETAILS, EDUCATION, EXPERIENCE_LIST } from "@/constants";
-import { GraduationCap, Briefcase, MapPin, Globe, ChevronDown, ChevronUp } from "lucide-react";
+import { HIGHLIGHTS, PERSONAL_DETAILS, EXPERIENCE_LIST } from "@/constants";
+import { Briefcase, MapPin, Globe, ChevronDown, ChevronUp } from "lucide-react";
 
 const About = () => {
   const profile = PERSONAL_DETAILS;
   const about = profile.about;
   const experienceCount = profile.experience.miniProjects;
 
-  const [expandedEdu, setExpandedEdu] = useState<number | null>(null);
   const [expandedExp, setExpandedExp] = useState<number | null>(null);
 
   return (
@@ -37,7 +36,7 @@ const About = () => {
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold mb-4 flex items-center gap-2 text-foreground">
-                        BROTOTYPE <span className="text-primary text-sm font-normal">| Intensive MERN Program</span>
+                        BROTOTYPE <span className="text-primary text-sm font-normal">| Intensive Software Engineering Program</span>
                       </h3>
                       <p className="text-muted-foreground leading-relaxed text-lg mb-6">
                         {about.summary}
@@ -66,51 +65,19 @@ const About = () => {
                 ))}
               </div>
 
-              {/* Education & Experience Row */}
-              <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-                {/* Education Timeline */}
-                <div className="p-8 rounded-[2.5rem] bg-card/85 dark:bg-white/[0.03] border border-border/60 dark:border-white/10 shadow-lg flex flex-col h-full">
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center border border-accent/20">
-                      <GraduationCap className="w-6 h-6 text-accent" />
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground">Education</h3>
-                  </div>
-                  <div className="space-y-4">
-                    {EDUCATION.map((edu, idx) => (
-                      <div
-                        key={idx}
-                        onClick={() => setExpandedEdu(expandedEdu === idx ? null : idx)}
-                        className="p-5 rounded-2xl bg-black/5 dark:bg-white/5 border border-border/20 dark:border-white/5 cursor-pointer hover:border-primary/30 transition-colors duration-200 group"
-                      >
-                        <div className="flex justify-between items-start mb-2">
-                          <div>
-                            <span className="text-primary text-xs font-bold tracking-widest uppercase mb-1 block">{edu.period}</span>
-                            <h4 className="font-bold text-base mb-1 text-foreground group-hover:text-primary transition-colors">{edu.title}</h4>
-                            <p className="text-xs text-muted-foreground">{edu.institution}</p>
-                          </div>
-                          <div className="text-primary/50">
-                            {expandedEdu === idx ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                          </div>
-                        </div>
-                        <div className={`text-sm leading-relaxed text-muted-foreground transition-all duration-300 overflow-hidden ${expandedEdu === idx ? 'max-h-96 mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
-                          {edu.description}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Professional Experience */}
-                <div className="p-8 rounded-[2.5rem] bg-card/85 dark:bg-white/[0.03] border border-border/60 dark:border-white/10 shadow-lg flex flex-col h-full">
+              {/* Professional Experience Row */}
+              <div className="lg:col-span-12">
+                <div className="p-8 rounded-[2.5rem] bg-card/85 dark:bg-white/[0.03] border border-border/60 dark:border-white/10 shadow-lg flex flex-col h-full hover:border-primary/50 transition-colors duration-300">
                   <div className="flex items-center gap-4 mb-8">
                     <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center border border-green-500/20">
                       <Briefcase className="w-6 h-6 text-green-500" />
                     </div>
-                    <h3 className="text-xl font-bold text-foreground">Experience</h3>
+                    <div>
+                      <h3 className="text-xl font-bold text-foreground">Experience</h3>
+                      <p className="text-xs text-muted-foreground">My technical path and hands-on engineering journey</p>
+                    </div>
                   </div>
-                  <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {EXPERIENCE_LIST.map((exp, idx) => (
                       <div
                         key={idx}
@@ -129,7 +96,7 @@ const About = () => {
                             </div>
                           </div>
                         </div>
-                        <div className={`transition-all duration-300 overflow-hidden ${expandedExp === idx ? 'max-h-80 opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
+                        <div className={`transition-all duration-300 overflow-hidden ${expandedExp === idx ? 'max-h-[600px] opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
                           {exp.points ? (
                             <ul className="text-sm text-muted-foreground list-disc pl-4 space-y-2">
                               {exp.points.map((p, i) => <li key={i}>{p}</li>)}
@@ -142,7 +109,6 @@ const About = () => {
                     ))}
                   </div>
                 </div>
-
               </div>
 
               {/* Video & Highlights Row */}

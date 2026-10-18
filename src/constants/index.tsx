@@ -25,13 +25,13 @@ import {
 
 export const PERSONAL_DETAILS = {
   name: "Muhammed Shahal",
-  role: "MERN Stack Developer & Tech Enthusiast",
-  bio: "Currently immersed in an intensive, hands-on MERN Stack development program at BROTOTYPE, mastering full-stack technologies through practical projects.",
+  role: "Software Engineer",
+  bio: "Software Engineer focused on engineering scalable, high-performance web systems, distributed architectures, and modern digital applications.",
   about: {
     heading: "Building the Future",
     headingAccent: "with Clean Code",
-    description: "I’m Shahal, a MERN stack developer focused on building modern, responsive web applications. I specialize in creating scalable, user-friendly solutions with clean code and thoughtful design, aiming to deliver impactful digital experiences.",
-    summary: "Currently immersed in an intensive, hands-on MERN Stack development program at BROTOTYPE, mastering full-stack technologies through practical projects and collaborative learning."
+    description: "I’m Shahal, a Software Engineer focused on building modern, high-performance web applications. I specialize in creating scalable, user-friendly solutions with clean architecture and thoughtful design, delivering impactful digital experiences.",
+    summary: "Passionate Software Engineer experienced in building full-stack applications, real-time distributed systems, and modern web architectures through hands-on engineering."
   },
   experience: {
     miniProjects: "9+"
@@ -54,12 +54,12 @@ export const HIGHLIGHTS = [
   {
     icon: Code,
     title: "Development",
-    description: "Mastering the MERN stack to build robust, scalable applications. Focused on clean architecture and performance."
+    description: "Engineering scalable, high-performance web applications and distributed systems with clean architecture."
   },
   {
     icon: Sparkles,
     title: "Growth",
-    description: "Continuously learning and experimenting with emerging technologies to stay ahead in the MERN ecosystem."
+    description: "Continuously experimenting with modern technologies, cloud systems, and high-efficiency architectures."
   }
 ];
 
@@ -108,7 +108,8 @@ const BrandLogos = {
   Linux: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#fbc02d]"><path d="M12.013 0a8.03 8.03 0 0 0-7.234 4.542c-.22.443-.1 1.01.277 1.341 1.013.882 1.487 1.83 1.487 2.951 0 1.135-.506 2.454-1.506 3.328a.747.747 0 0 0-.019.016l-3.23 2.766A1.002 1.002 0 0 0 2.5 17h19.013a.998.998 0 0 0 .717-1.696l-3.23-3.056a.742.742 0 0 0-.019-.016c-1-.874-1.506-2.193-1.506-3.328 0-1.121.474-2.069 1.487-2.951.378-.33.497-.898.277-1.341A8.03 8.03 0 0 0 12.013 0zM12 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" /></svg>,
   Lightroom: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#31A8FF]"><rect width="24" height="24" rx="4" /><text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold" fontFamily="Arial">Lr</text></svg>,
   Redis: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#DC382D]"><path d="M21.921 7.15c-1.89-1.282-4.526-1.528-6.195-1.528-1.503 0-2.613.31-2.909.403-.664-.476-1.745-1.077-3.415-1.077-1.127 0-2.22.257-3.04.597.433-.61.85-1.378 1.056-2.185.195-.764.128-1.428-.198-1.93-.326-.502-.858-.755-1.536-.755-.664 0-1.272.238-1.758.694-.783.743-1.096 2.016-.86 3.513.2 1.258.747 2.65 1.583 3.978-2.673.74-3.606 1.83-3.606 2.766 0 1.284 1.802 2.378 4.793 2.915 2.018 3.535 5.568 5.753 9.475 5.753 5.485 0 8.784-3.834 8.784-7.575 0-2.433-1.248-4.298-2.174-5.524zm-14.778 2.375c.995 0 2.228.32 3.197.834.69-.414 1.554-.775 2.505-.985-.75-.487-1.785-.888-2.964-.888-1.084 0-2.02.327-2.738.92-.001.037 0 .083 0 .119zm9.569 9.948c-3.14 0-6.042-1.706-7.854-4.506.744.114 1.543.176 2.37.176 1.254 0 2.45-.164 3.53-.464.717.387 1.584.598 2.553.598.665 0 1.283-.112 1.833-.314-1.284 2.825-3.18 4.51-2.432 4.51zm3.832-7.86c0 1.09-1.203 2.083-3.21 2.656-.255-.78-.716-1.516-1.39-2.066.864-.176 1.62-.43 2.193-.728.87-.457 1.22-.924 1.22-1.293 0-.62-1.034-1.428-2.885-1.922 1.488.58 2.433 1.34 2.433 2.023 0 .428-.435.918-1.246 1.385-.63.364-1.474.67-2.458.895-.884-1.12-2.176-1.854-3.705-2.072 1.475-.29 3.033-.424 4.55-.424 1.135 0 2.074.154 2.61.427 1.26.634 1.888 1.68 1.888 2.766v.053z" /></svg>,
-  DevOps: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-none stroke-[#2496ED]" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M7.5 7.5h9v9h-9z" /><path d="M7.5 12H3.75a2.25 2.25 0 0 1 0-4.5H6" /><path d="M16.5 12h3.75a2.25 2.25 0 0 1 0 4.5H18" /><path d="M12 7.5V4.25" /><path d="M12 16.5v3.25" /><path d="M9.75 10.25h4.5" /><path d="M9.75 13.75h4.5" /></svg>
+  DevOps: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-none stroke-[#2496ED]" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M7.5 7.5h9v9h-9z" /><path d="M7.5 12H3.75a2.25 2.25 0 0 1 0-4.5H6" /><path d="M16.5 12h3.75a2.25 2.25 0 0 1 0 4.5H18" /><path d="M12 7.5V4.25" /><path d="M12 16.5v3.25" /><path d="M9.75 10.25h4.5" /><path d="M9.75 13.75h4.5" /></svg>,
+  AI: () => <svg viewBox="0 0 24 24" className="w-full h-full fill-[#10a37f]"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.38-1 1.72V7h1a7 7 0 0 1 7 7v1h.28a2 2 0 1 1 0 2H21v1a2 2 0 0 1-2 2h-1.28a2 2 0 1 1-3.44 0H9.72a2 2 0 1 1-3.44 0H5a2 2 0 0 1-2-2v-1h-.28a2 2 0 1 1 0-2H3v-1a7 7 0 0 1 7-7h1V5.72A2 2 0 0 1 10 4a2 2 0 0 1 2-2zm-4 9a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm8 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>
 };
 
 export const SKILLS = [
@@ -140,6 +141,9 @@ export const SKILLS = [
   { name: "Mongoose", icon: BrandLogos.Mongoose, category: "Backend" },
   { name: "AWS Cloud", icon: BrandLogos.AWS, category: "Backend" },
   { name: "Firebase", icon: BrandLogos.Firebase, category: "Backend" },
+  { name: "RAG Architecture", icon: BrandLogos.AI, category: "Backend" },
+  { name: "Groq LLM", icon: BrandLogos.AI, category: "Backend" },
+  { name: "Agentic AI", icon: BrandLogos.AI, category: "Backend" },
 
   // Databases & Caching
   { name: "MongoDB", icon: BrandLogos.MongoDB, category: "Database" },
@@ -170,38 +174,35 @@ export const SKILLS = [
 
 export const TOOLS = ["VS Code", "Git", "AWS", "Cloudinary", "Figma", "MongoDB", "GitHub"];
 
-export const EDUCATION = [
-  {
-    title: "Higher Secondary Education (Humanities)",
-    institution: "GVHSS Chettiyankinar, Malappuram",
-    period: "2023 - 2025",
-    description: "In Class 12, I pursued Humanities, though it wasn’t my area of interest. However, this journey taught me adaptability and broadened my perspective. While my true passion lies in technology and creativity, this experience strengthened my resilience and focus, helping me redirect my path toward becoming a MERN Stack Developer and Tech Enthusiast.",
-  },
-  {
-    title: "High School Education",
-    institution: "KHMHSS Valakkulam Pookiparamb",
-    period: "2022 - 2023",
-    description: "My Class 10 year was crucial for building a strong academic foundation and developing essential study habits. It sharpened my problem-solving skills and taught me the importance of discipline and time management. This period prepared me well for higher studies and continuous learning."
-  }
-];
+export const EDUCATION: Array<{
+  title: string;
+  institution: string;
+  period: string;
+  description: string;
+}> = [];
 
 export const EXPERIENCE_LIST = [
   {
-    title: "Student at BROTOTYPE",
+    title: "Software Engineering Trainee",
     company: "Brototype, Calicut",
     period: "Present",
     points: [
-      "Acquired foundational proficiency in programming concepts through hands-on learning in C, Java, and JavaScript.",
-      "Mastered essential front-end technologies including HTML, CSS, Bootstrap, and JavaScript.",
-      "Developed robust problem-solving methodologies through numerous coding challenges.",
-      "Improved communication skills in a technical environment through active collaboration."
+      "Engineered full-stack applications with React, Next.js, TypeScript, Node.js, Express, and NestJS featuring clean modular architecture.",
+      "Architected Retrieval-Augmented Generation (RAG) pipelines, Groq LLM integrations, and Agentic AI workflows for intelligent context-aware applications.",
+      "Built high-concurrency real-time systems using WebSockets (Socket.io), WebRTC peer-to-peer data streaming, Redis caching, and REST/GraphQL APIs.",
+      "Designed and optimized relational and NoSQL databases with MongoDB, PostgreSQL, and Prisma ORM for high throughput and data integrity.",
+      "Implemented DevOps workflows including Docker containerization, CI/CD automation with GitHub Actions, and production deployments on AWS and Vercel."
     ]
   },
   {
-    title: "Tech Enthusiast",
-    company: "Freelance / Projects",
+    title: "Freelance Software Engineer",
+    company: "Production Projects & Freelance",
     period: "Present",
-    description: "I specialize in crafting engaging and professional visuals with smooth transitions, clean cuts, effects, and sound design. Over time, I’ve worked on projects ranging from social media content to brand videos, gaining the skills to balance creativity with technical precision."
+    points: [
+      "Engineered and launched EspareHub (esparehub.shop), a multi-vendor marketplace platform actively serving 100+ real-time users with Razorpay payments and AWS infra.",
+      "Developed NovuTalks (real-time chat platform with low-latency WebSockets, WebRTC & Redis) and NovuAI (agentic RAG assistant with Groq LLM & real-time streaming).",
+      "Built CodePocket (online multi-language compiler with NestJS, Fastify, PostgreSQL & Redis) and dynamic client web platforms like Mirasco.in with customized admin CMS."
+    ]
   }
 ];
 
