@@ -1,126 +1,243 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { SERVICES } from "@/constants";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
-import SpotlightCard from "@/components/ui/SpotlightCard";
 import IconRenderer from "@/components/common/IconRenderer";
+import { ArrowUpRight } from "lucide-react";
 
 const Services = () => {
     const { data } = usePortfolioData();
     const servicesList = data?.services?.length > 0 ? data.services : SERVICES;
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    // Scroll progress across the entire sticky height
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end end"],
+    });
 
     return (
-        <section id="services" className="py-24 relative overflow-hidden">
-            <div className="container mx-auto px-6 md:px-20 relative z-10">
-                {/* Section header */}
-                <div className="max-w-7xl mx-auto mb-16 md:mb-24">
-                    <span className="inline-block text-sm font-semibold text-primary tracking-widest uppercase mb-4 px-4 py-1.5 bg-primary/10 rounded-full">
-                        What I Do
+        <section
+            id="services"
+            ref={containerRef}
+            className="relative h-[400vh] scroll-mt-20"
+        >
+            {/* Pinned / Fixed Stage Container — Frame filled */}
+            <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden px-4 sm:px-6 z-30 bg-background border-t border-white/10 shadow-[0_-30px_70px_rgba(0,0,0,0.9)]">
+                {/* Background ambient lighting */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/[0.03] rounded-full blur-[120px] pointer-events-none" />
+
+                {/* Section Header */}
+                <div className="text-center mb-8 sm:mb-12 z-10 max-w-xl">
+                    <span className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground block mb-2">
+                        02 / Capabilities
                     </span>
-                    <h2 className="text-4xl md:text-7xl font-bold leading-tight text-foreground">
-                        <span className="opacity-40">My</span> Services
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-foreground">
+                        Services & Focus
                     </h2>
+                    <p className="text-xs sm:text-sm text-muted-foreground mt-2">
+                        Scroll to explore core development proficiencies
+                    </p>
                 </div>
 
-                {/* Layout: Carousel on Mobile, Grid on Desktop */}
-                <div className="relative">
-                    {/* Mobile: Horizontal Snap Carousel */}
-                    <div
-                        className="flex md:hidden gap-6 overflow-x-auto snap-x snap-mandatory pb-8 hide-scrollbar"
-                    >
-                        {servicesList.map((service: any, index: number) => (
-                            <motion.div
-                                key={index}
-                                className="min-w-[85vw] snap-center"
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                            >
-                                <ServiceCard service={service} index={index} />
-                            </motion.div>
-                        ))}
-                    </div>
+                {/* Fixed 3D Stage Frame */}
+                <div
+                    className="relative w-full max-w-2xl h-[420px] sm:h-[400px] z-10"
+                    style={{ perspective: "1200px" }}
+                >
+                    {servicesList.map((service: any, index: number) => (
+                        <ServiceCard3D
+                            key={index}
+                            service={service}
+                            index={index}
+                            total={servicesList.length}
+                            progress={scrollYProgress}
+                        />
+                    ))}
+                </div>
 
-                    {/* Desktop: Centered Flex Grid Layout */}
-                    <div className="hidden md:flex flex-wrap justify-center gap-8">
-                        {servicesList.map((service: any, index: number) => (
-                            <motion.div
-                                key={index}
-                                className="w-full md:w-[calc(50%-1rem)] max-w-[480px]"
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1, duration: 0.8 }}
-                            >
-                                <ServiceCard service={service} index={index} />
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    {/* Mobile Visual Hint */}
-                    <div className="md:hidden flex items-center justify-center gap-2 mt-4 text-xs text-muted-foreground opacity-50">
-                        <span>Swipe to explore</span>
-                        <div className="flex gap-1">
-                            <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
-                            <div className="w-1 h-1 rounded-full bg-primary animate-pulse delay-75" />
-                            <div className="w-1 h-1 rounded-full bg-primary animate-pulse delay-150" />
-                        </div>
-                    </div>
+                {/* Bottom Step Indicator Bar */}
+                <div className="mt-8 sm:mt-10 flex items-center gap-2 z-10">
+                    {servicesList.map((_: any, idx: number) => (
+                        <StepDot
+                            key={idx}
+                            index={idx}
+                            total={servicesList.length}
+                            progress={scrollYProgress}
+                        />
+                    ))}
                 </div>
             </div>
         </section>
     );
 };
 
-const ServiceCard = ({ service, index }: { service: any, index: number }) => (
-    <SpotlightCard
-        className="group h-[450px] md:h-[500px] bg-card/85 dark:bg-white/[0.03] border border-border/60 dark:border-white/10 rounded-[2.5rem] md:rounded-[3rem] p-10 md:p-12 flex flex-col justify-between transition-colors duration-300 hover:border-primary/50 dark:hover:bg-white/[0.06] shadow-lg"
-        spotlightColor={`${service.color}30` || "rgba(139, 92, 246, 0.3)"}
-    >
-        <div className="space-y-6">
-            <div
-                className="w-16 h-16 md:w-20 md:h-20 rounded-[1.5rem] flex items-center justify-center mb-6 md:mb-10 transition-all duration-700 group-hover:scale-110 group-hover:rotate-6 shadow-xl"
-                style={{
-                    backgroundColor: `${service.color}20`,
-                    border: `1px solid ${service.color}40`,
-                    color: service.color
-                }}
-            >
-                {typeof service.icon === 'string' ? (
-                    <IconRenderer name={service.icon} size={32} />
-                ) : (
-                    <service.icon size={32} />
-                )}
+interface ServiceCard3DProps {
+    service: any;
+    index: number;
+    total: number;
+    progress: any;
+}
+
+const ServiceCard3D = ({ service, index, total, progress }: ServiceCard3DProps) => {
+    // Break the scroll into segments based on index
+    // Segment bounds:
+    const step = 1 / total;
+    const enterStart = Math.max(0, (index - 0.7) * step);
+    const enterEnd = index * step;
+    const exitStart = (index + 0.3) * step;
+    const exitEnd = Math.min(1, (index + 1) * step);
+
+    // Initial item is visible from the very start
+    const isFirst = index === 0;
+    const isLast = index === total - 1;
+
+    // Y translation: comes up from bottom (+100px), settles at center (0), exits to top (-100px)
+    const y = useTransform(
+        progress,
+        isFirst
+            ? [0, exitStart, exitEnd]
+            : isLast
+            ? [enterStart, enterEnd, 1]
+            : [enterStart, enterEnd, exitStart, exitEnd],
+        isFirst
+            ? ["0%", "0%", "-100%"]
+            : isLast
+            ? ["100%", "0%", "0%"]
+            : ["100%", "0%", "0%", "-100%"]
+    );
+
+    // 3D X rotation: tilted slightly entering, flat centered, tilted exiting
+    const rotateX = useTransform(
+        progress,
+        isFirst
+            ? [0, exitStart, exitEnd]
+            : isLast
+            ? [enterStart, enterEnd, 1]
+            : [enterStart, enterEnd, exitStart, exitEnd],
+        isFirst
+            ? [0, 0, -20]
+            : isLast
+            ? [20, 0, 0]
+            : [20, 0, 0, -20]
+    );
+
+    // Opacity: fade in and fade out
+    const opacity = useTransform(
+        progress,
+        isFirst
+            ? [0, exitStart, exitEnd]
+            : isLast
+            ? [enterStart, enterEnd, 1]
+            : [enterStart, enterEnd, exitStart, exitEnd],
+        isFirst
+            ? [1, 1, 0]
+            : isLast
+            ? [0, 1, 1]
+            : [0, 1, 1, 0]
+    );
+
+    // Scale: slightly smaller entering and exiting
+    const scale = useTransform(
+        progress,
+        isFirst
+            ? [0, exitStart, exitEnd]
+            : isLast
+            ? [enterStart, enterEnd, 1]
+            : [enterStart, enterEnd, exitStart, exitEnd],
+        isFirst
+            ? [1, 1, 0.92]
+            : isLast
+            ? [0.92, 1, 1]
+            : [0.92, 1, 1, 0.92]
+    );
+
+    return (
+        <motion.div
+            style={{
+                y,
+                rotateX,
+                opacity,
+                scale,
+                transformStyle: "preserve-3d",
+            }}
+            className="absolute inset-0 w-full h-full rounded-3xl border border-white/15 bg-black/60 backdrop-blur-2xl p-7 sm:p-10 flex flex-col justify-between shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.1)] will-change-transform"
+        >
+            {/* Top row: Number & Icon */}
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono font-bold text-white/50 px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.04]">
+                        0{index + 1}
+                    </span>
+                    <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
+                        Capability
+                    </span>
+                </div>
+
+                <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/15 flex items-center justify-center text-white">
+                    {typeof service.icon === "string" ? (
+                        <IconRenderer name={service.icon} size={24} />
+                    ) : (
+                        <service.icon size={24} />
+                    )}
+                </div>
             </div>
 
-            <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors duration-500">
-                {service.title}
-            </h3>
+            {/* Middle: Title & Description */}
+            <div className="space-y-3">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white">
+                    {service.title}
+                </h3>
+                <p className="text-sm sm:text-base text-white/70 leading-relaxed max-w-lg">
+                    {service.description}
+                </p>
+            </div>
 
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed line-clamp-3">
-                {service.description}
-            </p>
-
-            {/* Service Skills Tags */}
-            {service.skills && (
-                <div className="flex flex-wrap gap-2 pt-2">
-                    {service.skills.map((skill: string, sIdx: number) => (
+            {/* Bottom: Tech tags & action hint */}
+            <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                    {service.skills?.map((skill: string, sIdx: number) => (
                         <span
                             key={sIdx}
-                            className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-primary/70 bg-primary/5 px-2 py-0.5 rounded-md border border-primary/10"
+                            className="text-[10px] sm:text-xs font-mono text-white/80 bg-white/[0.05] border border-white/10 px-2.5 py-0.5 rounded-full"
                         >
                             {skill}
                         </span>
                     ))}
                 </div>
-            )}
-        </div>
 
-        <div className="pt-6 border-t border-border/10 dark:border-white/5 flex items-center justify-between">
-            <span className="text-sm font-medium text-muted-foreground">0{index + 1}</span>
-            <div className="w-10 h-10 rounded-full flex items-center justify-center bg-black/5 dark:bg-white/5 group-hover:bg-primary group-hover:text-black transition-all duration-500">
-                →
+                <div className="flex items-center gap-1 text-xs font-mono text-white/60">
+                    <span>Active</span>
+                    <ArrowUpRight size={14} />
+                </div>
             </div>
-        </div>
-    </SpotlightCard>
-);
+        </motion.div>
+    );
+};
+
+const StepDot = ({ index, total, progress }: { index: number; total: number; progress: any }) => {
+    const step = 1 / total;
+    const center = (index + 0.5) * step;
+
+    // Dot expands when active
+    const width = useTransform(
+        progress,
+        [Math.max(0, center - step * 0.5), center, Math.min(1, center + step * 0.5)],
+        [8, 28, 8]
+    );
+
+    const opacity = useTransform(
+        progress,
+        [Math.max(0, center - step * 0.5), center, Math.min(1, center + step * 0.5)],
+        [0.3, 1, 0.3]
+    );
+
+    return (
+        <motion.div
+            style={{ width, opacity }}
+            className="h-2 rounded-full bg-white transition-colors"
+        />
+    );
+};
 
 export default Services;

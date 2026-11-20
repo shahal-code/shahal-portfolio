@@ -7,7 +7,7 @@ const Connect = () => {
     const navigate = useNavigate();
 
     return (
-        <section id="connect" className="py-24 md:py-32 relative overflow-hidden scroll-mt-32">
+        <section id="connect" className="sticky top-0 min-h-screen w-full flex flex-col justify-center items-center relative z-[70] bg-background border-t border-white/10 shadow-[0_-30px_70px_rgba(0,0,0,0.9)] py-20 md:py-28">
             <Scroll3DWrapper>
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8">
@@ -16,7 +16,7 @@ const Connect = () => {
                             <span className="animate-color-cycle-reverse">.</span>
                         </h2>
 
-                        <p className="text-xl md:text-2xl text-primary font-bold leading-tight max-w-2xl mx-auto">
+                        <p className="text-xl md:text-2xl text-foreground font-bold leading-tight max-w-2xl mx-auto">
                             Got a concept in mind? I’d love to help bring it to life.
                         </p>
                         <p className="text-base md:text-lg text-muted-foreground font-medium max-w-xl mx-auto">
@@ -27,7 +27,7 @@ const Connect = () => {
                             <Magnetic strength={0.4}>
                                 <RippleButton
                                     onClick={() => navigate("/contact")}
-                                    className="rounded-full px-10 py-4 h-16 text-xl font-bold text-primary-foreground bg-primary/20 backdrop-blur-3xl border border-primary/30 shadow-[inset_2px_2px_4px_rgba(255,255,255,0.3),inset_-2px_-4px_8px_rgba(0,0,0,0.3),0_10px_30px_hsl(var(--primary)/0.2)] active:scale-95 transition-all"
+                                    className="rounded-full px-10 py-4 h-16 text-xl font-bold text-foreground bg-white/10 dark:bg-white/10 hover:bg-white/20 backdrop-blur-3xl border border-white/20 shadow-[0_8px_30px_rgba(0,0,0,0.4)] active:scale-95 transition-all"
                                 >
                                     Let's Talk
                                 </RippleButton>

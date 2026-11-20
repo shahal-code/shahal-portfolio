@@ -24,10 +24,10 @@ const FreelanceProjects = () => {
   const projects = FREELANCE_PROJECTS as FreelanceProject[];
 
   return (
-    <section id="freelance" className="relative py-24 sm:py-28 scroll-mt-32 overflow-hidden">
+    <section id="freelance" className="sticky top-0 min-h-screen w-full flex flex-col justify-center items-center relative z-[60] bg-background border-t border-white/10 shadow-[0_-30px_70px_rgba(0,0,0,0.9)] py-20 md:py-28">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/3 -left-32 w-64 h-64 rounded-full bg-primary/8 blur-3xl" />
-        <div className="absolute bottom-1/4 -right-32 w-64 h-64 rounded-full bg-emerald-500/8 blur-3xl" />
+        <div className="absolute top-1/3 -left-32 w-64 h-64 rounded-full bg-white/[0.02] blur-3xl" />
+        <div className="absolute bottom-1/4 -right-32 w-64 h-64 rounded-full bg-white/[0.01] blur-3xl" />
       </div>
 
       <div className="premium-divider top-0" />
@@ -37,7 +37,7 @@ const FreelanceProjects = () => {
         <div className="max-w-6xl mx-auto mb-16">
           <div>
             <div className="flex flex-col gap-4">
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-primary w-fit">
+              <span className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-white/5 dark:bg-white/10 px-3.5 py-1 text-xs font-medium uppercase tracking-widest text-foreground/80 w-fit">
                 <Users className="w-3 h-3" />
                 Client Work
               </span>
@@ -51,8 +51,9 @@ const FreelanceProjects = () => {
               {/* Unified stat bar */}
               <div className="mt-4 inline-flex items-center justify-between sm:justify-start rounded-2xl border border-white/10 bg-card/80 dark:bg-white/[0.03] overflow-hidden w-full sm:w-fit shadow-sm">
                 {[
-                  { value: "3", label: "Projects", color: "#a78bfa" },
-                  { value: "2+", label: "Clients", color: "#34d399" },
+                  { value: "3", label: "Projects", color: "#e4e4e7" },
+                  { value: "2+", label: "Clients", color: "#d4d4d8" },
+                  { value: "100%", label: "Delivered", color: "#a1a1aa" },
                   { value: "2", label: "Live", color: "#22d3ee" },
                 ].map((s, i, arr) => (
                   <div
@@ -81,11 +82,11 @@ const FreelanceProjects = () => {
               key={project.title}
               className={`freelance-card-wrap ${isLeft ? "freelance-card-left" : "freelance-card-right"}`}
             >
-              <article className="group relative rounded-[1.75rem] sm:rounded-2xl border border-white/10 bg-card/80 dark:bg-white/[0.02] overflow-hidden transition-colors duration-300 hover:border-primary/30 hover:bg-white/[0.04] shadow-md hover:shadow-xl flex flex-col sm:flex-row"
+              <article className="group relative rounded-[1.75rem] sm:rounded-2xl border border-white/10 bg-card/80 dark:bg-white/[0.02] overflow-hidden transition-colors duration-300 hover:border-white/30 hover:bg-white/[0.04] shadow-md hover:shadow-xl flex flex-col sm:flex-row"
                 style={{ minHeight: "160px" }}
               >
                 {/* Hover glow line */}
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                 {/* ── Image panel — outer edge side ── */}
                 <div
@@ -122,10 +123,10 @@ const FreelanceProjects = () => {
                     className="flex items-center gap-2 w-full"
                     style={{ flexDirection: isLeft ? "row" : "row-reverse" }}
                   >
-                    <span className="font-mono text-[10px] sm:text-xs font-bold text-primary/70">
+                    <span className="font-mono text-[10px] sm:text-xs font-bold text-foreground/70">
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <span className="h-px w-4 sm:w-6 bg-primary/30 flex-shrink-0" />
+                    <span className="h-px w-4 sm:w-6 bg-white/20 flex-shrink-0" />
                     <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
                       Freelance
                     </span>
@@ -138,7 +139,7 @@ const FreelanceProjects = () => {
 
                   {/* Title */}
                   <div className={`text-left ${isLeft ? "sm:text-left" : "sm:text-right"}`}>
-                    <h3 className="text-sm sm:text-lg md:text-xl font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-primary">
+                    <h3 className="text-sm sm:text-lg md:text-xl font-bold tracking-tight text-foreground transition-colors duration-300">
                       {project.title}
                     </h3>
                     <p className="mt-0.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-muted-foreground/60">
@@ -164,7 +165,7 @@ const FreelanceProjects = () => {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-primary/80"
+                        className="rounded-full border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-foreground/80"
                       >
                         {tag}
                       </span>
@@ -194,7 +195,7 @@ const FreelanceProjects = () => {
                       }`}
                     >
                       <RippleButton
-                        className="h-7 sm:h-8 rounded-full border border-white/10 bg-white/[0.04] px-3 sm:px-4 text-[9px] sm:text-[10px] font-bold text-foreground backdrop-blur-xl transition-all hover:border-primary/40 hover:bg-primary/10 active:scale-95"
+                        className="h-7 sm:h-8 rounded-full border border-white/10 bg-white/[0.04] px-3 sm:px-4 text-[9px] sm:text-[10px] font-bold text-foreground backdrop-blur-xl transition-all hover:border-white/30 hover:bg-white/10 active:scale-95"
                         onClick={() => window.open(project.github, "_blank", "noopener,noreferrer")}
                       >
                         <span className="flex items-center gap-1">
@@ -206,7 +207,7 @@ const FreelanceProjects = () => {
                       <RippleButton
                         className={`h-7 sm:h-8 rounded-full border px-3 sm:px-4 text-[9px] sm:text-[10px] font-bold backdrop-blur-xl transition-all active:scale-95 ${
                           project.demo && project.demo !== "#"
-                            ? "border-primary/40 bg-primary/20 text-primary-foreground hover:bg-primary/30"
+                            ? "border-white/30 bg-white/15 text-foreground hover:bg-white/25"
                             : "cursor-not-allowed border-white/10 bg-white/[0.03] text-muted-foreground"
                         }`}
                         onClick={() => {

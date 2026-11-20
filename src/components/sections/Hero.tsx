@@ -1,99 +1,124 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { ArrowDown, Instagram, Github, MessageCircle } from "lucide-react";
 import { PERSONAL_DETAILS, CONTACT_INFO } from "@/constants";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
 import Magnetic from "@/components/common/Magnetic";
 import RippleButton from "@/components/ui/RippleButton";
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useIsMobile } from "@/hooks/useMobile";
 import { useLowPerformanceMode } from "@/hooks/usePerformanceMode";
-
+import gsap from "gsap";
 interface HeroProps {
   onOpenContact?: () => void;
 }
 
 const Hero = ({ onOpenContact }: HeroProps) => {
-  const navigate = useNavigate();
   const { data } = usePortfolioData();
   const profile = (data?.profile && Object.keys(data.profile).length > 0) ? data.profile : PERSONAL_DETAILS;
   const contact = (data?.profile?.contact) ? data.profile.contact : CONTACT_INFO;
 
-  // Split name for animation with safety check to prevent blank screen crash
   const fullName = (profile && profile.name) ? profile.name : PERSONAL_DETAILS.name;
   const nameParts = fullName.split(" ");
   const firstName = nameParts[0];
   const lastName = nameParts.slice(1).join(" ");
 
-  const containerRef = useRef<HTMLDivElement>(null);
+  const headRef = useRef<HTMLImageElement>(null);
 
   const isMobile = useIsMobile();
   const isLowPerformance = useLowPerformanceMode();
   const reduceMotion = isMobile || isLowPerformance;
 
-  // Scroll Parallax — GPU-composited transforms only (opacity + translateY, NO scale to avoid reflow)
+  // Scroll Parallax
   const { scrollY } = useScroll();
   const yFly = useTransform(scrollY, [0, 600], reduceMotion ? [0, 0] : [0, -80]);
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
-
-  // Background blob & image transformations (lighter values = less GPU work)
   const blob1Y = useTransform(scrollY, [0, 600], reduceMotion ? [0, 0] : [0, -50]);
   const blob2Y = useTransform(scrollY, [0, 600], reduceMotion ? [0, 0] : [0, -80]);
   const bgImageY = useTransform(scrollY, [0, 600], reduceMotion ? [0, 0] : [0, 50]);
 
-  // scale removed — it caused forced layout recalculations on every scroll frame
-  const scale = 1;
-
-  // Filter (blur) removed for performance - real-time backdrop blur during scroll is heavy
-  const filter = "none";
-
-  // 3D Tilt settings (Values reset on mobile)
-  const x = useMotionValue(0);
-  const yTilt = useMotionValue(0);
-  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
-  const mouseYSpring = useSpring(yTilt, { stiffness: 150, damping: 20 });
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], reduceMotion ? ["0deg", "0deg"] : ["7deg", "-7deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], reduceMotion ? ["0deg", "0deg"] : ["-7deg", "7deg"]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  // GSAP global mouse → ONLY head & neck tracking (body stays completely stationary)
+  useEffect(() => {
     if (reduceMotion) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    x.set(xPct);
-    yTilt.set(yPct);
-  };
+    const head = headRef.current;
+    if (!head) return;
 
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (reduceMotion) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const touch = e.touches[0];
-    const mouseX = touch.clientX - rect.left;
-    const mouseY = touch.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    x.set(xPct);
-    yTilt.set(yPct);
-  };
+    let ry = 0, rx = 0, rz = 0;
+    let tx = 0, ty = 0;
+    let targetRy = 0, targetRx = 0, targetRz = 0;
+    let targetTx = 0, targetTy = 0;
+    let rafId: number;
 
-  const handleMouseLeave = () => {
-    x.set(0);
-    yTilt.set(0);
-  };
+    const MAX_ROT_Y = 22;   // Head turn left/right (degrees)
+    const MAX_ROT_X = 12;   // Head pitch up/down (degrees)
+    const MAX_ROT_Z = 5;    // Subtle natural neck tilt
+    const MAX_TRANS_X = 5;  // Very subtle parallax so neck stays anchored inside collar
+    const MAX_TRANS_Y = 3;
+    const LERP = 0.08;      // Smooth tracking easing
+
+    const onMouseMove = (e: MouseEvent) => {
+      const rect = head.getBoundingClientRect();
+      const headCX = rect.left + rect.width / 2;
+      const headCY = rect.top + rect.height * 0.42; // face level
+
+      const dx = (e.clientX - headCX) / (window.innerWidth / 2);
+      const dy = (e.clientY - headCY) / (window.innerHeight / 2);
+
+      const cDx = Math.max(-1, Math.min(1, dx));
+      const cDy = Math.max(-1, Math.min(1, dy));
+
+      targetRy = cDx * MAX_ROT_Y;
+      targetRx = -cDy * MAX_ROT_X;
+      targetRz = -cDx * MAX_ROT_Z;
+      targetTx = cDx * MAX_TRANS_X;
+      targetTy = cDy * MAX_TRANS_Y;
+    };
+
+    const onMouseLeave = () => {
+      targetRy = 0;
+      targetRx = 0;
+      targetRz = 0;
+      targetTx = 0;
+      targetTy = 0;
+    };
+
+    const tick = () => {
+      ry += (targetRy - ry) * LERP;
+      rx += (targetRx - rx) * LERP;
+      rz += (targetRz - rz) * LERP;
+      tx += (targetTx - tx) * LERP;
+      ty += (targetTy - ty) * LERP;
+
+      gsap.set(head, {
+        rotateY: ry,
+        rotateX: rx,
+        rotateZ: rz,
+        x: tx,
+        y: ty,
+        transformPerspective: 1000,
+        transformOrigin: "50% 70%", // neck base pivot inside collar
+      });
+
+      rafId = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    document.addEventListener("mouseleave", onMouseLeave);
+    rafId = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseleave", onMouseLeave);
+      cancelAnimationFrame(rafId);
+      gsap.set(head, { clearProps: "all" });
+    };
+  }, [reduceMotion]);
 
   const scrollToAbout = () => {
     document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-start pt-24 pb-20 md:items-center md:pt-0 md:pb-0 justify-center relative overflow-hidden">
+    <section id="hero" className="sticky top-0 min-h-screen w-full flex items-center justify-center relative overflow-hidden z-10 bg-background pt-20 pb-16 md:py-0">
       {/* Background layers */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <motion.div style={{ y: bgImageY }} className="w-full h-full">
@@ -109,9 +134,9 @@ const Hero = ({ onOpenContact }: HeroProps) => {
       <div className="absolute inset-0 bg-transparent" />
       {!reduceMotion && (
         <>
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-primary/0 to-primary/0 dark:from-primary/8" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/10 via-accent/0 to-accent/0 dark:from-accent/30" />
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-violet-500/5 to-violet-500/0 blur-2xl md:block hidden dark:from-violet-500/10" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-white/[0.03] via-transparent to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white/[0.02] to-transparent blur-2xl md:block hidden" />
         </>
       )}
 
@@ -126,11 +151,11 @@ const Hero = ({ onOpenContact }: HeroProps) => {
         <>
           <motion.div
             style={{ y: blob1Y }}
-            className="absolute top-1/4 right-1/4 w-48 h-48 md:w-64 md:h-64 bg-primary/5 rounded-full blur-[60px] md:blur-3xl animate-float will-change-transform"
+            className="absolute top-1/4 right-1/4 w-48 h-48 md:w-64 md:h-64 bg-white/[0.03] rounded-full blur-[70px] md:blur-3xl animate-float will-change-transform"
           />
           <motion.div
             style={{ y: blob2Y }}
-            className="absolute bottom-1/4 left-1/4 w-60 h-60 md:w-80 md:h-80 bg-accent/20 rounded-full blur-[80px] md:blur-3xl animate-float-delayed will-change-transform"
+            className="absolute bottom-1/4 left-1/4 w-60 h-60 md:w-80 md:h-80 bg-white/[0.02] rounded-full blur-[90px] md:blur-3xl animate-float-delayed will-change-transform"
           />
         </>
       )}
@@ -143,11 +168,11 @@ const Hero = ({ onOpenContact }: HeroProps) => {
               <span className="animate-color-cycle">{firstName}</span> <span className="animate-color-cycle-reverse">{lastName}.</span>
             </h1>
 
-            {/* Decorative Gradient Line */}
-            <div className="w-24 h-1.5 bg-gradient-to-r from-primary to-accent rounded-full mb-8 opacity-80 transition-all duration-1000" />
+            {/* Decorative Gradient Line - Clean monochrome */}
+            <div className="w-24 h-1 bg-gradient-to-r from-foreground via-muted-foreground to-transparent rounded-full mb-8 opacity-80 transition-all duration-1000" />
 
             {/* Role/subtitle */}
-            <p className="text-lg md:text-2xl font-medium text-primary mb-4 md:mb-6 tracking-wide">
+            <p className="text-lg md:text-2xl font-medium text-foreground/90 mb-4 md:mb-6 tracking-wide">
               {profile.role}
             </p>
 
@@ -160,7 +185,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
             <div className="hidden lg:flex flex-row gap-4 items-center justify-center lg:justify-start">
               <Magnetic strength={0.4}>
                 <RippleButton
-                  className="relative text-base px-8 h-12 rounded-full overflow-hidden group text-primary-foreground bg-primary/20 backdrop-blur-3xl border border-primary/30 shadow-[inset_2px_2px_4px_rgba(255,255,255,0.3),inset_-2px_-4px_8px_rgba(0,0,0,0.3),0_10px_30px_hsl(var(--primary)/0.2)] hover:scale-105 active:scale-95 transition-all duration-300"
+                  className="relative text-base px-8 h-12 rounded-full overflow-hidden group text-foreground bg-white/10 dark:bg-white/10 hover:bg-white/20 backdrop-blur-2xl border border-white/20 shadow-[0_8px_25px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95 transition-all duration-300"
                   onClick={() => {
                     const linkedin = contact.social?.find((s: any) => s.name === "LinkedIn") ||
                       contact.socials?.find((s: any) => s.name === "LinkedIn");
@@ -176,7 +201,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                   href={CONTACT_INFO.social.find(s => s.name === "GitHub")?.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/5 text-primary hover:text-primary hover:bg-primary/15 backdrop-blur-3xl transition-all duration-300 hover:scale-110 active:scale-95 border border-primary/20 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.2)]"
+                  className="w-12 h-12 flex items-center justify-center rounded-full bg-white/[0.05] text-foreground hover:text-white hover:bg-white/15 backdrop-blur-2xl transition-all duration-300 hover:scale-110 active:scale-95 border border-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
                   aria-label="GitHub"
                 >
                   <Github className="w-6 h-6" />
@@ -188,7 +213,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                   href={CONTACT_INFO.social.find(s => s.name === "WhatsApp")?.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/5 text-primary hover:text-primary hover:bg-primary/15 backdrop-blur-3xl transition-all duration-300 hover:scale-110 active:scale-95 border border-primary/20 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.2)]"
+                  className="w-12 h-12 flex items-center justify-center rounded-full bg-white/[0.05] text-foreground hover:text-white hover:bg-white/15 backdrop-blur-2xl transition-all duration-300 hover:scale-110 active:scale-95 border border-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
                   aria-label="WhatsApp"
                 >
                   <MessageCircle className="w-6 h-6" />
@@ -200,7 +225,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                   href={CONTACT_INFO.social.find(s => s.name === "Instagram")?.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/5 text-primary hover:text-primary hover:bg-primary/15 backdrop-blur-3xl transition-all duration-300 hover:scale-110 active:scale-95 border border-primary/20 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.2)]"
+                  className="w-12 h-12 flex items-center justify-center rounded-full bg-white/[0.05] text-foreground hover:text-white hover:bg-white/15 backdrop-blur-2xl transition-all duration-300 hover:scale-110 active:scale-95 border border-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
                   aria-label="Instagram"
                 >
                   <Instagram className="w-6 h-6" />
@@ -210,63 +235,45 @@ const Hero = ({ onOpenContact }: HeroProps) => {
 
           </div>
 
-          {/* Right Image Column with 3D Tilt & Scroll Parallax */}
+          {/* Right Image Column — frameless, transparent bg, independent head & neck tracking */}
           <motion.div
-            style={{ scale, filter, opacity, y: yFly }}
-            className="flex-1 relative perspective-1000 opacity-100"
+            style={{ opacity, y: yFly }}
+            className="flex-1 relative flex items-end justify-center"
           >
-            <motion.div
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              style={{
-                rotateX,
-                rotateY,
-                transformStyle: "preserve-3d",
-              }}
-              className="relative w-52 h-52 min-[390px]:w-64 min-[390px]:h-64 sm:w-80 sm:h-80 md:w-[30rem] md:h-[30rem] mx-auto group cursor-pointer"
-            >
-              {/* Decorative background blob */}
-              <div
-                className="absolute inset-0 bg-gradient-to-tr from-primary to-accent rounded-full rotate-6 opacity-20 blur-2xl group-hover:opacity-40 transition-opacity duration-500"
-                style={{ transform: "translateZ(-50px)" }} // Push back in 3D space
+            {/* Soft glow behind avatar */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-72 h-72 md:w-[28rem] md:h-[28rem] bg-white/[0.05] rounded-full blur-[90px] pointer-events-none" />
+
+            {/* Avatar container matching image aspect ratio */}
+            <div className="relative w-72 min-[390px]:w-80 sm:w-[26rem] md:w-[32rem] lg:w-[38rem] xl:w-[42rem] aspect-[1024/768] select-none drop-shadow-[0_25px_50px_rgba(255,255,255,0.08)]">
+              {/* Head & Neck layer — smoothly turns towards mouse */}
+              <img
+                ref={headRef}
+                src="/images/Me-head.png"
+                alt=""
+                loading="eager"
+                draggable="false"
+                onContextMenu={(e) => e.preventDefault()}
+                className="absolute inset-0 w-full h-full object-contain pointer-events-none will-change-transform z-10"
+                style={{ transformStyle: "preserve-3d" }}
               />
 
-              {/* Image container with Pure Water Effect */}
-              <div
-                className={`relative w-full h-full rounded-full overflow-hidden transition-all duration-500 group-hover:scale-[1.02]
-                  bg-blue-400/5 border border-white/30 p-2
-                  shadow-[0_10px_30px_rgba(0,0,0,0.1)]
-                  group-hover:shadow-[0_15px_40px_rgba(0,0,0,0.2)]
-                  ${reduceMotion ? "" : "md:backdrop-blur-[2px] md:shadow-[inset_0_0_20px_rgba(255,255,255,0.6),inset_10px_10px_40px_rgba(255,255,255,0.5),0_25px_60px_rgba(0,0,0,0.2)] md:group-hover:shadow-[inset_0_0_30px_rgba(255,255,255,0.8),inset_20px_20px_60px_rgba(255,255,255,0.6),0_35px_80px_rgba(0,0,0,0.3)]"}
-                `}
-                style={{ transform: "translateZ(20px)" }} // Pop forward
-              >
-
-                {/* Portrait Image (BW -> Color Toggle) */}
-                <picture>
-                  <source srcSet="/images/Me-color.webp" type="image/webp" />
-                  <img
-                    src="/images/Me-color.jpg"
-                    alt={PERSONAL_DETAILS.name}
-                    loading="eager"
-                    fetchpriority="high"
-                    className="w-full h-full rounded-full object-cover shadow-inner grayscale group-hover:grayscale-0 transition-all duration-1000 ease-in-out select-none"
-                    onContextMenu={(e) => e.preventDefault()}
-                    draggable="false"
-                  />
-                </picture>
-
-                {/* Subtle soft overlay for depth */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/40 to-background/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              </div>
-            </motion.div>
+              {/* Body & Shoulders layer — 100% stationary */}
+              <img
+                src="/images/Me-body.png"
+                alt={PERSONAL_DETAILS.name}
+                loading="eager"
+                draggable="false"
+                onContextMenu={(e) => e.preventDefault()}
+                className="absolute inset-0 w-full h-full object-contain pointer-events-none z-20"
+              />
+            </div>
           </motion.div>
 
           {/* Mobile-only CTA buttons (Text -> Image -> Buttons order) */}
           <div className={`flex lg:hidden flex-row gap-4 items-center justify-center w-full mt-2 ${reduceMotion ? "" : "animate-fade-in"}`}>
             <Magnetic strength={0.4}>
               <RippleButton
-                className="relative text-base px-8 h-12 rounded-full overflow-hidden group text-primary-foreground bg-primary/20 backdrop-blur-3xl border border-primary/30 shadow-[inset_2px_2px_4px_rgba(255,255,255,0.3),inset_-2px_-4px_8px_rgba(0,0,0,0.3),0_10px_30px_hsl(var(--primary)/0.2)] hover:scale-105 active:scale-95 transition-all duration-300"
+                className="relative text-base px-8 h-12 rounded-full overflow-hidden group text-foreground bg-white/10 dark:bg-white/10 hover:bg-white/20 backdrop-blur-2xl border border-white/20 shadow-[0_8px_25px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95 transition-all duration-300"
                 onClick={() => window.open(CONTACT_INFO.social.find(s => s.name === "LinkedIn")?.url, "_blank", "noopener,noreferrer")}
               >
                 Let's Connect
@@ -278,7 +285,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                 href={(contact.social?.find((s: any) => s.name === "GitHub") || contact.socials?.find((s: any) => s.name === "GitHub"))?.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/5 text-primary hover:text-primary hover:bg-primary/15 backdrop-blur-3xl transition-all duration-300 hover:scale-110 active:scale-95 border border-primary/20 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.2)]"
+                className="w-12 h-12 flex items-center justify-center rounded-full bg-white/[0.05] text-foreground hover:text-white hover:bg-white/15 backdrop-blur-2xl transition-all duration-300 hover:scale-110 active:scale-95 border border-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
                 aria-label="GitHub"
               >
                 <Github className="w-6 h-6" />
@@ -290,7 +297,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                 href={(contact.social?.find((s: any) => s.name === "WhatsApp") || contact.socials?.find((s: any) => s.name === "WhatsApp"))?.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/5 text-primary hover:text-primary hover:bg-primary/15 backdrop-blur-3xl transition-all duration-300 hover:scale-110 active:scale-95 border border-primary/20 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.2)]"
+                className="w-12 h-12 flex items-center justify-center rounded-full bg-white/[0.05] text-foreground hover:text-white hover:bg-white/15 backdrop-blur-2xl transition-all duration-300 hover:scale-110 active:scale-95 border border-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
                 aria-label="WhatsApp"
               >
                 <MessageCircle className="w-6 h-6" />
@@ -302,7 +309,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                 href={(contact.social?.find((s: any) => s.name === "Instagram") || contact.socials?.find((s: any) => s.name === "Instagram"))?.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/5 text-primary hover:text-primary hover:bg-primary/15 backdrop-blur-3xl transition-all duration-300 hover:scale-110 active:scale-95 border border-primary/20 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.2)]"
+                className="w-12 h-12 flex items-center justify-center rounded-full bg-white/[0.05] text-foreground hover:text-white hover:bg-white/15 backdrop-blur-2xl transition-all duration-300 hover:scale-110 active:scale-95 border border-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
                 aria-label="Instagram"
               >
                 <Instagram className="w-6 h-6" />

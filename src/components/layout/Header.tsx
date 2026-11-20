@@ -90,65 +90,57 @@ const Header = ({ onOpenContact }: HeaderProps) => {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] pt-4 px-4`}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4 pointer-events-none">
+      {/* Desktop — compact floating pill */}
       <div
-        className={`
-          mx-auto transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]
-          ${isScrolled
-            ? "max-w-[92%] sm:max-w-4xl bg-white/[0.05] dark:bg-black/20 backdrop-blur-2xl shadow-2xl border border-white/10 py-2 rounded-2xl px-6"
-            : "max-w-full md:max-w-7xl bg-transparent py-4 px-4"
-          }
-          md:block hidden
-        `}
+        className="hidden md:flex items-center gap-2 pointer-events-auto rounded-full border px-3 py-1.5 bg-white/[0.06] backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)] border-white/10"
       >
-        <div className="flex items-center justify-between h-14">
-          <Magnetic strength={0.4}>
-            <Link
-              to="/"
-              className="flex items-center gap-1.5 transition-all duration-300"
-            >
-              <span className="text-2xl font-bold tracking-tighter animate-color-cycle">
-                MS
-              </span>
-              <span className="text-2xl font-black animate-color-cycle-reverse">
-                .
-              </span>
-            </Link>
-          </Magnetic>
+        {/* Logo */}
+        <Magnetic strength={0.4}>
+          <Link
+            to="/"
+            className="flex items-center gap-0.5 px-2 py-1 transition-all duration-300"
+          >
+            <span className="text-lg font-bold tracking-tighter animate-color-cycle">MS</span>
+            <span className="text-lg font-black animate-color-cycle-reverse">.</span>
+          </Link>
+        </Magnetic>
 
-          {/* Desktop Navigation */}
-          <nav className="flex items-center gap-6">
-            <div className="flex items-center gap-1">
-              {navLinks.map((link) => {
-                const isActive = activeSection === link.sectionId;
-                return (
-                  <Magnetic key={link.label} strength={0.2}>
-                    <RippleButton
-                      onClick={() => scrollToSection(link.sectionId)}
-                      className={`
-                        relative px-6 py-2 rounded-full text-sm font-semibold transition-all duration-150 ease-[cubic-bezier(0.175,0.885,0.32,1.275)]
-                        ${isActive
-                          ? "text-primary bg-primary/15 backdrop-blur-[20px] shadow-[inset_2px_2px_4px_rgba(255,255,255,0.3),inset_-2px_-4px_8px_rgba(0,0,0,0.3),0_10px_30px_hsl(var(--primary)/0.2)] border border-primary/30"
-                          : "text-muted-foreground hover:text-primary hover:bg-primary/5 hover:backdrop-blur-[20px] hover:scale-110 hover:shadow-[inset_3px_3px_10px_rgba(255,255,255,0.2),inset_-3px_-3px_10px_rgba(0,0,0,0.2),0_15px_25px_hsl(var(--primary)/0.15)] active:scale-95"
-                        }
-                      `}
-                    >
-                      {link.label}
-                    </RippleButton>
-                  </Magnetic>
-                );
-              })}
-            </div>
+        {/* Divider */}
+        <div className="w-px h-4 bg-white/10 mx-1" />
 
-            <div className="flex items-center gap-2">
-              <Magnetic strength={0.3}>
-                <ThemeToggle />
+        {/* Nav links */}
+        <nav className="flex items-center gap-0.5">
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.sectionId;
+            return (
+              <Magnetic key={link.label} strength={0.2}>
+                <RippleButton
+                  onClick={() => scrollToSection(link.sectionId)}
+                  className={`
+                    relative px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 ease-[cubic-bezier(0.175,0.885,0.32,1.275)]
+                    ${isActive
+                      ? "text-foreground bg-white/15 dark:bg-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.3)] border border-white/25"
+                      : "text-foreground/70 hover:text-foreground hover:bg-white/[0.07] hover:scale-105 active:scale-95"
+                    }
+                  `}
+                >
+                  {link.label}
+                </RippleButton>
               </Magnetic>
-            </div>
-          </nav>
-        </div>
+            );
+          })}
+        </nav>
+
+        {/* Divider */}
+        <div className="w-px h-4 bg-white/10 mx-1" />
+
+        {/* Theme toggle */}
+        <Magnetic strength={0.3}>
+          <div className="px-1">
+            <ThemeToggle />
+          </div>
+        </Magnetic>
       </div>
 
       {/* Dynamic Island Header for Mobile */}

@@ -84,7 +84,7 @@ const MobileDock = () => {
                                 className={`
                                     relative p-4 rounded-full transition-all duration-300
                                     ${isActive 
-                                        ? "text-primary bg-primary/15 backdrop-blur-[20px] shadow-[inset_2px_2px_4px_rgba(255,255,255,0.3),inset_-2px_-4px_8px_rgba(0,0,0,0.3),0_10px_30px_hsl(var(--primary)/0.2)] border border-primary/30 scale-110" 
+                                        ? "text-foreground bg-white/15 backdrop-blur-[20px] shadow-[0_4px_16px_rgba(0,0,0,0.3)] border border-white/25 scale-110" 
                                         : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                                     }
                                 `}

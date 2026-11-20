@@ -21,11 +21,11 @@ const getProjectType = (title: string) => {
 
 const Projects = () => {
   return (
-    <section id="projects" className="relative py-24 sm:py-28 scroll-mt-32 overflow-hidden">
+    <section id="projects" className="sticky top-0 min-h-screen w-full flex flex-col justify-center items-center relative z-50 bg-background border-t border-white/10 shadow-[0_-30px_70px_rgba(0,0,0,0.9)] py-20 md:py-28">
       {/* Ambient glows - optimized */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/3 -right-32 w-64 h-64 rounded-full bg-primary/8 blur-3xl" />
-        <div className="absolute bottom-1/4 -left-32 w-64 h-64 rounded-full bg-cyan-500/8 blur-3xl" />
+        <div className="absolute top-1/3 -right-32 w-64 h-64 rounded-full bg-white/[0.02] blur-3xl" />
+        <div className="absolute bottom-1/4 -left-32 w-64 h-64 rounded-full bg-white/[0.01] blur-3xl" />
       </div>
 
       <div className="premium-divider top-0" />
@@ -35,7 +35,7 @@ const Projects = () => {
         <div className="max-w-6xl mx-auto mb-16">
           <div>
             <div className="flex flex-col gap-4">
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-primary w-fit">
+              <span className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-white/5 dark:bg-white/10 px-3.5 py-1 text-xs font-medium uppercase tracking-widest text-foreground/80 w-fit">
                 Portfolio
               </span>
               <h2 className="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
@@ -62,11 +62,9 @@ const Projects = () => {
               className={`freelance-card-wrap ${isLeft ? "freelance-card-left" : "freelance-card-right"}`}
             >
               <article
-                className="group relative rounded-[1.75rem] sm:rounded-2xl border border-white/10 bg-card/80 dark:bg-white/[0.02] overflow-hidden transition-colors duration-300 hover:border-primary/30 hover:bg-white/[0.04] shadow-md hover:shadow-xl flex flex-col sm:flex-row"
+                className="group relative rounded-xl border border-white/10 bg-transparent overflow-hidden transition-colors duration-300 hover:border-white/20 flex flex-col sm:flex-row"
                 style={{ minHeight: "160px" }}
               >
-                {/* Hover glow line */}
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                 {/* ── Image panel — outer edge side ── */}
                 <div
@@ -87,7 +85,7 @@ const Projects = () => {
                     {projectType}
                   </span>
                   <div className="absolute bottom-2.5 right-2.5 sm:bottom-3 sm:right-3 flex items-center gap-1 rounded-full border border-white/15 bg-black/70 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[8px] sm:text-[9px] font-bold text-white/80">
-                    <ArrowUpRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-primary" />
+                    <ArrowUpRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
                   </div>
                 </div>
 
@@ -102,17 +100,17 @@ const Projects = () => {
                     className="flex items-center gap-2 w-full"
                     style={{ flexDirection: isLeft ? "row" : "row-reverse" }}
                   >
-                    <span className="font-mono text-[10px] sm:text-xs font-bold text-primary/70">
+                    <span className="font-mono text-[10px] sm:text-xs font-bold text-foreground/70">
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <span className="h-px w-4 sm:w-6 bg-primary/30 flex-shrink-0" />
+                    <span className="h-px w-4 sm:w-6 bg-white/20 flex-shrink-0" />
                     <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
                       {projectType}
                     </span>
                     <span className="flex-1" />
                     {project.status && (
-                      <span className="flex items-center gap-1 rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-primary">
-                        <span className="w-1 h-1 rounded-full bg-primary animate-pulse" />
+                      <span className="flex items-center gap-1 rounded-full border border-white/20 bg-white/10 px-2 py-0.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-foreground">
+                        <span className="w-1 h-1 rounded-full bg-white animate-pulse" />
                         {project.status}
                       </span>
                     )}
@@ -120,7 +118,7 @@ const Projects = () => {
 
                   {/* Title */}
                   <div className={`text-left ${isLeft ? "sm:text-left" : "sm:text-right"}`}>
-                    <h3 className="text-sm sm:text-lg md:text-xl font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-primary">
+                    <h3 className="text-sm sm:text-lg md:text-xl font-bold tracking-tight text-foreground transition-colors duration-300">
                       {project.title}
                     </h3>
                   </div>
@@ -143,7 +141,7 @@ const Projects = () => {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-primary/80"
+                        className="rounded-full border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-foreground/80"
                       >
                         {tag}
                       </span>
@@ -173,7 +171,7 @@ const Projects = () => {
                       }`}
                     >
                       <RippleButton
-                        className="h-7 sm:h-8 rounded-full border border-white/10 bg-white/[0.04] px-3 sm:px-4 text-[9px] sm:text-[10px] font-bold text-foreground backdrop-blur-xl transition-all hover:border-primary/40 hover:bg-primary/10 active:scale-95"
+                        className="h-7 sm:h-8 rounded-full border border-white/10 bg-white/[0.04] px-3 sm:px-4 text-[9px] sm:text-[10px] font-bold text-foreground backdrop-blur-xl transition-all hover:border-white/30 hover:bg-white/10 active:scale-95"
                         onClick={() => window.open(project.github, "_blank", "noopener,noreferrer")}
                       >
                         <span className="flex items-center gap-1">
@@ -185,7 +183,7 @@ const Projects = () => {
                       <RippleButton
                         className={`h-7 sm:h-8 rounded-full border px-3 sm:px-4 text-[9px] sm:text-[10px] font-bold backdrop-blur-xl transition-all active:scale-95 ${
                           project.demo && project.demo !== "#"
-                            ? "border-primary/40 bg-primary/20 text-primary-foreground hover:bg-primary/30"
+                            ? "border-white/30 bg-white/15 text-foreground hover:bg-white/25"
                             : "cursor-not-allowed border-white/10 bg-white/[0.03] text-muted-foreground"
                         }`}
                         onClick={() => {
