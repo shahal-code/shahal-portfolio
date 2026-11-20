@@ -126,8 +126,12 @@ const Contact = () => {
                       >
                         <div className="flex flex-col h-full items-start justify-between">
                           <div
-                            className="w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-500 group-hover:scale-110 shadow-lg bg-white/[0.08] border border-white/15 text-foreground"
-                          >
+className="w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-500 group-hover:scale-110 shadow-lg"
+style={{
+  backgroundColor: social.color,
+  border: `1px solid ${social.iconColor}40`,
+  color: social.iconColor,
+}}                          >
                             <social.icon size={20} strokeWidth={2} />
                           </div>
 

@@ -7,7 +7,7 @@ const Connect = () => {
     const navigate = useNavigate();
 
     return (
-        <section id="connect" className="sticky top-0 min-h-screen w-full flex flex-col justify-center items-center relative z-[70] bg-background border-t border-white/10 shadow-[0_-30px_70px_rgba(0,0,0,0.9)] py-20 md:py-28">
+        <section id="connect" className="relative min-h-[85vh] w-full flex flex-col justify-center items-center z-20 bg-transparent py-20 md:py-28 overflow-hidden">
             <Scroll3DWrapper>
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8">

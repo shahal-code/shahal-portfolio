@@ -10,7 +10,7 @@ const About = () => {
   const [expandedExp, setExpandedExp] = useState<number | null>(0);
 
   return (
-    <section id="about" className="sticky top-0 min-h-screen w-full flex flex-col justify-center items-center relative z-20 bg-background border-t border-white/10 shadow-[0_-30px_70px_rgba(0,0,0,0.9)] py-20 md:py-24">
+    <section id="about" className="relative min-h-screen w-full flex flex-col justify-center items-center z-20 bg-transparent py-20 md:py-24 overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 max-w-5xl">
         {/* Section header */}
         <div className="mb-14 md:mb-20">

@@ -21,7 +21,7 @@ const getProjectType = (title: string) => {
 
 const Projects = () => {
   return (
-    <section id="projects" className="sticky top-0 min-h-screen w-full flex flex-col justify-center items-center relative z-50 bg-background border-t border-white/10 shadow-[0_-30px_70px_rgba(0,0,0,0.9)] py-20 md:py-28">
+    <section id="projects" className="relative min-h-screen w-full flex flex-col justify-center items-center z-20 bg-transparent py-20 md:py-28 overflow-hidden">
       {/* Ambient glows - optimized */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute top-1/3 -right-32 w-64 h-64 rounded-full bg-white/[0.02] blur-3xl" />

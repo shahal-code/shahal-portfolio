@@ -372,7 +372,7 @@ const Services = () => {
                     relative
                     h-[400vh]
                     w-full
-                    bg-background
+                    bg-transparent
                     scroll-mt-0
                 "
             />
@@ -479,7 +479,7 @@ const FixedServicesFrame = ({
 
                 overflow-hidden
 
-                bg-background
+                bg-transparent
 
                 px-4
                 sm:px-8
@@ -969,7 +969,7 @@ const OverridingCard = ({
                 dark:border-white/15
 
                 bg-card
-                dark:bg-zinc-950
+                backdrop-blur-md
 
                 p-5
                 sm:p-8

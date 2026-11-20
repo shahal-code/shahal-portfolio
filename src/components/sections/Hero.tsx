@@ -118,7 +118,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
   };
 
   return (
-    <section id="hero" className="sticky top-0 min-h-screen w-full flex items-center justify-center relative overflow-hidden z-10 bg-background pt-20 pb-16 md:py-0">
+    <section id="hero" className="sticky top-0 min-h-screen w-full flex items-center justify-center relative overflow-hidden z-10 bg-transparent pt-20 pb-16 md:py-0">
       {/* Background layers */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <motion.div style={{ y: bgImageY }} className="w-full h-full">
@@ -204,7 +204,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                   className="w-12 h-12 flex items-center justify-center rounded-full bg-white/[0.05] text-foreground hover:text-white hover:bg-white/15 backdrop-blur-2xl transition-all duration-300 hover:scale-110 active:scale-95 border border-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
                   aria-label="GitHub"
                 >
-                  <Github className="w-6 h-6" />
+                 <Github className="w-6 h-6 text-[#181717] dark:text-white" />
                 </a>
               </Magnetic>
 
@@ -288,8 +288,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                 className="w-12 h-12 flex items-center justify-center rounded-full bg-white/[0.05] text-foreground hover:text-white hover:bg-white/15 backdrop-blur-2xl transition-all duration-300 hover:scale-110 active:scale-95 border border-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
                 aria-label="GitHub"
               >
-                <Github className="w-6 h-6" />
-              </a>
+<Github className="w-6 h-6 text-[#181717] dark:text-white" />              </a>
             </Magnetic>
 
             <Magnetic strength={0.6}>
