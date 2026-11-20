@@ -9,36 +9,33 @@ declare global {
 
 const SmoothScroll = () => {
   useEffect(() => {
-    // Only disable if user has explicitly set prefers-reduced-motion
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) {
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    // Use native scrolling on mobile and for reduced-motion users.
+    if (isMobile || prefersReducedMotion) {
       return;
     }
 
-    // Award-winning luxury inertial momentum easing curve
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
+      duration: 1.1,
+      easing: (t) => 1 - Math.pow(1 - t, 4),
       smoothWheel: true,
-      wheelMultiplier: 1.05,
-      touchMultiplier: 1.2,
+      syncTouch: false,
+      wheelMultiplier: 1,
       infinite: false,
     });
 
     window.__lenis = lenis;
 
-    // Force scroll to top on refresh if no hash is present
-    if (!window.location.hash) {
-      lenis.scrollTo(0, { immediate: true });
-    }
-
     let rafId: number;
-    function raf(time: number) {
+
+    const raf = (time: number) => {
       lenis.raf(time);
       rafId = requestAnimationFrame(raf);
-    }
+    };
 
     rafId = requestAnimationFrame(raf);
 
