@@ -383,11 +383,12 @@ All colors MUST be HSL.
 @layer utilities {
   /* reveal-base — content is always visible (no skeleton delay) */
   .reveal-base {
-    opacity: 1;
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-      transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform, opacity;
-  }
+  opacity: 1;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+  will-change: auto;
+}
 
   .reveal-up {
     transform: translateY(0);
@@ -654,4 +655,99 @@ html[data-low-performance="true"] .noise-overlay {
   .freelance-card-right { margin-left: auto !important; margin-right: 0 !important;    }
   .freelance-card-left article  { border-radius: 0 1.75rem 1.75rem 0 !important; }
   .freelance-card-right article { border-radius: 1.75rem 0 0 1.75rem !important; }
+}
+
+/* ============================================
+   MOBILE PERFORMANCE OPTIMIZATION
+============================================ */
+
+@media (max-width: 768px) {
+
+  /* ----------------------------------------
+     1. REMOVE EXPENSIVE BACKDROP FILTERS
+  ---------------------------------------- */
+
+  .glass-effect,
+  .backdrop-blur-sm,
+  .backdrop-blur-md,
+  .backdrop-blur-lg,
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl,
+  .backdrop-blur-3xl {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* ----------------------------------------
+     2. STOP CONTINUOUS DECORATIVE ANIMATIONS
+  ---------------------------------------- */
+
+  .animate-float,
+  .animate-float-delayed,
+  .animate-pulse-slow,
+  .animate-pulse,
+  .animate-bounce {
+    animation: none !important;
+  }
+
+  /* ----------------------------------------
+     3. REDUCE UNNECESSARY TRANSITIONS
+  ---------------------------------------- */
+
+  .reveal-base {
+    transition-duration: 0.25s;
+    will-change: auto;
+  }
+
+  /* ----------------------------------------
+     4. REMOVE EXPENSIVE HOVER TRANSFORMS
+  ---------------------------------------- */
+
+  .freelance-card-wrap img {
+    transform: none !important;
+  }
+
+  /* ----------------------------------------
+     5. SIMPLIFY DECORATIVE EFFECTS
+  ---------------------------------------- */
+
+  .noise-overlay {
+    display: none !important;
+  }
+
+  /* ----------------------------------------
+     6. REDUCE SHADOW COMPLEXITY
+  ---------------------------------------- */
+
+  .shadow-2xl,
+  .shadow-xl {
+    box-shadow: none !important;
+  }
+
+  /* ----------------------------------------
+     7. PREVENT UNNECESSARY ANIMATION
+  ---------------------------------------- */
+
+  .transition-all {
+    transition-property: opacity, background-color, border-color !important;
+    transition-duration: 0.2s !important;
+  }
+
+}
+
+/* ============================================
+   REDUCED MOTION SUPPORT
+============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
 }
