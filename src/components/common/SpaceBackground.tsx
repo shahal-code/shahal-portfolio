@@ -5,17 +5,26 @@ import { useLowPerformanceMode } from '@/hooks/usePerformanceMode';
 
 const SpaceBackground = () => {
     const mountRef = useRef<HTMLDivElement>(null);
+
     const isMobile = useIsMobile();
     const isLowPerformance = useLowPerformanceMode();
+
     const [isDark, setIsDark] = useState(true);
 
-    useEffect(() => {
-        const checkTheme = () => document.documentElement.classList.contains('dark');
-        setIsDark(checkTheme());
+    // --------------------------------------------------
+    // THEME DETECTION
+    // --------------------------------------------------
 
-        const observer = new MutationObserver(() => {
-            setIsDark(checkTheme());
-        });
+    useEffect(() => {
+        const checkTheme = () => {
+            setIsDark(
+                document.documentElement.classList.contains('dark')
+            );
+        };
+
+        checkTheme();
+
+        const observer = new MutationObserver(checkTheme);
 
         observer.observe(document.documentElement, {
             attributes: true,
@@ -25,150 +34,323 @@ const SpaceBackground = () => {
         return () => observer.disconnect();
     }, []);
 
+    // --------------------------------------------------
+    // THREE.JS BACKGROUND
+    // --------------------------------------------------
+
     useEffect(() => {
         if (isLowPerformance) return;
 
-        let cleanup: (() => void) | undefined;
+        const mountElement = mountRef.current;
+        if (!mountElement) return;
 
-        const timer = setTimeout(() => {
-            if (!mountRef.current) return;
+        let animationFrameId: number | null = null;
+        let lastFrameTime = 0;
 
-            // --- 1. Basic Setup (Optimized) ---
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            const dpr = 1.0;
+        let isVisible = true;
 
-            const scene = new THREE.Scene();
-            const backgroundColor = isDark ? 0x000000 : 0xf1f5f9;
-            scene.background = new THREE.Color(backgroundColor);
+        // FPS control
+        const TARGET_FPS = isMobile ? 24 : 30;
+        const FRAME_INTERVAL = 1000 / TARGET_FPS;
 
-            const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-            camera.position.z = 400;
+        // Rendering quality
+        const pixelRatio = isMobile ? 0.85 : 1;
 
-            const renderer = new THREE.WebGLRenderer({
-                alpha: false,
-                antialias: false,
-                powerPreference: "high-performance",
-                stencil: false,
-                depth: false
-            });
-            renderer.setSize(width, height);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.25));
-            mountRef.current.appendChild(renderer.domElement);
+        // --------------------------------------------------
+        // SCENE SETUP
+        // --------------------------------------------------
 
-            // --- 2. Starfield (Optimized Particle Count) ---
-            const particlesCount = isMobile ? 180 : 450;
-            const geometry = new THREE.BufferGeometry();
-            const positions = new Float32Array(particlesCount * 3);
-            const colors = new Float32Array(particlesCount * 3);
-            const sizes = new Float32Array(particlesCount);
+        const width = window.innerWidth;
+        const height = window.innerHeight;
 
-            const colorPalette = isDark
-                ? [new THREE.Color(0xffffff), new THREE.Color(0x0ea5e9), new THREE.Color(0xffffff)]
-                : [new THREE.Color(0x8B5CF6), new THREE.Color(0x6366f1), new THREE.Color(0x4f46e5)];
+        const scene = new THREE.Scene();
 
-            for (let i = 0; i < particlesCount * 3; i += 3) {
-                positions[i] = (Math.random() - 0.5) * 1200;
-                positions[i + 1] = (Math.random() - 0.5) * 1200;
-                positions[i + 2] = (Math.random() - 0.5) * 1000;
+        scene.background = new THREE.Color(
+            isDark ? 0x000000 : 0xf1f5f9
+        );
 
-                const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-                colors[i] = color.r;
-                colors[i + 1] = color.g;
-                colors[i + 2] = color.b;
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            width / height,
+            0.1,
+            1000
+        );
 
-                sizes[i / 3] = isDark ? (Math.random() * 2.0 + 0.5) : (Math.random() * 2.5 + 1.0);
+        camera.position.z = 400;
+
+        const renderer = new THREE.WebGLRenderer({
+            alpha: false,
+            antialias: false,
+            powerPreference: 'low-power',
+            stencil: false,
+            depth: false,
+        });
+
+        renderer.setPixelRatio(
+            Math.min(window.devicePixelRatio || 1, pixelRatio)
+        );
+
+        renderer.setSize(width, height);
+
+        mountElement.appendChild(renderer.domElement);
+
+        // --------------------------------------------------
+        // STARFIELD
+        // --------------------------------------------------
+
+        const particlesCount = isMobile ? 120 : 450;
+
+        const geometry = new THREE.BufferGeometry();
+
+        const positions = new Float32Array(particlesCount * 3);
+        const colors = new Float32Array(particlesCount * 3);
+        const sizes = new Float32Array(particlesCount);
+
+        const colorPalette = isDark
+            ? [
+                new THREE.Color(0xffffff),
+                new THREE.Color(0x0ea5e9),
+                new THREE.Color(0xffffff),
+            ]
+            : [
+                new THREE.Color(0x8B5CF6),
+                new THREE.Color(0x6366f1),
+                new THREE.Color(0x4f46e5),
+            ];
+
+        for (let i = 0; i < particlesCount; i++) {
+            const index = i * 3;
+
+            positions[index] = (Math.random() - 0.5) * 1200;
+            positions[index + 1] = (Math.random() - 0.5) * 1200;
+            positions[index + 2] = (Math.random() - 0.5) * 1000;
+
+            const color =
+                colorPalette[
+                    Math.floor(Math.random() * colorPalette.length)
+                ];
+
+            colors[index] = color.r;
+            colors[index + 1] = color.g;
+            colors[index + 2] = color.b;
+
+            sizes[i] = isDark
+                ? Math.random() * 2 + 0.5
+                : Math.random() * 2.5 + 1;
+        }
+
+        geometry.setAttribute(
+            'position',
+            new THREE.BufferAttribute(positions, 3)
+        );
+
+        geometry.setAttribute(
+            'color',
+            new THREE.BufferAttribute(colors, 3)
+        );
+
+        geometry.setAttribute(
+            'size',
+            new THREE.BufferAttribute(sizes, 1)
+        );
+
+        const material = new THREE.ShaderMaterial({
+            vertexShader: `
+                attribute float size;
+                varying vec3 vColor;
+
+                void main() {
+                    vColor = color;
+
+                    vec4 mvPosition =
+                        modelViewMatrix * vec4(position, 1.0);
+
+                    gl_PointSize = size * (300.0 / -mvPosition.z);
+
+                    gl_Position = projectionMatrix * mvPosition;
+                }
+            `,
+
+            fragmentShader: `
+                varying vec3 vColor;
+
+                void main() {
+                    vec2 xy = gl_PointCoord.xy - vec2(0.5);
+
+                    float ll = length(xy);
+
+                    if (ll > 0.5) discard;
+
+                    float alpha = (0.5 - ll) * 2.0;
+
+                    gl_FragColor = vec4(vColor, alpha);
+                }
+            `,
+
+            transparent: true,
+            depthWrite: false,
+            vertexColors: true,
+        });
+
+        const particles = new THREE.Points(geometry, material);
+
+        scene.add(particles);
+
+        // --------------------------------------------------
+        // ANIMATION
+        // --------------------------------------------------
+
+        const startTime = performance.now();
+
+        const animate = (time: number) => {
+            if (!isVisible) return;
+
+            animationFrameId = requestAnimationFrame(animate);
+
+            // Limit rendering FPS
+            if (time - lastFrameTime < FRAME_INTERVAL) return;
+
+            lastFrameTime = time;
+
+            const elapsedTime = (time - startTime) / 1000;
+
+            particles.rotation.y = elapsedTime * 0.04;
+
+            particles.rotation.x =
+                Math.sin(elapsedTime * 0.15) * 0.08;
+
+            renderer.render(scene, camera);
+        };
+
+        // --------------------------------------------------
+        // PAUSE / RESUME
+        // --------------------------------------------------
+
+        const syncAnimation = () => {
+            const shouldPause =
+                document.hidden ||
+                document.documentElement.classList.contains(
+                    'is-transitioning-theme'
+                );
+
+            if (shouldPause && animationFrameId !== null) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
             }
 
-            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-
-            const material = new THREE.ShaderMaterial({
-                uniforms: {
-                    time: { value: 0 }
-                },
-                vertexShader: `
-                    attribute float size;
-                    varying vec3 vColor;
-                    void main() {
-                        vColor = color;
-                        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-                        gl_PointSize = size * (300.0 / -mvPosition.z);
-                        gl_Position = projectionMatrix * mvPosition;
-                    }
-                `,
-                fragmentShader: `
-                    varying vec3 vColor;
-                    void main() {
-                        vec2 xy = gl_PointCoord.xy - vec2(0.5);
-                        float ll = length(xy);
-                        if (ll > 0.5) discard;
-                        float alpha = (0.5 - ll) * 2.0;
-                        gl_FragColor = vec4(vColor, alpha);
-                    }
-                `,
-                transparent: true,
-                depthWrite: false,
-                vertexColors: true
-            });
-
-            const particles = new THREE.Points(geometry, material);
-            scene.add(particles);
-
-            // --- 3. Interaction & Animation ---
-            let animationFrameId: number;
-            let clock = new THREE.Clock();
-
-            const animate = () => {
+            if (!shouldPause && animationFrameId === null) {
+                lastFrameTime = 0;
                 animationFrameId = requestAnimationFrame(animate);
-                if (document.hidden || document.documentElement.classList.contains('is-transitioning-theme')) return;
+            }
+        };
 
-                const elapsedTime = clock.getElapsedTime();
-                material.uniforms.time.value = elapsedTime;
-                particles.rotation.y = elapsedTime * 0.04;
-                particles.rotation.x = Math.sin(elapsedTime * 0.15) * 0.08;
+        // --------------------------------------------------
+        // VISIBILITY OBSERVER
+        // --------------------------------------------------
 
-                renderer.render(scene, camera);
-            };
+        const intersectionObserver = new IntersectionObserver(
+            ([entry]) => {
+                isVisible = entry.isIntersecting;
+                syncAnimation();
+            }
+        );
 
-            animate();
+        intersectionObserver.observe(mountElement);
 
-            const handleResize = () => {
-                const width = window.innerWidth;
-                const height = window.innerHeight;
-                renderer.setSize(width, height);
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-            };
+        // --------------------------------------------------
+        // THEME TRANSITION OBSERVER
+        // --------------------------------------------------
 
-            window.addEventListener('resize', handleResize);
+        const transitionObserver = new MutationObserver(() => {
+            syncAnimation();
+        });
 
-            cleanup = () => {
-                window.removeEventListener('resize', handleResize);
-                cancelAnimationFrame(animationFrameId);
-                mountRef.current?.removeChild(renderer.domElement);
-                geometry.dispose();
-                material.dispose();
-                renderer.dispose();
-            };
-        }, 50);
+        transitionObserver.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class'],
+        });
+
+        document.addEventListener(
+            'visibilitychange',
+            syncAnimation
+        );
+
+        // --------------------------------------------------
+        // RESIZE
+        // --------------------------------------------------
+
+        const handleResize = () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(width, height);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // Start animation
+        syncAnimation();
+
+        // --------------------------------------------------
+        // CLEANUP
+        // --------------------------------------------------
 
         return () => {
-            clearTimeout(timer);
-            if (cleanup) cleanup();
+            if (animationFrameId !== null) {
+                cancelAnimationFrame(animationFrameId);
+            }
+
+            window.removeEventListener('resize', handleResize);
+
+            document.removeEventListener(
+                'visibilitychange',
+                syncAnimation
+            );
+
+            intersectionObserver.disconnect();
+            transitionObserver.disconnect();
+
+            scene.remove(particles);
+
+            geometry.dispose();
+            material.dispose();
+
+            renderer.dispose();
+            renderer.forceContextLoss();
+
+            if (renderer.domElement.parentElement === mountElement) {
+                mountElement.removeChild(renderer.domElement);
+            }
         };
+
     }, [isMobile, isDark, isLowPerformance]);
 
+    // --------------------------------------------------
+    // LOW PERFORMANCE FALLBACK
+    // --------------------------------------------------
+
     if (isLowPerformance) {
-        return <div className="fixed inset-0 z-[-1] pointer-events-none bg-black" style={{ contain: "strict" }} />;
+        return (
+            <div
+                className="fixed inset-0 z-[-1] pointer-events-none bg-black"
+                style={{ contain: 'strict' }}
+            />
+        );
     }
 
     return (
         <div
             ref={mountRef}
-            className={`fixed inset-0 z-[-1] pointer-events-none ${isDark ? 'bg-black' : 'bg-slate-50'}`}
-            style={{ contain: "strict", transform: "translateZ(0)" }}
+            className={`fixed inset-0 z-[-1] pointer-events-none ${
+                isDark ? 'bg-black' : 'bg-slate-50'
+            }`}
+            style={{
+                contain: 'strict',
+                transform: 'translateZ(0)',
+            }}
         />
     );
 };
