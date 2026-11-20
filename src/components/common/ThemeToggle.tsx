@@ -15,21 +15,28 @@ const ThemeToggle = () => {
       return;
     }
 
-    // Apply the correct animation direction class
     const doc = document.documentElement;
     const animationClass = nextTheme === "dark" ? "theme-wipe-right" : "theme-wipe-left";
-    doc.classList.add(animationClass, "is-transitioning-theme");
 
-    // @ts-ignore
-    const transition = document.startViewTransition(() => {
-      flushSync(() => {
-        setTheme(nextTheme);
+    try {
+      doc.classList.add(animationClass, "is-transitioning-theme");
+
+      // @ts-ignore
+      const transition = document.startViewTransition(() => {
+        flushSync(() => {
+          setTheme(nextTheme);
+        });
       });
-    });
 
-    transition.finished.finally(() => {
+      transition.finished
+        .catch(() => {})
+        .finally(() => {
+          doc.classList.remove(animationClass, "is-transitioning-theme");
+        });
+    } catch {
+      setTheme(nextTheme);
       doc.classList.remove(animationClass, "is-transitioning-theme");
-    });
+    }
   };
 
   return (
@@ -37,10 +44,10 @@ const ThemeToggle = () => {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className="relative w-12 h-12 rounded-full hover:bg-primary/10 hover:backdrop-blur-[20px] hover:shadow-[inset_2px_2px_8px_rgba(255,255,255,0.2),inset_-2px_-2px_8px_rgba(0,0,0,0.2)] transition-all duration-500 active:scale-90"
+      className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full hover:bg-primary/10 hover:backdrop-blur-[20px] transition-all duration-300 active:scale-90 touch-manipulation cursor-pointer select-none"
     >
-      <Sun className="h-6 w-6 rotate-0 scale-100 transition-all duration-500 dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-6 w-6 rotate-90 scale-0 transition-all duration-500 dark:rotate-0 dark:scale-100" />
+      <Sun className="h-5 w-5 sm:h-6 sm:w-6 rotate-0 scale-100 transition-all duration-500 dark:-rotate-90 dark:scale-0" />
+      <Moon className="absolute h-5 w-5 sm:h-6 sm:w-6 rotate-90 scale-0 transition-all duration-500 dark:rotate-0 dark:scale-100" />
       <span className="sr-only">Toggle theme</span>
     </Button>
   );

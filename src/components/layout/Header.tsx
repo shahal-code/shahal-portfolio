@@ -144,27 +144,27 @@ const Header = ({ onOpenContact }: HeaderProps) => {
       </div>
 
       {/* Dynamic Island Header for Mobile */}
-      <div className="md:hidden flex justify-center w-full">
+      <div className="md:hidden flex justify-center w-full pointer-events-none">
         <div className={`
-          flex items-center justify-between gap-8 px-8 py-3 rounded-full border border-white/10 transition-all duration-500
+          flex items-center justify-between gap-6 px-6 py-2.5 rounded-full border border-white/10 transition-all duration-500 pointer-events-auto
           ${isScrolled
-            ? "bg-background/60 backdrop-blur-2xl shadow-2xl w-[92%] border-white/20"
-            : "bg-transparent w-full border-transparent"
+            ? "bg-background/85 backdrop-blur-2xl shadow-2xl w-[92%] border-white/20"
+            : "bg-background/50 backdrop-blur-xl w-full border-white/10 shadow-lg"
           }
         `}>
           <Magnetic strength={0.4}>
             <Link
               to="/"
-              className="flex items-center gap-1.5"
+              className="flex items-center gap-1.5 pointer-events-auto p-1 cursor-pointer"
             >
-              <span className="text-2xl font-bold tracking-tighter animate-color-cycle">MS</span>
-              <span className="text-2xl font-black animate-color-cycle-reverse">.</span>
+              <span className="text-xl font-bold tracking-tighter animate-color-cycle">MS</span>
+              <span className="text-xl font-black animate-color-cycle-reverse">.</span>
             </Link>
           </Magnetic>
 
-          <Magnetic strength={0.3}>
+          <div className="pointer-events-auto flex items-center justify-center">
             <ThemeToggle />
-          </Magnetic>
+          </div>
         </div>
       </div>
     </header>
