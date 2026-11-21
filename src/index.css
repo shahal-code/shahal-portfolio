@@ -792,6 +792,10 @@ html[data-low-performance="true"] .noise-overlay {
 .skill-float.motion-disabled {
     animation: none !important;
 }
+
+.skill-float {
+   transform-origin: center;
+}
 /* =========================================
    LIQUID GLASS SKILL PILLS
 ========================================= */
