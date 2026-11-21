@@ -1,58 +1,8 @@
-
 import { motion, useReducedMotion } from "framer-motion";
 
 import { SKILLS } from "@/constants";
 import IconRenderer from "@/components/common/IconRenderer";
-
-import {
-    Layout,
-    Server,
-    Database,
-    Cloud,
-    Wrench,
-} from "lucide-react";
-
-// ======================================================
-// SKILL GROUPS
-// ======================================================
-
-const SECTION_GROUPS = [
-    {
-        id: "frontend",
-        title: "Frontend & Mobile",
-        subtitle: "Client interfaces, state management & reactive UIs",
-        icon: Layout,
-        categories: ["Frontend", "Styling", "Mobile"],
-    },
-    {
-        id: "backend",
-        title: "Backend & Systems",
-        subtitle: "REST APIs, authentication & scalable services",
-        icon: Server,
-        categories: ["Backend"],
-    },
-    {
-        id: "database",
-        title: "Databases & Storage",
-        subtitle: "Relational SQL, NoSQL & in-memory caching",
-        icon: Database,
-        categories: ["Database"],
-    },
-    {
-        id: "devops",
-        title: "DevOps & Cloud",
-        subtitle: "Containers, reverse proxies & deployment",
-        icon: Cloud,
-        categories: ["DevOps"],
-    },
-    {
-        id: "tools",
-        title: "Tools & Workflow",
-        subtitle: "Version control, API testing & design prototyping",
-        icon: Wrench,
-        categories: ["Tools", "Design"],
-    },
-];
+import type { CSSProperties } from "react";
 
 // ======================================================
 // SKILLS COMPONENT
@@ -72,43 +22,37 @@ const Skills = () => {
                 overflow-hidden
             "
         >
+            {/* AMBIENT BACKGROUND */}
 
-            {/* ==================================================
-                AMBIENT BACKGROUND
-            ================================================== */}
+            <div className="
+                absolute top-1/4 -left-40
+                w-72 h-72 rounded-full
+                bg-blue-500/[0.05]
+                blur-[80px]
+                pointer-events-none
+            " />
 
-            <div
-                className="
-                    absolute top-1/4 -left-40
-                    w-80 h-80 rounded-full
-                    bg-blue-500/[0.05]
-                    blur-[90px]
-                    pointer-events-none
-                "
-            />
+            <div className="
+                absolute bottom-1/4 -right-40
+                w-72 h-72 rounded-full
+                bg-purple-500/[0.05]
+                blur-[80px]
+                pointer-events-none
+            " />
 
-            <div
-                className="
-                    absolute bottom-1/4 -right-40
-                    w-80 h-80 rounded-full
-                    bg-purple-500/[0.05]
-                    blur-[90px]
-                    pointer-events-none
-                "
-            />
+            <div className="
+                container relative mx-auto
+                px-6 md:px-12 max-w-6xl
+            ">
 
-            <div className="container relative mx-auto px-6 md:px-12 max-w-6xl">
-
-                {/* ==================================================
-                    SECTION HEADER
-                ================================================== */}
+                {/* HEADER */}
 
                 <motion.div
-                    className="mb-16 md:mb-24"
+                    className="mb-16 md:mb-20"
                     initial={
                         shouldReduceMotion
                             ? false
-                            : { opacity: 0, y: 20 }
+                            : { opacity: 0, y: 15 }
                     }
                     whileInView={{
                         opacity: 1,
@@ -123,7 +67,6 @@ const Skills = () => {
                         ease: "easeOut",
                     }}
                 >
-
                     <span className="
                         text-xs font-mono uppercase
                         tracking-[0.3em]
@@ -143,7 +86,7 @@ const Skills = () => {
                             text-transparent
                             bg-clip-text
                             bg-gradient-to-r
-                            from-white
+                            from-white 
                         ">
                             Proficiencies.
                         </span>
@@ -154,266 +97,86 @@ const Skills = () => {
                         text-muted-foreground
                         max-w-xl leading-relaxed
                     ">
-                        The technologies and tools I use to transform ideas into
-                        scalable digital experiences.
+                        The technologies and tools I use to transform ideas
+                        into scalable digital experiences.
                     </p>
-
                 </motion.div>
 
-                {/* ==================================================
-                    SKILL CATEGORIES
-                ================================================== */}
+                {/* FLOATING SKILLS */}
 
-                <div className="space-y-5">
+                <div className="
+                    relative
+                    flex flex-wrap
+                    items-center justify-center
+                    gap-4 md:gap-6
+                    py-10 md:py-16
+                ">
 
-                    {SECTION_GROUPS.map((group, index) => {
+                    {SKILLS.map((skill, index) => {
 
-                        const groupSkills = SKILLS.filter((skill) =>
-                            group.categories.includes(skill.category)
-                        );
+                        const floatX = ((index % 3) - 1) * 10;
+                        const floatY = ((index % 4) - 1.5) * 9;
 
-                        if (groupSkills.length === 0) return null;
+                        const floatDuration = 6 + (index % 4);
 
-                        const GroupIcon = group.icon;
+                        const floatStyle = {
+                            "--float-x": `${floatX}px`,
+                            "--float-y": `${floatY}px`,
+                            "--float-duration": `${floatDuration}s`,
+                            "--float-delay": `${(index % 7) * -0.6}s`,
+                        } as CSSProperties;
 
                         return (
-
-                            <motion.div
-                                key={group.id}
-
-                                initial={
-                                    shouldReduceMotion
-                                        ? false
-                                        : { opacity: 0, y: 20 }
-                                }
-
-                                whileInView={{
-                                    opacity: 1,
-                                    y: 0,
-                                }}
-
-                                viewport={{
-                                    once: true,
-                                    amount: 0.1,
-                                }}
-
-                                transition={{
-                                    duration: 0.45,
-                                    ease: "easeOut",
-                                }}
-
-                                className="relative group/category"
+                            <div
+                                key={skill.name}
+                                className={`
+                                    skill-float
+                                    ${shouldReduceMotion ? "motion-disabled" : ""}
+                                `}
+                                style={floatStyle}
                             >
+                                {/* PILL */}
 
-                                {/* CATEGORY CARD */}
+                                <div className="skill-glass-pill relative inline-flex items-center gap-3 px-5 py-3 md:px-6 md:py-3.5 rounded-full cursor-default select-none overflow-hidden transition-all duration-300">
 
-                                <div className="
-                                    relative
-                                    grid grid-cols-1
-                                    md:grid-cols-[0.8fr_1.5fr]
-                                    gap-8 md:gap-12
-                                    p-6 md:p-9
-                                    rounded-2xl
-                                    border border-white/[0.07]
-                                    bg-white/[0.025]
-                                    transition-colors duration-200
-                                    md:hover:border-white/[0.16]
-                                    md:hover:bg-white/[0.04]
-                                ">
+                                    {/* GLASS REFLECTION */}
+                                    <span className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-br from-white/[0.13] via-white/[0.025] to-blue-400/[0.06]" />
 
-                                    {/* ==================================================
-                                        CATEGORY INFORMATION
-                                    ================================================== */}
-
-                                    <div className="flex items-start gap-4">
-
-                                        <span className="
-                                            text-xs font-mono
-                                            text-muted-foreground/50
-                                            pt-1
-                                        ">
-                                            0{index + 1}
-                                        </span>
-
-                                        <div>
-
-                                            <div className="flex items-center gap-3 mb-3">
-
-                                                <div className="
-                                                    w-9 h-9 rounded-xl
-                                                    flex items-center justify-center
-                                                    border border-white/10
-                                                    bg-white/[0.04]
-                                                    transition-colors duration-200
-                                                    md:group-hover/category:border-blue-400/30
-                                                    md:group-hover/category:bg-blue-400/[0.08]
-                                                ">
-
-                                                    <GroupIcon className="
-                                                        w-4 h-4
-                                                        text-muted-foreground
-                                                        transition-colors duration-200
-                                                        md:group-hover/category:text-blue-400
-                                                    " />
-
-                                                </div>
-
-                                                <h3 className="
-                                                    text-lg md:text-xl
-                                                    font-bold
-                                                    text-foreground
-                                                    tracking-tight
-                                                ">
-                                                    {group.title}
-                                                </h3>
-
-                                            </div>
-
-                                            <p className="
-                                                text-xs md:text-sm
-                                                text-muted-foreground
-                                                leading-relaxed
-                                                max-w-xs
-                                            ">
-                                                {group.subtitle}
-                                            </p>
-
-                                        </div>
-
+                                    {/* ICON */}
+                                    <div className="relative z-10 w-5 h-5 flex items-center justify-center shrink-0 opacity-90">
+                                        {typeof skill.icon === "string" ? (
+                                            <IconRenderer
+                                                name={skill.icon}
+                                                className="w-full h-full"
+                                            />
+                                        ) : (
+                                            <skill.icon />
+                                        )}
                                     </div>
 
-                                    {/* ==================================================
-                                        SKILL TAGS
-                                    ================================================== */}
+                                    {/* SKILL NAME */}
+                                    <span className="relative z-10 text-xs md:text-sm font-medium text-foreground whitespace-nowrap">
+                                        {skill.name}
+                                    </span>
 
-                                    <div className="
-                                        flex flex-wrap
-                                        items-center
-                                        gap-3 md:gap-4
-                                    ">
-
-                                        {groupSkills.map((skill) => (
-
-                                            <div
-                                                key={skill.name}
-
-                                                className="
-                                                    relative inline-flex
-                                                    items-center gap-2.5
-                                                    px-4 py-2.5
-                                                    rounded-xl
-
-                                                    border border-white/[0.09]
-                                                    bg-white/[0.04]
-
-                                                    transition-colors duration-200
-
-                                                    md:hover:border-blue-400/40
-                                                    md:hover:bg-white/[0.08]
-
-                                                    cursor-default
-                                                    group/skill
-                                                "
-                                            >
-
-                                                {/* SKILL ICON */}
-
-                                                <div className="
-                                                    relative
-                                                    w-4 h-4
-                                                    flex items-center justify-center
-                                                    opacity-80
-                                                    transition-opacity duration-200
-                                                    md:group-hover/skill:opacity-100
-                                                ">
-
-                                                    {typeof skill.icon === "string" ? (
-
-                                                        <IconRenderer
-                                                            name={skill.icon}
-                                                            className="w-full h-full"
-                                                        />
-
-                                                    ) : (
-
-                                                        <skill.icon />
-
-                                                    )}
-
-                                                </div>
-
-                                                {/* SKILL NAME */}
-
-                                                <span className="
-                                                    relative
-                                                    text-xs md:text-sm
-                                                    font-medium
-                                                    text-foreground
-                                                    whitespace-nowrap
-                                                ">
-                                                    {skill.name}
-                                                </span>
-
-                                                {/* BOTTOM HIGHLIGHT */}
-
-                                                <span className="
-                                                    absolute
-                                                    bottom-0 left-4 right-4
-                                                    h-px
-                                                    bg-gradient-to-r
-                                                    from-transparent
-                                                    via-blue-400/50
-                                                    to-transparent
-                                                    opacity-0
-                                                    transition-opacity duration-200
-                                                    md:group-hover/skill:opacity-100
-                                                " />
-
-                                            </div>
-
-                                        ))}
-
-                                    </div>
+                                    {/* TOP GLASS HIGHLIGHT */}
+                                    <span className="absolute top-0 left-[15%] right-[15%] h-px bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
 
                                 </div>
 
-                            </motion.div>
-
+                            </div>
                         );
-
                     })}
 
                 </div>
 
-                {/* ==================================================
-                    BOTTOM LABEL
-                ================================================== */}
+                {/* BOTTOM LABEL */}
 
-                <motion.div
-                    initial={
-                        shouldReduceMotion
-                            ? false
-                            : { opacity: 0 }
-                    }
-
-                    whileInView={{
-                        opacity: 1,
-                    }}
-
-                    viewport={{
-                        once: true,
-                    }}
-
-                    transition={{
-                        duration: 0.5,
-                    }}
-
-                    className="
-                        mt-12
-                        flex items-center justify-center gap-3
-                    "
-                >
-
+                <div className="
+                    mt-12
+                    flex items-center
+                    justify-center gap-3
+                ">
                     <span className="w-8 h-px bg-white/20" />
 
                     <span className="
@@ -425,11 +188,9 @@ const Skills = () => {
                     </span>
 
                     <span className="w-8 h-px bg-white/20" />
-
-                </motion.div>
+                </div>
 
             </div>
-
         </section>
     );
 };

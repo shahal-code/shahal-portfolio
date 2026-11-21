@@ -244,8 +244,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-72 h-72 md:w-[28rem] md:h-[28rem] bg-white/[0.05] rounded-full blur-[90px] pointer-events-none" />
 
             {/* Avatar container matching image aspect ratio */}
-            <div className="relative w-72 min-[390px]:w-80 sm:w-[26rem] md:w-[32rem] lg:w-[38rem] xl:w-[42rem] aspect-[1024/768] select-none drop-shadow-[0_25px_50px_rgba(255,255,255,0.08)]">
-              {/* Head & Neck layer — smoothly turns towards mouse */}
+<div className="relative w-80 min-[390px]:w-[22rem] sm:w-[30rem] md:w-[36rem] lg:w-[42rem] xl:w-[48rem] aspect-[1024/768] select-none drop-shadow-[0_25px_50px_rgba(255,255,255,0.08)]">              {/* Head & Neck layer — smoothly turns towards mouse */}
               <img
                 ref={headRef}
                 src="/images/Me-head.png"
@@ -253,7 +252,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                 loading="eager"
                 draggable="false"
                 onContextMenu={(e) => e.preventDefault()}
-                className="absolute inset-0 w-full h-full object-contain pointer-events-none will-change-transform z-10"
+                className="absolute inset-0 w-full h-full object-cover pointer-events-none will-change-transform z-10"
                 style={{ transformStyle: "preserve-3d" }}
               />
 
@@ -264,7 +263,7 @@ const Hero = ({ onOpenContact }: HeroProps) => {
                 loading="eager"
                 draggable="false"
                 onContextMenu={(e) => e.preventDefault()}
-                className="absolute inset-0 w-full h-full object-contain pointer-events-none z-20"
+                className="absolute inset-0 w-full h-full object-cover pointer-events-none z-20"
               />
             </div>
           </motion.div>
